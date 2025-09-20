@@ -4,7 +4,7 @@ interface HeadbarProps{
  fullname: string
 }
 
-const Headbar = ({ firstname, badgeNo, fullname }: HeadbarProps) => {
+const Headbar = ({ firstname = "Arike", badgeNo = "9+", fullname = "Arike Arike" }: HeadbarProps) => {
   return (
     <section>
        <div className="flex justify-between items-center px-4 py-2">

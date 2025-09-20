@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -12,42 +13,52 @@ const Sidebar = () => {
           <SidebarItems
             icon="assets/house-simple.png"
             functionName="Dashboard"
+            to="/dashboard"
            />
           <SidebarItems
             icon="assets/arrows-left-right.png"
             functionName="Requests"
+            to="/requests"
            />
           <SidebarItems
             icon="assets/material-symbols_text-compare-outline.png"
             functionName="Policy Management"
+            to="/policy-management"
            />
            <SidebarItems
             icon="assets/si_notifications-line.png"
             functionName="Alert & Notifications"
+            to="/notifications"
            />
           <SidebarItems
             icon="assets/presentation-chart.png"
             functionName="Reports & Analytics"
+            to="/analytics"
            />
            <SidebarItems
             icon="assets/user-gear.png"
             functionName="User Management"
+            to="/users"
            />
            <SidebarItems
             icon="assets/watch.png"
             functionName="Audit Trail"
+            to="/audit"
            />
            <SidebarItems
             icon="assets/link.png"
             functionName="Help & Support"
+            to="/support"
            />
            <SidebarItems
             icon="assets/ix_user-manual.png"
             functionName="User Manual"
+            to="/manual"
            />
            <SidebarItems
             icon="assets/gear-six.png"
             functionName="Settings"
+            to="/settings"
            />
          </ul>
 
@@ -63,6 +74,7 @@ const Sidebar = () => {
            <SidebarItems
             icon="assets/sign-out.png"
             functionName="Logout"
+            to="/logout"
            />
            
          </div>
@@ -78,16 +90,17 @@ const Sidebar = () => {
 interface SidebarItemsProps  {
  icon: string;
  functionName: string;
+ to: string;
 }
 
-const SidebarItems = ({ icon, functionName }: SidebarItemsProps) => {
+const SidebarItems = ({ icon, functionName, to }: SidebarItemsProps) => {
  return(
-  <div>
-    <div className="sidebar-list">
+  <nav>
+    <NavLink to={to} className="sidebar-list">
         <img src={icon} alt="icon" className="sidebar-icons"/>
          <li className="list-none">{functionName}</li>
-      </div>
-  </div>
+      </NavLink>
+  </nav>
  )
 }
 export default Sidebar

@@ -16,3 +16,18 @@ body {
 .duration-hover{
   @apply hover:bg-blue-500 hover:text-blue-900 hover:cursor-pointer p-1 rounded-md text-[14px];
 }
+.table-header{
+  @apply px-4 py-2;
+}
+.status{
+  @apply bg-teal-600 text-teal-950 rounded-md p-2 h-max text-[11px]
+}
+.flightType-toggle{
+  @apply text-black rounded-2xl text-[13px] px-4 py-1.5 hover:bg-blue-800 hover:text-white
+}
+.data-heading{
+  @apply text-[12px] font-bold
+}
+.data-value{
+  @apply font-bold
+}

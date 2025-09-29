@@ -1,9 +1,10 @@
 import { Outlet, NavLink } from 'react-router-dom';
+// import { useState } from 'react';
 // import CreatePolicy from '../components/CreatePolicy'
 import Headbar from '../components/Headbar'
 import { FlightTypeToggle, PolicyDetails, SearchPolicy } from '../components/PolicyComponents'
 
-const PolicyPage = () => {
+const PolicyPage: React.FC = () => {
   return (
     <div>
       <Headbar />

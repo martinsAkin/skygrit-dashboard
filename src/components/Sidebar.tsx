@@ -2,18 +2,18 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-[20rem] px-4 py-[1.5rem] bg-[#030E20] text-gray-500">
+    <div className="w-[17rem] px-4 py-[1.5rem] bg-[#030E20] text-gray-500">
 
          <div className="flex justify-between items-center">
            <img src="assets/arikImage.png" alt="dashboardLogo" className="h-[3rem] w-[7.5rem]" />
            <img src="assets/sidebar-left.png" alt="close-sidebar" className="h-[3rem]" />
          </div>
 
-         <ul className="flex flex-col gap-2 mt-6 px-4">
+         <ul className="flex flex-col gap-2 mt-6 px-2">
           <SidebarItems
             icon="assets/house-simple.png"
             functionName="Dashboard"
-            to="/dashboard"
+            to="/"
            />
           <SidebarItems
             icon="assets/arrows-left-right.png"
@@ -71,11 +71,13 @@ const Sidebar = () => {
                </ul>
            </div>
 
-           <SidebarItems
-            icon="assets/sign-out.png"
-            functionName="Logout"
-            to="/logout"
-           />
+           {/* <NavLink to="/login"> */}
+             <SidebarItems
+              icon="assets/sign-out.png"
+              functionName="Logout"
+              to="/login"
+             />
+           {/* </NavLink> */}
            
          </div>
 

@@ -31,3 +31,25 @@ body {
 .data-value{
   @apply font-bold
 }
+.details-list{
+  @apply flex flex-col gap-2.5
+}
+.details-heading{
+  @apply text-[11px] font-bold
+}
+.details-span{
+  @apply text-[13px]
+}
+
+.verification-ul{
+  @apply flex flex-col gap-2.5
+}
+.verification-h2{
+  @apply text-[12px] text-gray-400 mb-1
+}
+.verification-span{
+  @apply font-bold text-black text-[13px]
+}
+.verification-btn{
+  @apply border border-gray-600 w-[48%] text-center p-2 rounded-lg
+}

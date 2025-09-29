@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
+import RefundCalculation from "./RefundCalculation";
 
  const placeholderData = [
    {
@@ -68,7 +69,8 @@ export const FlightTypeToggle = () => {
 }
 
 export const PolicyDetails = () => {
-  
+
+  const [ activeSubTab, setActiveSubTab ] = useState<"policyMatrix" | "refundAmount"> ("policyMatrix")
   const Data = placeholderData[1]
 
   return(
@@ -102,19 +104,41 @@ export const PolicyDetails = () => {
 
           {/* css styling just to confirm something */}
         <div className="flex gap-8 pl-[15px] pt-10 pb-3">
-          <span className="cursor-pointer hover:text-blue-400">Policy Matrix</span>
-          <span className="cursor-pointer hover:text-blue-400 hover:border-2 hover:border-t-0 hover:border-l-0 hover:border-r-0 hover:border-b-blue-900">Refund Amounts</span>
+          <button 
+            onClick={() => setActiveSubTab("policyMatrix")}
+            className={`
+              cursor-pointer 
+              hover:text-blue-400
+              transition ${
+                activeSubTab === "policyMatrix" ? "text-blue-600" : "text-black"
+              }
+              `}
+          >
+            Policy Matrix
+          </button>
+          <button 
+            onClick={() => setActiveSubTab("refundAmount")}
+            className={`
+              cursor-pointer 
+              hover:text-blue-400
+              transition ${
+                activeSubTab === "refundAmount" ? "text-blue-600" : "text-black"
+              }
+              `}
+          >
+            Refund Amounts
+          </button>
         </div>
         <hr />
-        
-        <div className="flex justify-between items-center p-2.5">
-          <span className="text-2xl">Cancellation & Refund Policy Matrix</span>
-          <button className="px-5 py-2 border border-gray-500 rounded-2xl">Edit</button>
-        </div>
 
-          <section>
+        <div>
+            {activeSubTab === "policyMatrix" && <TicketTable/> }
+            {activeSubTab === "refundAmount" && <RefundCalculation/> }
+        </div>
+        
+          {/* <section>
               <TicketTable />
-          </section>
+          </section> */}
 
     </section>
   )
@@ -140,10 +164,10 @@ export default function TicketTable() {
   const [headers] = useState<Header[]>([
     { name: "Yanky" },
     { name: "Mike" },
-    { name: "X-Ray" },
-    { name: "India" },
+    { name: "Martins" },
     { name: "Nancy" },
     { name: "Bravo" },
+    { name: "Skygrit" },  
   ]);
 
   // 🔹 Mock ticket class data
@@ -172,16 +196,16 @@ export default function TicketTable() {
       directSale: true,
       roundTrip: true,
     },
-    {
-      ticketClass: "India",
+     {
+      ticketClass: "Skygrit",
       policyId: 3,
       routeType: "INTERNATIONAL",
       cabinType: "BUSINESS",
-      directSale: false,
-      roundTrip: true,
+      directSale: true,
+      roundTrip: false,
       adult: true,
       multiCity: true,
-      groupBooking: true,
+      individual: true,
     },
   ]);
 
@@ -275,6 +299,10 @@ export default function TicketTable() {
           {responseMessage}
         </pre>
       )}
+       <div className="flex justify-between items-center p-2.5">
+          <span className="text-2xl">Cancellation & Refund Policy Matrix</span>
+          <button className="px-5 py-2 border border-gray-500 rounded-2xl">Edit</button>
+        </div>
       <div className="overflow-x-auto rounded-lg">
         <table className="table-auto w-full bg-gray-200 shadow border-collapse">
           <thead>

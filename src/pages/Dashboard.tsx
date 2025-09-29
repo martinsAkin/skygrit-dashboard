@@ -1,5 +1,6 @@
 import Headbar from "../components/Headbar"
 import { RefundCancellationTrends, DashboardAnalytics, ActivityItems, PendingApproval } from "../components/DashboardComponents"
+import RefundCalculation from "../components/RefundCalculation"
 
 const Dashboard = () => {
   return (
@@ -58,6 +59,7 @@ const Dashboard = () => {
 
       <div className="flex gap-[2rem] mt-6">
         <RefundCancellationTrends/>
+        {/* <RefundCalculation /> */}
 
         <section className="w-[35%] border-1 border-black p-4 rounded-md">
           <div className="flex justify-between">

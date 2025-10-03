@@ -6,7 +6,9 @@ import Dashboard from './pages/Dashboard'
 import PolicyPage from './pages/PolicyPage'
 import CreatePolicy from './components/CreatePolicy'
 import Login from './pages/Login'
+import Request from './pages/Request'
 import RequestReview from './pages/RequestReview'
+import UserManagement from './pages/UserManagement'
 
 
 function App() {
@@ -26,8 +28,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/policy-management" element={<PolicyPage />} />
-              <Route path='/requests' element={<RequestReview />}/>
-
+              <Route path='/requests/dashboard' element={<Request />}/>
+              <Route path='/requests/data' element={<RequestReview />}/>
+              <Route path='/user-management' element={<UserManagement/>}/>
               <Route path='/createPolicy' element={<CreatePolicy />} />
               <Route path='/login' element={<Login />} />
             </Routes>
@@ -40,42 +43,3 @@ function App() {
 }
 
 export default App
-
-
-// import './index.css'
-// import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-// import Sidebar from './components/Sidebar'
-// import Dashboard from './pages/Dashboard'
-// import PolicyPage from './pages/PolicyPage'
-// import CreatePolicy from './components/CreatePolicy'
-// import Login from './pages/Login'
-
-// function AppLayout() {
-//   const location = useLocation();
-//   const hideSidebarRoutes = ["/login"];
-//   const shouldShowSidebar = !hideSidebarRoutes.includes(location.pathname);
-
-//   return (
-//     <div className='flex bg-[#f9f9f9]'>
-//       {shouldShowSidebar && <Sidebar />}
-//       <main className='flex-1 p-[24px]'>
-//         <Routes>
-//           <Route path="/" element={<Dashboard />} />
-//           <Route path="/policy-management" element={<PolicyPage />} />
-//           <Route path='/createPolicy' element={<CreatePolicy />} />
-//           <Route path='/login' element={<Login />} />
-//         </Routes>
-//       </main>
-//     </div>
-//   );
-// }
-
-// function App() {
-//   return (
-//     <Router>
-//       <AppLayout />
-//     </Router>
-//   );
-// }
-
-// export default App

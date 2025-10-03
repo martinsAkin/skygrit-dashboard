@@ -5,58 +5,58 @@ const Sidebar = () => {
     <div className="w-[17rem] px-4 py-[1.5rem] bg-[#030E20] text-gray-500">
 
          <div className="flex justify-between items-center">
-           <img src="assets/arikImage.png" alt="dashboardLogo" className="h-[3rem] w-[7.5rem]" />
-           <img src="assets/sidebar-left.png" alt="close-sidebar" className="h-[3rem]" />
+           <img src="/assets/arikImage.png" alt="dashboardLogo" className="h-[3rem] w-[7.5rem]" />
+           <img src="/assets/sidebar-left.png" alt="close-sidebar" className="h-[3rem]" />
          </div>
 
          <ul className="flex flex-col gap-2 mt-6 px-2">
           <SidebarItems
-            icon="assets/house-simple.png"
+            icon="/assets/house-simple.png"
             functionName="Dashboard"
             to="/"
            />
           <SidebarItems
-            icon="assets/arrows-left-right.png"
+            icon="/assets/arrows-left-right.png"
             functionName="Requests"
-            to="/requests"
+            to="/requests/dashboard"
            />
           <SidebarItems
-            icon="assets/material-symbols_text-compare-outline.png"
+            icon="/assets/material-symbols_text-compare-outline.png"
             functionName="Policy Management"
             to="/policy-management"
            />
            <SidebarItems
-            icon="assets/si_notifications-line.png"
+            icon="/assets/si_notifications-line.png"
             functionName="Alert & Notifications"
             to="/notifications"
            />
           <SidebarItems
-            icon="assets/presentation-chart.png"
+            icon="/assets/presentation-chart.png"
             functionName="Reports & Analytics"
             to="/analytics"
            />
            <SidebarItems
-            icon="assets/user-gear.png"
+            icon="/assets/user-gear.png"
             functionName="User Management"
-            to="/users"
+            to="/user-management"
            />
            <SidebarItems
-            icon="assets/watch.png"
+            icon="/assets/watch.png"
             functionName="Audit Trail"
             to="/audit"
            />
            <SidebarItems
-            icon="assets/link.png"
+            icon="/assets/link.png"
             functionName="Help & Support"
             to="/support"
            />
            <SidebarItems
-            icon="assets/ix_user-manual.png"
+            icon="/assets/ix_user-manual.png"
             functionName="User Manual"
             to="/manual"
            />
            <SidebarItems
-            icon="assets/gear-six.png"
+            icon="/assets/gear-six.png"
             functionName="Settings"
             to="/settings"
            />
@@ -73,7 +73,7 @@ const Sidebar = () => {
 
            {/* <NavLink to="/login"> */}
              <SidebarItems
-              icon="assets/sign-out.png"
+              icon="/assets/sign-out.png"
               functionName="Logout"
               to="/login"
              />
@@ -82,7 +82,7 @@ const Sidebar = () => {
          </div>
 
           <span className="flex items-center text-[13px]">Powered by 
-           <img src="assets/trademark.png" alt="icon" className="w-12 ml-2" />
+           <img src="/assets/trademark.png" alt="icon" className="w-12 ml-2" />
           </span>
 
     </div>

@@ -1,6 +1,7 @@
 import Headbar from "../components/Headbar"
 import { RefundCancellationTrends, DashboardAnalytics, ActivityItems, PendingApproval } from "../components/DashboardComponents"
-import RefundCalculation from "../components/RefundCalculation"
+import DateRangePicker from "../components/DateRangePicker"
+// import RefundCalculation from "../components/RefundCalculation"
 
 const Dashboard = () => {
   return (
@@ -18,7 +19,7 @@ const Dashboard = () => {
         </ul>
 
         <div className="border-2 border-gray-500 p-1 rounded-sm">
-          <input type="date" name="dateRange" id="range" />
+          <DateRangePicker />
         </div>
       </div>
 

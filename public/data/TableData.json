@@ -1,0 +1,73 @@
+
+[
+  {
+    "userID": "REQ-10001",
+    "name": "Jason Njoku",
+    "email": "michelle.rivera@example.com",
+    "role": "Super Admin",
+    "status": "Active"
+  },
+  {
+    "userID": "REQ-10002",
+    "name": "Chinbulike Victor",
+    "email": "michael.mitc@example.com",
+    "role": "Admin",
+    "status": "Inactive"
+  },
+  {
+    "userID": "REQ-10003",
+    "name": "Jason Njoku",
+    "email": "kenzi.lawson@example.com",
+    "role": "Compliance Officer",
+    "status": "Active"
+  },
+  {
+    "userID": "REQ-10005",
+    "name": "Chinbulike Victor",
+    "email": "debra.holt@example.com",
+    "role": "Auditor",
+    "status": "Active"
+  },
+  {
+    "userID": "REQ-10006",
+    "name": "Jason Njoku",
+    "email": "georgia.young@example.com",
+    "role": "Refund Manager",
+    "status": "Active"
+  },
+  {
+    "userID": "REQ-10007",
+    "name": "Jason Njoku",
+    "email": "georgia.young@example.com",
+    "role": "Refund Manager",
+    "status": "Inactive"
+  },
+  {
+    "userID": "REQ-10008",
+    "name": "Jason Njoku",
+    "email": "georgia.young@example.com",
+    "role": "Refund Manager",
+    "status": "Inactive"
+  },
+  {
+    "userID": "REQ-10009",
+    "name": "Jason Njoku",
+    "email": "georgia.young@example.com",
+    "role": "Refund Manager",
+    "status": "Active"
+  },
+  {
+    "userID": "REQ-10010",
+    "name": "Jason Njoku",
+    "email": "georgia.young@example.com",
+    "role": "Refund Manager",
+    "status": "Active"
+  },
+  {
+    "userID": "REQ-10011",
+    "name": "Jason Njoku",
+    "email": "georgia.young@example.com",
+    "role": "Refund Manager",
+    "status": "Active"
+  }
+]

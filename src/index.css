@@ -53,3 +53,15 @@ body {
 .verification-btn{
   @apply border border-gray-600 w-[48%] text-center p-2 rounded-lg
 }
+.userMgtLi{
+  @apply text-[13px] hover:bg-blue-500 hover:text-white rounded-md p-1 cursor-pointer
+}
+.addUserForm-div{
+  @apply flex flex-col gap-[0.3rem] mb-2
+}
+.addUserForm-label{
+  @apply font-bold text-[13px]
+}
+.addUserForm-input{
+  @apply border border-gray-500 rounded-lg p-2 outline-none
+}

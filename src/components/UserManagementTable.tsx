@@ -2,6 +2,8 @@
 import menuOptIcon from "/assets/Icons/qlementine-icons_menu-dots-16.svg";
 import axios from "axios";
 import { useState, useEffect } from "react";
+// import AddUser from "./modules/AddUser";
+// import MenuUserMgt from "./molecules/MenuUserMgt";
 
 // Define the type for the user data
 interface User {
@@ -63,20 +65,22 @@ const UserManagementTable = () => {
               </td>
               <td
                 className={`px-4 py-4 border-b border-gray-200 font-medium ${
-                  item.status === "Active" ? "text-green-600" : "text-[#2D3657]"
+                  item.status === "Active" ? "text-green-600" : "text-orange-700"
                 }`}
               >
                 {item.status}
               </td>
               <td className="px-4 py-2 border-b border-gray-200">
-                <button>
+                <button className="cursor-pointer">
                   <img src={menuOptIcon} alt="menu" title="menu" />
                 </button>
+                {/* <MenuUserMgt /> */}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
     </div>
   );
 };

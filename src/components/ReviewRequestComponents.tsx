@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { VerifyClaimsProps } from "../interface";
+import type { VerifyClaimsProps } from "../interface";
 
 interface ReviewHeadingProps {
  reqNo: number;
@@ -257,7 +257,7 @@ interface ReqHistoryProps{
   reqMaker: string;
   reqDate: string;
   reqTime: string;
-  result: string;
+  result?: string;
 }
 
 const ReqHistory = ({

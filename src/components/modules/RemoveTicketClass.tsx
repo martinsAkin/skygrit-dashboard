@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
-const RemoveTicketClass = () => {
+import type { ModulesProps } from "../../interface";
+
+const RemoveTicketClass = ({onCancel}: ModulesProps) => {
   const [visible, setVisible] = useState(false);
   const handleCancel = () => {
     setVisible(!visible);
@@ -36,7 +38,7 @@ const RemoveTicketClass = () => {
             </h2>
           </div>
 
-          <ModulesBtnSet text2="Remove" />
+          <ModulesBtnSet text2="Remove" onCancel={onCancel}/>
         </div>
       </div>
     </div>

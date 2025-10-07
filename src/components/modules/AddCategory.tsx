@@ -1,10 +1,14 @@
 import { useState } from "react";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
-const AddCategory = () => {
+import type { ModulesProps } from "../../interface";
+
+
+const AddCategory = ({onCancel}: ModulesProps) => {
   const [visible, setVisible] = useState(false);
   const handleCancel = () => {
     setVisible(!visible);
   };
+
   return (
     <div
       className={`flex justify-center items-center bg-black w-screen h-screen backdrop-blur-xl ${
@@ -49,7 +53,7 @@ const AddCategory = () => {
             </div>
           </form>
           
-            <ModulesBtnSet />
+            <ModulesBtnSet onCancel={onCancel}/>
         </div>
       </div>
     </div>

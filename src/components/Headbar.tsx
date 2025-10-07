@@ -1,7 +1,7 @@
 interface HeadbarProps{
- firstname: string
- badgeNo:  string
- fullname: string
+ firstname?: string
+ badgeNo?:  string
+ fullname?: string
 }
 
 const Headbar = ({ firstname = "Arik", badgeNo = "9+", fullname = "Arik Arik" }: HeadbarProps) => {

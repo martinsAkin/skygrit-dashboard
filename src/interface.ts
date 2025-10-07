@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface VerifyClaimsProps{
  verifier: string;
- verifiComment: string;
+ verifiComment?: string;
  verifiedOn: {
    dateVerified: string,
    timeVerified: string,
@@ -54,10 +54,24 @@ export interface RefundCellProps {
   refundTimelineOptions: string[];
   onChange: () => void;
 }
-
-
 export interface ActionBtnProps {
   changed: boolean;
   onSave: () => void;
   onCancel: () => void;
+}
+
+export interface ModulesBtnSetProps{
+ text1?: string
+ text2?: string
+ onCancel: () => void
+}
+export interface ModulesProps{
+ onCancel: () => void;
+}
+
+export interface MenuUserMgtProps{
+  onEdit: () =>  void
+  onDeactivate: () =>  void
+  onDelete: () =>  void
+  onClose: () =>  void
 }

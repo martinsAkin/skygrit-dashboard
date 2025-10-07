@@ -2,10 +2,9 @@
 import menuOptIcon from "/assets/Icons/qlementine-icons_menu-dots-16.svg";
 import axios from "axios";
 import { useState, useEffect } from "react";
-// import AddUser from "./modules/AddUser";
-// import MenuUserMgt from "./molecules/MenuUserMgt";
+import MenuUserMgt from "./molecules/MenuUserMgt";
 
-// Define the type for the user data
+
 interface User {
   userID: any;
   name: string;
@@ -16,7 +15,23 @@ interface User {
 
 const UserManagementTable = () => {
   const headFields = ["User ID", "Full Name", "Email", "Role", "Status", ""];
-  // const [data, setData] = useState([]);
+  const [openMenu, setOpenMenu] = useState<number | null>(null);
+
+  const handleEdit = (id: number) => {
+    console.log("Edit user:", id)
+    setOpenMenu(null)
+  }
+
+  const handleDeactivate = (id: number) => {
+    console.log("deactivate user:", id)
+    setOpenMenu(null)
+  }
+
+  const handleDelete = (id: number) => {
+    console.log("Delete user:", id)
+    setOpenMenu(null)
+  }
+  
   const [data, setData] = useState<User[]>([]);
   useEffect(() => {
     axios
@@ -28,9 +43,9 @@ const UserManagementTable = () => {
   if (data.length === 0) return <div>Loading....</div>;
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-visible">
       <table className="w-full border-collapse border-b border-[#E5E7EB]">
-        {/* Table Header */}
+        
         <thead>
           <tr>
             {headFields.map((field, index) => (
@@ -44,7 +59,6 @@ const UserManagementTable = () => {
           </tr>
         </thead>
 
-        {/* Table Body */}
         <tbody>
           {data.map((item, rowIndex) => (
             <tr
@@ -64,17 +78,26 @@ const UserManagementTable = () => {
                 {item.role}
               </td>
               <td
-                className={`px-4 py-4 border-b border-gray-200 font-medium ${
+                className={`px-4 py-4 border-b border-gray-200 font-medium text-[13px] ${
                   item.status === "Active" ? "text-green-600" : "text-orange-700"
                 }`}
               >
                 {item.status}
               </td>
-              <td className="px-4 py-2 border-b border-gray-200">
-                <button className="cursor-pointer">
+              <td className="px-4 py-2 border-b border-gray-200 relative">
+                <button className="cursor-pointer" onClick={() => setOpenMenu(openMenu === item.userID ? null : item.userID)}>
                   <img src={menuOptIcon} alt="menu" title="menu" />
                 </button>
-                {/* <MenuUserMgt /> */}
+                  { openMenu === item.userID && (
+                    <div className="absolute right-4 top-8">
+                      <MenuUserMgt 
+                        onEdit={() => handleEdit(item.userID)}
+                        onDeactivate={() => handleDeactivate(item.userID)}
+                        onDelete={() => handleDelete(item.userID)}
+                        onClose={() => setOpenMenu(null)}
+                      />
+                    </div>
+                  ) }
               </td>
             </tr>
           ))}

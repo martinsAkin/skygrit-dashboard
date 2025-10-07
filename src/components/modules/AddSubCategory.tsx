@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import { useState } from "react";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
+import type { ModulesProps } from "../../interface";
 
-const AddSubCategory = () => {
+
+const AddSubCategory = ({onCancel}: ModulesProps) => {
   const [visible, setVisible] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -112,6 +114,7 @@ const AddSubCategory = () => {
           {/* Actions */}
                 <ModulesBtnSet 
                   text2="Add Sub-Category"
+                  onCancel={onCancel}
                 />
         </div>
       </div>

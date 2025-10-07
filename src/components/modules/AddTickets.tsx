@@ -1,7 +1,9 @@
 import { useState } from "react";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
+import type { ModulesProps } from "../../interface";
 
-const AddTickets = () => {
+
+const AddTickets = ({onCancel}: ModulesProps) => {
   const [visible, setVisible] = useState(false);
   const handleCancel = () => {
     setVisible(!visible);
@@ -48,7 +50,7 @@ const AddTickets = () => {
               </p>
             </div>
           </form>
-          <ModulesBtnSet text2="Add Ticket Class" />
+          <ModulesBtnSet text2="Add Ticket Class" onCancel={onCancel}/>
         </div>
       </div>
     </div>

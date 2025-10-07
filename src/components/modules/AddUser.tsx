@@ -1,7 +1,7 @@
-import React from 'react'
+import type { ModulesProps } from '../../interface'
 import ModulesBtnSet from '../molecules/ModulesBtnSet'
 
-const AddUser = () => {
+const AddUser = ({onCancel}: ModulesProps) => {
   return (
     <div className='bg-white rounded-lg p-5 w-[30rem]'>
       <div className='mb-4'>
@@ -29,6 +29,7 @@ const AddUser = () => {
 
         <ModulesBtnSet 
           text2='Create User'
+          onCancel={onCancel}
         />
       </form>
     </div>

@@ -1,0 +1,116 @@
+
+[
+  {
+    "adminId": "SG-AD-0001",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0002",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0003",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0004",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0005",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0006",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0007",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0008",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0009",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0010",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  },
+  {
+    "adminId": "SG-AD-0011",
+    "name": "Adese Samson",
+    "role" : "Admin Officer",
+    "activityLog" : {
+      "activity" : "Logged in",
+      "desciption" : "Logged in",
+      "timeLogged" : "23/05/2022, 05:20:45"
+    }
+  }
+  
+  
+   
+]

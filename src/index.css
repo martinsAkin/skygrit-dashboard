@@ -68,3 +68,6 @@ body {
 .addUserForm-input{
   @apply border border-gray-500 rounded-lg p-2 outline-none
 }
+.role-btns{
+  @apply rounded-lg px-2.5 py-1.5 text-[13px]
+}

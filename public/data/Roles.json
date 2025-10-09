@@ -1,0 +1,144 @@
+{
+ "Super_Admin": [
+   {
+     "name": "Users",
+     "permissions": [
+      "Can Add Users", 
+      "Can Delete Users", 
+      "Can View User data",
+      "Can Edit Users"
+     ]  
+   },
+   {
+    "name": "Waiver Request",
+    "permissions": [
+     "Can Approve Waiver",
+     "Can Decline Waiver",
+     "Can View Waiver"
+    ]
+   },
+   {
+    "name": "Policy Management",
+    "permissions": [
+     "Can Add Policy",
+     "Can Delete Policy",
+     "Can View Policy",
+     "Can Edit Policy"
+    ]
+   },
+   {
+    "name": "Audit Rail",
+    "permissions": [
+     "Can View Audit",
+     "Can Download Audit"
+    ]
+   },
+   {
+    "name": "Reports",
+    "permissions": [
+     "Can View Report",
+     "Can Download Report"
+    ]
+   }
+ ],
+
+  "Admin": [
+   {
+     "name": "Users",
+     "permissions": [
+      "Can Add Users", 
+      "Can Delete Users", 
+      "Can View User data",
+      "Can Edit Users"
+     ]  
+   },
+   {
+    "name": "Waiver Request",
+    "permissions": [
+     "Can Approve Waiver",
+     "Can Decline Waiver",
+     "Can View Waiver"
+    ]
+   },
+   {
+    "name": "Policy Management",
+    "permissions": [
+     "Can Add Policy",
+     "Can Delete Policy",
+     "Can View Policy",
+     "Can Edit Policy"
+    ]
+   },
+   {
+    "name": "Audit Rail",
+    "permissions": [
+     "Can View Audit",
+     "Can Download Audit"
+    ]
+   },
+   {
+    "name": "Reports",
+    "permissions": [
+     "Can View Report",
+     "Can Download Report"
+    ]
+   }
+ ],
+
+  "Compliance_Officer": [
+   {
+     "name": "Users",
+     "permissions": [
+      "Can View User data"
+     ]  
+   },
+   {
+    "name": "Waiver Request",
+    "permissions": [
+     "Can Approve Waiver",
+     "Can Decline Waiver",
+     "Can View Waiver"
+    ]
+   },
+   {
+    "name": "Policy Management",
+    "permissions": [
+     "Can Add Policy",
+     "Can Delete Policy",
+     "Can View Policy",
+     "Can Edit Policy"
+    ]
+   },
+   {
+    "name": "Audit Rail",
+    "permissions": [
+     "Can View Audit",
+     "Can Download Audit"
+    ]
+   },
+   {
+    "name": "Reports",
+    "permissions": [
+     "Can View Report",
+     "Can Download Report"
+    ]
+   }
+ ],
+
+  "Refund_Manager": [
+   {
+    "name": "Waiver Request",
+    "permissions": [
+     "Can Approve Waiver",
+     "Can Decline Waiver",
+     "Can View Waiver"
+    ]
+   },
+   {
+    "name": "Policy Management",
+    "permissions": [
+     "Can View Policy"
+    ]
+   }
+ ]
+}

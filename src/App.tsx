@@ -10,6 +10,7 @@ import Request from "./pages/Request";
 import RequestReview from "./pages/RequestReview";
 import UserManagement from "./pages/UserManagement";
 import AuditTrail from "./pages/AuditTrail";
+import ManageRoles from "./pages/ManageRoles";
 
 function App() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function App() {
           <Route path="/requests/dashboard" element={<Request />} />
           <Route path="/requests/data" element={<RequestReview />} />
           <Route path="/user-management" element={<UserManagement />} />
+          <Route path="/role-management" element={<ManageRoles />} />
           <Route path="/createPolicy" element={<CreatePolicy />} />
           <Route path="/audit" element={<AuditTrail />} />
           <Route path="/login" element={<Login />} />

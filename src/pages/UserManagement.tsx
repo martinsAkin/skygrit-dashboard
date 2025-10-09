@@ -2,7 +2,9 @@ import { useState } from "react";
 import addIcon from "/assets/Icons/material-symbols_add-rounded.svg";
 import UserManagementTable from "../components/UserManagementTable";
 import FilterAndSearch from "../components/molecules/FilterAndSearch";
-import AddRoleUserMgt from "../components/modules/AddRoleUserMgt";
+import AddUser from "../components/modules/AddUser";
+import { NavLink } from "react-router-dom";
+// import AddRoleUserMgt from "../components/modules/AddRoleUserMgt";
 
 const UserManagement = () => {
 
@@ -24,9 +26,9 @@ const UserManagement = () => {
                 </p>
               </div>
               <div className="flex flex-row gap-3 items-center">
-                <button className="px-3 py-2 bg-[#F5F6F9] rounded-[8px] text-[14px] font-medium">
+                <NavLink to="/role-management" className="px-3 py-2 bg-[#F5F6F9] rounded-[8px] text-[14px] font-medium">
                   Manage Roles
-                </button>
+                </NavLink>
                 <button className="flex gap-1.5 flex-row items-center justify-center px-3 py-2 bg-[#0D47A1] text-white rounded-[8px] text-[14px] font-medium  hover:bg-[#1565C0] transition" onClick={handleOpenForm}>
                   <img src={addIcon} alt="add" />
                   <p>Add New User</p>
@@ -42,7 +44,7 @@ const UserManagement = () => {
         </div>
       </div>
 
-      {showForm && (<AddRoleUserMgt onCancel={handleCloseForm}/>)}
+      {showForm && (<AddUser onCancel={handleCloseForm} />)}
 
     </div>
   );

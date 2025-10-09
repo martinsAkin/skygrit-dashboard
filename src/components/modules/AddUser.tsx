@@ -3,6 +3,7 @@ import ModulesBtnSet from '../molecules/ModulesBtnSet'
 
 const AddUser = ({onCancel}: ModulesProps) => {
   return (
+    <div className='fixed inset-0 bg-black/50 flex justify-center items-center z-50'>
     <div className='bg-white rounded-lg p-5 w-[30rem]'>
       <div className='mb-4'>
        <h1 className='text-[25px]'>Add User</h1>
@@ -33,6 +34,7 @@ const AddUser = ({onCancel}: ModulesProps) => {
         />
       </form>
     </div>
+  </div>
   )
 }
 

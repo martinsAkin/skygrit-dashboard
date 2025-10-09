@@ -66,7 +66,7 @@ const UserManagementTable = () => {
               className="hover:bg-gray-50 transition-colors duration-200"
             >
               <td className="px-4 py-4 border-b border-gray-200 text-[13px] text-[#263238]">
-                {item.userID}
+                REQ-{item.userID}
               </td>
               <td className="px-4 py-4 border-b border-gray-200 text-[13px] text-[#263238]">
                 {item.name}

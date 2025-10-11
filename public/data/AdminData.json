@@ -6,110 +6,111 @@
     "role" : "Admin Officer",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0002",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Isreal Faizul",
+    "role" : "Compliance Office",
     "activityLog" : {
-      "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "activity" : "Approved",
+      "description" : "Approved Oluwaseun Ajao's Refund Request",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0003",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Yusuf Ahmed",
+    "role" : "Compliance Office",
     "activityLog" : {
-      "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "activity" : "View Notification",
+      "description" : "Viewed Pending notification",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0004",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Hannah Pedro",
+    "role" : "Compliance Office",
     "activityLog" : {
-      "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "activity" : "Download Report",
+      "description" : "Downloaded Account report",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0005",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Oyebamiji Oluwasola",
+    "role" : "Compliance Office",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0006",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Toluwani Bakare",
+    "role" : "Compliance Office",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0007",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Jicholia Oyebola",
+    "role" : "Compliance Office",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0008",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Justina Ogbannaya",
+    "role" : "Compliance Office",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0009",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Ebubechwku Agnes",
+    "role" : "Compliance Office",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
     "adminId": "SG-AD-0010",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "name": "Boluwatife Olusola",
+    "role" : "Compliance Office",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   },
   {
-    "adminId": "SG-AD-0011",
-    "name": "Adese Samson",
-    "role" : "Admin Officer",
+    "adminId": "SG-AD-0010",
+    "name": "Boluwatife Olusola",
+    "role" : "Compliance Office",
     "activityLog" : {
       "activity" : "Logged in",
-      "desciption" : "Logged in",
+      "description" : "Logged in",
       "timeLogged" : "23/05/2022, 05:20:45"
     }
   }
+  
   
   
    

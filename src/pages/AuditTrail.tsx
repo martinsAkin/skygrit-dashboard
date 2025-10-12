@@ -102,7 +102,7 @@ const AuditTrail: React.FC = () => {
                 >
                   {list}
                   {category === list && (
-                    <span className="absolute left-0 right-0 bottom-0 h-0.5 rounded-t-sm bg-blue-800 animate-[slideIn_0.3s_ease-out]"></span>
+                    <span className="absolute left-0 right-0 bottom-0 h-0.5 rounded-t bg-blue-800 animate-[slideIn_0.3s_ease-out]"></span>
                   )}
                 </li>
               ))}
@@ -121,7 +121,7 @@ const AuditTrail: React.FC = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by name"
+              placeholder="Search with user name"
             />
           </div>
 
@@ -218,7 +218,7 @@ const AuditTrail: React.FC = () => {
                             {headFieldsRow.map((field, index) => (
                               <th
                                 key={index}
-                                className="bg-gray-200 p-3 text-left text-[16px] font-bold text-gray-800 border-b border-gray-300"
+                                className="bg-[#E1E3E5] p-3 text-left text-[16px] font-bold text-[#1F2937] border-b border-gray-300"
                               >
                                 {field}
                               </th>
@@ -227,13 +227,13 @@ const AuditTrail: React.FC = () => {
                         </thead>
                         <tbody>
                           <tr className="hover:bg-gray-50 transition-colors">
-                            <td className="px-3 py-4 border-b border-gray-200 text-[14px] text-gray-700">
+                            <td className="px-3 py-4 border-b border-gray-200 text-[14px] text-[#1F2937]">
                               {selectedAdmin.activityLog.activity}
                             </td>
-                            <td className="px-3 py-4 border-b border-gray-200 text-[14px] text-gray-700">
+                            <td className="px-3 py-4 border-b border-gray-200 text-[14px] text-[#1F2937]">
                               {selectedAdmin.activityLog.description}
                             </td>
-                            <td className="px-3 py-4 border-b border-gray-200 text-[14px] text-gray-700">
+                            <td className="px-3 py-4 border-b border-gray-200 text-[14px] text-[#1F2937]">
                               {selectedAdmin.activityLog.timeLogged}
                             </td>
                           </tr>
@@ -250,7 +250,7 @@ const AuditTrail: React.FC = () => {
                         <p className="text-[16px] font-semibold text-gray-800">
                           Sign Out
                         </p>
-                        <p className="text-[14px]] text-gray-400">
+                        <p className="text-[14px] text-gray-400">
                           11th June, 2023 . 2:00PM
                         </p>
                       </span>

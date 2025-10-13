@@ -12,8 +12,8 @@ const SkyGritLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex justify-between">
-      <div className="w-1/3 bg-white relative overflow-hidden">
+    <div className="min-h-screen flex justify-between">
+      <div className="w-1/3 relative overflow-hidden">
         <div className="h-full flex flex-col justify-center px-12 py-8">
           <div className="mb-12">
             <h1 className="text-3xl font-bold text-blue-600 mb-2">

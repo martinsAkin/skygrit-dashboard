@@ -1,16 +1,12 @@
 import { Outlet, NavLink } from 'react-router-dom';
-// import { useState } from 'react';
-// import CreatePolicy from '../components/CreatePolicy'
-import Headbar from '../components/Headbar'
 import { FlightTypeToggle, PolicyDetails, SearchPolicy } from '../components/PolicyComponents'
 
 const PolicyPage: React.FC = () => {
   return (
     <div>
-      <Headbar />
 
       <main>
-        <section className='flex justify-between mt-6'>
+        <section className='flex justify-between my-3.5'>
          <div className='flex flex-col gap-0'>
            <h2 className='text-lg font-bold'>Policy Management</h2>
            <span className='text-[13px] font-bold'>Configure Refund and Cancellation Policy</span>
@@ -37,8 +33,6 @@ const PolicyPage: React.FC = () => {
         </div>
 
       </main>
-
-      {/* <CreatePolicy /> */}
       
     </div>
   )

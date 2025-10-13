@@ -9,7 +9,7 @@ interface AnalyticsProps{
 
 export const DashboardAnalytics = ({ analyticHeading, icon, value, metrics, duration, metricColor }:AnalyticsProps) => {
  return(
-  <div className="border-2 border-black rounded-sm px-6 py-2 w-[23%]">
+  <div className="border-1 border-gray-300 rounded-sm px-6 py-2 w-[23%]">
 
     <div className="flex justify-between">
       <ul className="list-none flex flex-col gap-0">
@@ -32,7 +32,7 @@ export const DashboardAnalytics = ({ analyticHeading, icon, value, metrics, dura
 
 export const RefundCancellationTrends = () => {
   return(
-    <section className="w-[65%] border-1 border-black p-4 rounded-md">
+    <section className="w-[65%] border-1 border-gray-300 p-4 rounded-md">
       <div className="flex justify-between">
         <span className="inline-block text-[18px] font-bold">Refund & Cancellation Trends</span>
 

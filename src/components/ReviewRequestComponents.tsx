@@ -67,7 +67,7 @@ export const RequestDetailsTable = ({
  accountNumber
 }: CustomerDetailsProps) => {
  return(
-  <div className="border border-gray-400 rounded-lg w-max">
+  <div className="border border-gray-400 rounded-lg w-[35rem]">
     <header className="flex justify-between px-3.5 py-4">
      <div>Request Details</div>
      <div className="bg-gray-300 p-1.5 rounded-2xl text-[12px]">* pending</div>

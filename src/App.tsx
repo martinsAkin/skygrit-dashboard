@@ -11,20 +11,25 @@ import RequestReview from "./pages/RequestReview";
 import UserManagement from "./pages/UserManagement";
 import AuditTrail from "./pages/AuditTrail";
 import ManageRoles from "./pages/ManageRoles";
+import Headbar from "./components/Headbar";
 
 function App() {
   const location = useLocation();
   const hideSidebarRoutes = ["/login"];
   const shouldShowSidebar = !hideSidebarRoutes.includes(location.pathname);
 
+  const hideHeadbar = ["/login"];
+  const shouldHideHeadbar = !hideHeadbar.includes(location.pathname)
+
   return (
     // <Router>
 
     <div className="flex bg-[#f9f9f9]">
       {shouldShowSidebar && <Sidebar />}
-      {/* <Sidebar /> */}
 
-      <main className="flex-1 p-[24px]">
+      <main className="flex-1 p-[24px] flex flex-col gap-2">
+        {shouldHideHeadbar && <Headbar />}
+
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/policy-management" element={<PolicyPage />} />

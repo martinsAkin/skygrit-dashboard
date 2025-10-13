@@ -83,12 +83,12 @@ const Sidebar = () => {
               <p className="text-[11px] text-[#93C5FD]">Admin Account</p>
             </span>
           </div>
-          <div className="p-2 flex flex-row gap-3 items-center mt-3 cursor-pointer">
+          <NavLink to='/login' className="p-2 flex flex-row gap-3 items-center mt-3 cursor-pointer">
             <img className="w-[24px]" src={logOutIcon} alt="" />
             <span>
               <p className="text-[16px] text-[#888991]">Logout</p>
             </span>
-          </div>
+          </NavLink>
           <div className="p-2 flex flex-row items-baseline gap-1 mt-3">
             <p className="text-[12px] font-bold text-[#888991]">Powered By</p>
             <img className="w-[85px]" src={skyGrit} alt="" />

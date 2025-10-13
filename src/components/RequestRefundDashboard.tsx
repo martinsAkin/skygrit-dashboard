@@ -188,7 +188,7 @@ const RequestRefundDashboard = () => {
               </td>
               <td className="px-4 py-2 border-b border-gray-200 text-[12px]">
                 <NavLink to="/requests/data">
-                  <button className="text-blue-600 hover:underline">
+                  <button className="text-blue-600 hover:underline cursor-pointer">
                     {item.actions}
                   </button>
                 </NavLink>

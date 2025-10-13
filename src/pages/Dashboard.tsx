@@ -1,29 +1,21 @@
-import Headbar from "../components/Headbar"
 import { RefundCancellationTrends, DashboardAnalytics, ActivityItems, PendingApproval } from "../components/DashboardComponents"
 import DateRangePicker from "../components/DateRangePicker"
-// import RefundCalculation from "../components/RefundCalculation"
 
 const Dashboard = () => {
   return (
     <div className="w-[100%] px-4">
-      <Headbar
-        firstname="Martins"
-        badgeNo="9+"
-        fullname="Ajayi Martins"
-      />
-
+      
       <div className="flex justify-between items-center pt-4">
         <ul className="list-none">
           <li className="text-2xl">Dashboard</li>
           <li className="text-[13.5px]">Overview of airline refund and cancellation activities</li>
         </ul>
 
-        <div className="border-2 border-gray-500 p-1 rounded-sm">
           <DateRangePicker />
-        </div>
+
       </div>
 
-      <div className="flex gap-4 mt-6">
+      <div className="flex gap-6 mt-6">
        <DashboardAnalytics
          analyticHeading="Total Refunds"
          value="1,284"
@@ -60,9 +52,8 @@ const Dashboard = () => {
 
       <div className="flex gap-[2rem] mt-6">
         <RefundCancellationTrends/>
-        {/* <RefundCalculation /> */}
 
-        <section className="w-[35%] border-1 border-black p-4 rounded-md">
+        <section className="w-[35%] border-1 border-gray-300 p-4 rounded-md">
           <div className="flex justify-between">
             <span>Recent Activity</span>
             <span className="text-blue-600 hover:underline hover:cursor-pointer">View all</span>

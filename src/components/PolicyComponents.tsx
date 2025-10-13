@@ -42,13 +42,13 @@ export const SearchPolicy = () => {
        />
       </div>
 
-      <div className="">
+      <div>
        {placeholderData.map((dataItems, index) => (
-        <div key={index} className="flex overflow-hidden border-1 border-t-black border-b-black border-l-0 border-r-0 p-1.5 hover:bg-teal-400 hover:border-l-2 hover:border-0">
+        <div key={index} className="flex overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 p-1.5 hover:bg-teal-400 hover:border-l-1 hover:border-0 hover:border-b-0 hover:border-t-0">
           <div className="flex flex-col gap-1">
            <h2>{dataItems.heading}</h2>
            <span className="text-[13px]">{dataItems.desc}</span>
-           <span>Last Updated: {dataItems.lastUpdate}</span>
+           <span className="text-[14px]">Last Updated: {dataItems.lastUpdate}</span>
           </div>
 
           <div className="status">{dataItems.status}</div>
@@ -61,7 +61,7 @@ export const SearchPolicy = () => {
 
 export const FlightTypeToggle = () => {
   return(
-    <div className="bg-blue-300 p-[5px] flex rounded-2xl w-[17rem] h-max">
+    <div className="bg-blue-300 p-[5px] flex rounded-2xl w-max h-max">
       <div className="flightType-toggle">Domestic Flight</div>
       <div className="flightType-toggle">International Flight</div>
     </div>
@@ -312,7 +312,7 @@ export default function TicketTable() {
               {headers.map((header, idx) => (
                 <th
                   key={idx}
-                  className="border p-2 text-[10px] border-gray-400 text-white bg-amber-700"
+                  className="border p-2 text-[10px] border-gray-400 text-gray-700"
                 >
                   {header.name}
                 </th>
@@ -331,7 +331,7 @@ export default function TicketTable() {
                   >
                     {i === 0 && (
                       <th
-                        className="border border-gray-400 p-[0.35rem] pr-0 text-gray-800 bg-red-400 text-left"
+                        className="border border-gray-400 p-[0.35rem] pr-0 text-gray-800 text-left"
                         rowSpan={keys.length}
                       >
                         {groupLabel}

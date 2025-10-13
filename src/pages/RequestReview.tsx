@@ -1,13 +1,22 @@
 import { CommunicationSection, RequestDetailsTable, RequestHistoryTable, ReviewHeading, VerifyClaim } from "../components/ReviewRequestComponents"
+import { NavLink } from "react-router-dom"
 
 const RequestReview = () => {
   return (
-    <div>
+    <div className="ml-1.5">
 
-      <ReviewHeading
-        reqNo={1001}
-        reqDate="November 15, 2023"
-      />
+      <div className="flex justify-between my-2.5">
+        <ReviewHeading
+          reqNo={1001}
+          reqDate="November 15, 2023"
+        />
+
+        <button className='bg-blue-950 text-white rounded-md px-3.5 py-0 text-sm cursor-pointer'>
+            <NavLink to="/requests/dashboard">
+                --back
+            </NavLink>
+        </button>
+      </div>
 
       <div className="flex gap-6">
         <RequestDetailsTable

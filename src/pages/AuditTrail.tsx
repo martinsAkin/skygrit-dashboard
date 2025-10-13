@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import notifyIcon from "/assets/notification.svg";
+// import notifyIcon from "/assets/notification.svg";
 import searchIcon from "/assets/Icons/Searchhh.svg";
 import loginIcon from "/assets/octicon_clock-24.svg";
 import dropdownIcon from "/assets/dropdown.svg";
@@ -51,27 +51,6 @@ const AuditTrail: React.FC = () => {
   const selectedAdmin = data.find((admin) => admin.adminId === activeAdminId);
   return (
     <div className=" flex flex-col h-full">
-      {/* Nav */}
-      <nav className="py-2 px-16 bg-white border-b border-b-[#E5E7EB]">
-        <div className="flex flex-row justify-between items-center">
-          <h2 className="text-[20px] text-[#374151] font-semibold cursor-pointer">
-            Hi, Arike
-          </h2>
-          <div className="flex flex-row gap-4 items-center">
-            <img
-              className="w-[36px] h-[36px] cursor-pointer"
-              src={notifyIcon}
-              alt="Notifications"
-            />
-            <span className="flex justify-center items-center rounded-full bg-[#F5F8FF] w-[42px] h-[42px] text-[14px] font-semibold text-[#F9956B]">
-              AM
-            </span>
-            <p className="text-[14px] font-bold text-[#302C1C]">
-              Arike Motunde
-            </p>
-          </div>
-        </div>
-      </nav>
       {/* Header + Categories */}
       <section className=" bg-white border-b border-b-[#E5E7EB]">
         {/* Category Tabs */}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import addIcon from "/assets/Icons/material-symbols_add-rounded.svg";
+import prevPage from "/assets/Icons/move-left.png"
 import AddRoleUserMgt from '../components/modules/AddRoleUserMgt';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
@@ -47,6 +48,7 @@ const ManageRoles = () => {
           </div>
           <div className="flex flex-row gap-3 items-center">
             <NavLink to="/user-management" className="px-3 py-2 bg-[#F5F6F9] rounded-[8px] text-[14px] font-medium">
+              <img src={prevPage} alt="go back" className="inline-block mr-2 h-4 w-4"/>
               Back
             </NavLink>
             <button className="flex gap-1.5 flex-row items-center justify-center px-3 py-2 bg-[#0D47A1] text-white rounded-[8px] text-[14px] font-medium  hover:bg-[#1565C0] transition" onClick={handleOpenForm}>

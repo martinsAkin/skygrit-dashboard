@@ -1,5 +1,6 @@
 import { CommunicationSection, RequestDetailsTable, RequestHistoryTable, ReviewHeading, VerifyClaim } from "../components/ReviewRequestComponents"
 import { NavLink } from "react-router-dom"
+import prevPage from "/assets/Icons/move-left.png"
 
 const RequestReview = () => {
   return (
@@ -11,11 +12,15 @@ const RequestReview = () => {
           reqDate="November 15, 2023"
         />
 
-        <button className='bg-blue-950 text-white rounded-md px-3.5 py-0 text-sm cursor-pointer'>
-            <NavLink to="/requests/dashboard">
-                --back
-            </NavLink>
-        </button>
+       
+            <button className='text-blue-950 bg-white rounded-md px-3.5 py-0 text-sm cursor-pointer'>
+               <NavLink to="/requests/dashboard">
+                  <img src={prevPage} alt="go back" className="inline-block mr-2 h-4 w-4"/>
+                  back
+                </NavLink>
+            </button>
+        
+        
       </div>
 
       <div className="flex gap-6">

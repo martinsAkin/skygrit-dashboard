@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom"
+import prevPage from "/assets/Icons/move-left.png"
+
 const CreatePolicy = () => {
   return (
     <div>
@@ -8,11 +10,15 @@ const CreatePolicy = () => {
              <span className='text-[13px] font-bold'>Configure Refund and Cancellation Policy</span>
            </div>
 
-           <button className='bg-blue-950 text-white rounded-md px-3.5 py-0 text-sm'>
-            <NavLink to="/policy-management">
-                --back
-            </NavLink>
-           </button>
+
+               <button className='bg-white text-blue-950 rounded-md px-3.5 py-0 text-md'>
+                  <NavLink to="/policy-management">
+                     <img src={prevPage} alt="go back" className="inline-block mr-2 h-[20px] w-[20px]"/>
+                     Back
+                  </NavLink>
+               </button>
+            
+           
         </section>
 
         <span className="text-2xl font-bold inline-block my-4.5">Create New Policy</span>

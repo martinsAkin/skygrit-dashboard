@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { VerifyClaimsProps } from "../interface";
+import historyClock from "/assets/Icons/historyIcon.png"
+import cancel from "/assets/Icons/x.png"
+import confirm from "/assets/Icons/check.png"
+import downloadClip from "/assets/Icons/clip.png"
+import calender from "/assets/Icons/calender.png"
+// import send from "/assets/Icons/send.png"
+import user from "/assets/Icons/user.png"
+
 
 interface ReviewHeadingProps {
  reqNo: number;
@@ -67,7 +75,7 @@ export const RequestDetailsTable = ({
  accountNumber
 }: CustomerDetailsProps) => {
  return(
-  <div className="border border-gray-400 rounded-lg w-[35rem]">
+  <div className="border border-gray-300 rounded-lg w-[35rem]">
     <header className="flex justify-between px-3.5 py-4">
      <div>Request Details</div>
      <div className="bg-gray-300 p-1.5 rounded-2xl text-[12px]">* pending</div>
@@ -78,7 +86,9 @@ export const RequestDetailsTable = ({
          <li>
            <h1 className="details-heading">Customer</h1>
            <div className="flex items-center gap-4">
-              <img src="" alt="p"/>
+               <div className="bg-[#DBEAFE] p-1.5 rounded-[50%] h-max w-max">
+                  <img src={user} alt="p" className="w-4.5 h-4.5"/>
+                </div>
              <div>
                <li className="details-span">{customerName}</li>
                <li className="text-[11px]">{customerEmail}</li>
@@ -106,7 +116,10 @@ export const RequestDetailsTable = ({
        <ul className="details-list">
          <li>
            <h1 className="details-heading">Flight Date</h1>
-           <span className="details-span">{flightDate}</span>
+           <span className="details-span">
+              <img src={calender} alt="calender" className="w-4 h-4 mr-1.5 inline-block" />
+              {flightDate}
+            </span>
          </li>
          
          <li>
@@ -138,7 +151,10 @@ export const RequestDetailsTable = ({
         </li>
         <li>
            <h1 className="details-heading">Approved On</h1>
-           <span className="details-span">{approvedOn}</span>
+           <span className="details-span">
+              <img src={calender} alt="calender" className="w-4 h-4 mr-1.5 inline-block" />
+              {approvedOn}
+            </span>
         </li>
        </ul>
     </main>
@@ -238,7 +254,7 @@ export const DocumentUploaded = ({ fileName, size, dateUploaded }: DocumentProps
   return(
     <div className="0 py-4 px-1.5 border border-gray-600 bg-gray-200 rounded-lg">
         <div className="flex gap-4">
-            <img src="" alt="clip" />
+            <img src={downloadClip} alt="clip" className="w-4.5 h-4.5"/>
           <ul>
             <li className="text-[13px] font-bold">{fileName}</li>
             <li className="flex gap-1.5 text-[10px]">
@@ -269,12 +285,14 @@ const ReqHistory = ({
 }: ReqHistoryProps) => {
   return(
     <div className="flex gap-2">
-      <img src="" alt="img"/>
+      <div className="bg-[#DBEAFE] p-1.5 rounded-[50%] h-max w-max">
+        <img src={historyClock} alt="history icon" className="h-4.5 w-4.5"/>
+      </div>
 
       <ul>
         <li className="details-heading">{reqHeading}</li>
         <li className="details-span">By: {reqMaker}</li>
-        <li className="details-span">Result: {result}</li>
+        <li className="details-span">{result}</li>
         <li className="details-span">{reqDate} at {reqTime}</li>
       </ul>
     </div>
@@ -283,7 +301,7 @@ const ReqHistory = ({
 
 export const RequestHistoryTable = () => {
   return(
-    <div className="border border-black rounded-lg w-[27rem]">
+    <div className="border border-gray-300 rounded-lg w-[27rem]">
       <h2 className="p-3.5">Request History</h2>
       <hr />
 
@@ -298,7 +316,7 @@ export const RequestHistoryTable = () => {
           <ReqHistory 
             reqHeading="Automated eligibility check"
             reqMaker="System"
-            result="Awaiting Review"
+            result="Result: Awaiting Review"
             reqDate="November 10, 2023"
             reqTime="10:45PM"
           />
@@ -319,7 +337,7 @@ export const RequestHistoryTable = () => {
 
 export const CommunicationSection = () => {
   return(
-    <div className="border border-black rounded-lg w-[27rem]">
+    <div className="border border-gray-300 rounded-lg w-[27rem]">
       <h2 className="p-3.5">Communication</h2>
       <hr />
 
@@ -347,7 +365,7 @@ export const VerifyClaim = ({
   approver,
  }:VerifyClaimsProps) => {
   return(
-    <div className="border border-black rounded-lg w-[27rem]">
+    <div className="border border-gray-300 rounded-lg w-[27rem]">
       <h2 className="p-3.5">Verification</h2>
       <hr />
 
@@ -386,9 +404,11 @@ export const VerifyClaim = ({
 
           <section className="flex gap-[4%] mt-20">
             <button className="verification-btn">
+              <img src={cancel} alt="x" className="w-4.5 h-4.5" />
               <span className="text-red-700">Decline</span>
             </button>
             <button className="verification-btn">
+              <img src={confirm} alt="check" className="w-4.5 h-4.5"/>
               <span className="text-green-600">Approve</span>
             </button>
           </section>

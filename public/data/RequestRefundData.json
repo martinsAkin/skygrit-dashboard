@@ -1,0 +1,134 @@
+ [
+    {
+      "id": "REQ1001",
+      "date": "2023-10-01 08:30AM",
+      "customerName": "John Doe",
+      "type": "Refund",
+      "email": "michael.rivera@gmail.com",
+      "amount": "N534,000",
+      "refundValue": "N500,000",
+      "status": "Approved",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1002",
+      "date": "2023-10-02 09:15AM",
+      "customerName": "Eze Victor",
+      "type": "Refund",
+      "email": "michael.mitc@example.com",
+      "amount": "N120,000",
+      "refundValue": "N100,000",
+      "status": "Declined",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1003",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Felix Joao",
+      "type": "Refund",
+      "email": "kenzi.lawson@example.com",
+      "amount": "N300,000",
+      "refundValue": "N280,000",
+      "status": "Approved",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1004",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "David Adeleke",
+      "type": "Refund",
+      "email": "30bg.record@example.com",
+      "amount": "N300,000",
+      "refundValue": "N280,000",
+      "status": "In-Progress",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1005",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Adekunle Gold",
+      "type": "Cancellation",
+      "email": "Ade.gold@example.com",
+      "amount": "N800,000",
+      "refundValue": "N580,000",
+      "status": "In-Progress",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1006",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Odumo Black",
+      "type": "Cancellation",
+      "email": "antiworld@example.com",
+      "amount": "N600,000",
+      "refundValue": "N380,000",
+      "status": "Approved",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1007",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Jason Njoku",
+      "type": "Cancellation",
+      "email": "kenzi.lawson@example.com",
+      "amount": "N300,000",
+      "refundValue": "N280,000",
+      "status": "Pending",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1008",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Uche Daniel",
+      "type": "Cancellation",
+      "email": "kenzi.lawson@example.com",
+      "amount": "N300,000",
+      "refundValue": "N280,000",
+      "status": "Declined",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1009",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Mo Salah",
+      "type": "Cancellation",
+      "email": "egypt.salah@example.com",
+      "amount": "N300,000",
+      "refundValue": "N280,000",
+      "status": "Approved",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1010",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Leo Messi",
+      "type": "Cancellation",
+      "email": "the.goat@example.com",
+      "amount": "N300,000",
+      "refundValue": "N280,000",
+      "status": "Review",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1011",
+      "date": "2023-11-20 12:45PM",
+      "customerName": "Bello Sadam",
+      "type": "Cancellation",
+      "email": "sadam@hussein@example.com",
+      "amount": "N3,000,000",
+      "refundValue": "N1,280,000",
+      "status": "Approved",
+      "actions": "View Details"
+    },
+    {
+      "id": "REQ1012",
+      "date": "2023-10-03 10:45AM",
+      "customerName": "Keanu Reeves",
+      "type": "Cancellation",
+      "email": "kenzi.lawson@example.com",
+      "amount": "N200,000",
+      "refundValue": "N80,000",
+      "status": "Declined",
+      "actions": "View Details"
+    }
+   ]

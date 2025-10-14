@@ -40,7 +40,7 @@ const FilterAndSearch = () => {
                         <h3 className="text-sm font-semibold mb-3">
                           Filter Options
                         </h3>
-                        {["Option A", "Option B", "Option C"].map(
+                        {["Active", "Inactive", "Deactivated"].map(
                           (opt, index) => (
                             <label
                               key={index}

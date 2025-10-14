@@ -11,26 +11,6 @@ const Headbar = ({
 }: HeadbarProps) => {
   return (
     <section>
-      {/* <div className="flex justify-between items-center px-4 py-2">
-        <span className="inline-block">Hi, {firstname}</span>
-
-        <div className="flex gap-2.5 items-center">
-          <div className="relative">
-            <img
-              src="assets/si_notifications-line.png"
-              alt="bell-icon"
-              className="w-8"
-            />
-            <span className="absolute top-0 right-0 bg-red-600 text-white rounded-md text-[12px] px-1.5 py-0.5">
-              {badgeNo}
-            </span>
-          </div>
-
-          <div className="initials-placeholder">AM</div>
-          <span className="inline-block">{fullname}</span>
-        </div>
-      </div> */}
-
       <nav className="py-2 px-16 bg-white border-b-[1px] border-b-[#E5E7EB]">
         <div className="flex flex-row justify-between items-center">
           <h2 className="text-[20px] text-[#374151] font-semibold cursor-pointer">
@@ -39,7 +19,7 @@ const Headbar = ({
           <div className="flex flex-row gap-[16px] items-center">
             <div className="relative">
               <img
-                src="assets/si_notifications-line.png"
+                src="/assets/si_notifications-line.png"
                 alt="bell-icon"
                 className="w-[36px] h-[36px] cursor-pointer "
               />

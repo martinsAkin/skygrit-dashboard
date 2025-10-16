@@ -5,6 +5,8 @@ import searchIcon from "/assets/Icons/Searchhh.svg";
 import loginIcon from "/assets/octicon_clock-24.svg";
 import dropdownIcon from "/assets/dropdown.svg";
 import signoutIcon from "/assets/octicon_clock-242.svg";
+// import ReviewApproval from "../components/modules/ReviewApproval";
+// import DeclineApproval from "../components/modules/DeclineApproval";
 
 interface ActivityLog {
   activity: string;
@@ -33,7 +35,7 @@ const AuditTrail: React.FC = () => {
     setActiveAdminId((prev) => (prev === id ? null : id));
     setDropdown(false);
   };
-  // ✅ 5. Fetch JSON safely
+
   useEffect(() => {
     axios
       .get<Admin[]>("/data/AdminData.json")
@@ -247,7 +249,8 @@ const AuditTrail: React.FC = () => {
           </div>
         </div>
       </section>
-      \{/* Animations */}
+      {/* <ReviewApproval onCancel={() => {}} /> */}
+      {/* <DeclineApproval /> */}
       <style>{`
         @keyframes fadeIn {
           from {

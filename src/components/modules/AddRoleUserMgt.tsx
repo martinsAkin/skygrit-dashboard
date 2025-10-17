@@ -118,7 +118,7 @@ const AddRoleUserMgt = ({onCancel}: ModulesProps) => {
            </div>
          </section>
          <ModulesBtnSet
-          text2="Create Role"
+          text2="Add Role"
           onCancel={onCancel}
          />
        </form>

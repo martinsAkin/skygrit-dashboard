@@ -29,7 +29,7 @@ const AddUser = ({onCancel}: ModulesProps) => {
         </div>
 
         <ModulesBtnSet 
-          text2='Create User'
+          text2='Add User'
           onCancel={onCancel}
         />
       </form>

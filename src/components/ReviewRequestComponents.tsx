@@ -302,8 +302,8 @@ const ReqHistory = ({
 export const RequestHistoryTable = () => {
   return(
     <div className="border border-gray-300 rounded-lg w-[27rem]">
-      <h2 className="p-3.5">Request History</h2>
-      <hr />
+      <h2 className="p-3.5 mb-2">Request History</h2>
+      <hr className="border-1 border-red-500"/>
 
       <div className="flex flex-col gap-4 p-[1.5rem]">
           <ReqHistory 

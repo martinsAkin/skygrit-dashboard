@@ -30,8 +30,11 @@ import RefundCalculation from "./RefundCalculation";
  ]
 
 export const SearchPolicy = () => {
+
+  const [active, setActive] = useState(placeholderData[0].heading);
+
  return(
-    <div className="border-1 border-gray-400 rounded-md w-[20rem] h-max">
+    <div className="border-1 border-gray-200 rounded-md w-[20rem] h-max">
       <div className="p-2.5 mx-0">
        <input
         type="text"
@@ -44,7 +47,15 @@ export const SearchPolicy = () => {
 
       <div>
        {placeholderData.map((dataItems, index) => (
-        <div key={index} className="flex overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 p-1.5 hover:bg-teal-400 hover:border-l-1 hover:border-0 hover:border-b-0 hover:border-t-0">
+        <div 
+          key={index} 
+          onClick={() => setActive(dataItems.heading)}
+          className={`flex overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 p-1.5 hover:bg-teal-400 hover:border-l-1 hover:border-0 hover:border-b-0 hover:border-t-0 
+            ${
+              active === dataItems.heading ? "bg-teal-400 border-l-1 border-0 border-b-0 border-t-0" : ""
+            }
+            `}
+        >
           <div className="flex flex-col gap-1">
            <h2>{dataItems.heading}</h2>
            <span className="text-[13px]">{dataItems.desc}</span>
@@ -74,7 +85,7 @@ export const PolicyDetails = () => {
   const Data = placeholderData[1]
 
   return(
-    <section className="border border-gray-500">
+    <section className="border border-gray-200 rounded-lg">
         <div className="flex justify-between items-center p-2.5">
           <span>Policy Details</span>
           <button className="px-5 py-2 border border-gray-500 rounded-2xl">Edit</button>

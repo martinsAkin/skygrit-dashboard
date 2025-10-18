@@ -19,12 +19,12 @@ function App() {
   const shouldShowSidebar = !hideSidebarRoutes.includes(location.pathname);
 
   const hideHeadbar = ["/login"];
-  const shouldHideHeadbar = !hideHeadbar.includes(location.pathname)
+  const shouldHideHeadbar = !hideHeadbar.includes(location.pathname);
 
   return (
     // <Router>
 
-    <div className="flex bg-[#f9f9f9]">
+    <div className="flex bg-[#ffffff]">
       {shouldShowSidebar && <Sidebar />}
 
       <main className="flex-1 p-[24px] flex flex-col gap-2">

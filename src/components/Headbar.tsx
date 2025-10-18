@@ -11,7 +11,7 @@ const Headbar = ({
 }: HeadbarProps) => {
   return (
     <section>
-      <nav className="py-2 px-16 bg-white border-b-[1px] border-b-[#E5E7EB]">
+      <nav className="py-2 px-16 border-b-[1px] border-b-[#E5E7EB]">
         <div className="flex flex-row justify-between items-center">
           <h2 className="text-[20px] text-[#374151] font-semibold cursor-pointer">
             Hi, {firstname}
@@ -21,9 +21,9 @@ const Headbar = ({
               <img
                 src="/assets/si_notifications-line.png"
                 alt="bell-icon"
-                className="w-[36px] h-[36px] cursor-pointer "
+                className="w-[30px] h-[30px] cursor-pointer "
               />
-              <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-[10px] px-1.5 py-0.5">
+              <span className="absolute top-0 right-0 bg-red-600 text-white font-bold rounded-full text-[8.5px] px-1.5 py-0.5">
                 {badgeNo}
               </span>
             </div>

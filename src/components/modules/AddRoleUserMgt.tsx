@@ -15,8 +15,8 @@ const AddRoleUserMgt = ({onCancel}: ModulesProps) => {
             <input type="text" placeholder='Enter Role name' className="addUserForm-input" />
          </div>
      
-         <section className="mt-1.5">
-           <h1 className="inline-block mb-0.5">Role Permission</h1>
+         <section className="mt-2.5">
+           <h1 className="inline-block mb-1.5">Role Permission</h1>
          <div className="flex flex-col gap-1.5">
               <div className='addUserForm-div'>
                 <h4 className="addUserForm-label">Super Admin</h4>
@@ -118,7 +118,7 @@ const AddRoleUserMgt = ({onCancel}: ModulesProps) => {
            </div>
          </section>
          <ModulesBtnSet
-          text2="Create Role"
+          text2="Add Role"
           onCancel={onCancel}
          />
        </form>

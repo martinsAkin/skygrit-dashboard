@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -7,18 +8,18 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
 
-  const togglePassword = () => {
-    setShowPassword(!showPassword);
-  };
+  // const togglePassword = () => {
+  //   setShowPassword(!showPassword);
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // Prevent form reload
     alert(email)
-    navigate("/"); // Redirect to dashboard
+    navigate("/dashboard"); // Redirect to dashboard
   };
   return (
-    <div className="bg-amber-50 flex flex-row justify-between items-center h-[100dvh]">
-      <div className=" p-6 max-w-[386px] w-full h-[420px] flex flex-col gap-6 ml-20">
+    <div className="flex flex-row justify-between items-center h-[100%]">
+      <div className="p-2 max-w-[386px] w-full h-full flex flex-col gap-6 ml-12 pt-[7%]">
         {/* Logo div */}
         <div className=" py-9 w-[160px] h-[25px] flex justify-start items-center relative">
           <img src="assets/skygrit-logo.svg" alt="logo" />
@@ -40,10 +41,10 @@ const Login = () => {
             </label>
             <input
               id="email"
-              className="w-full h-[52px] border border-gray-600 rounded-[8px] px-3 text-[16px] text-[#202020] placeholder-[#8D8D8D] active:outline-none focus:outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 pr-12 cursor-pointer"
               type="email"
               name="email"
-              placeholder="Enter email address"
+              placeholder="Email address"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -53,28 +54,22 @@ const Login = () => {
             <label htmlFor="password" className="text-[16px] text-[#303030]">
               Password
             </label>
-            <span className="relative flex items-center">
+            <div className="relative">
               <input
-                id="password"
-                className="w-full h-[52px] border border-gray-600 rounded-[8px] px-3 text-[16px] text-[#202020] placeholder-[#8D8D8D] active:outline-none focus:outline-none"
                 type={showPassword ? "text" : "password"}
-                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 pr-12 cursor-pointer"
               />
               <button
                 type="button"
-                className="cursor-pointer flex justify-center items-center"
-                onClick={togglePassword}
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
               >
-                <img
-                  className="w-[24px] h-[24px] absolute right-3 cursor-pointer"
-                  src="assets/view.svg"
-                  alt="view"
-                />
+                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
               </button>
-            </span>
+            </div>
           </div>
 
           {/* Buttons */}
@@ -94,15 +89,21 @@ const Login = () => {
             </p>
           </div>
         </form>
+
+        <footer className="absolute bottom-5">
+            <div className="text-gray-800 opacity-50 text-sm">
+              Revolutionizing Post-Booking Airline Experience
+            </div>
+          </footer>
       </div>
       {/* Image */}
-      {/* <div className="h-[40rem] w-max mt-8 mr-10 bg-white"> */}
+      <div className="h-[40rem] py-2.5 w-max mt-0 mr-10 bg-white">
         <img
-          className="w-[45rem] h-[38rem] my-2 mr-6"
+          className="w-[100%] h-[100%] my-0 mr-6"
           src="assets/Frame.png"
           alt="img"
         />
-      {/* </div> */}
+      </div>
     </div>
   );
 };

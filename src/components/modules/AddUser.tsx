@@ -44,11 +44,14 @@ const AddUser = ({ onCancel }: ModulesProps) => {
             </select>
           </div>
 
-          <ModulesBtnSet text2="Create User" onCancel={onCancel} />
-        </form>
-      </div>
+        <ModulesBtnSet 
+          text2='Add User'
+          onCancel={onCancel}
+        />
+      </form>
     </div>
-  );
-};
+  </div>
+  )
+}
 
 export default AddUser;

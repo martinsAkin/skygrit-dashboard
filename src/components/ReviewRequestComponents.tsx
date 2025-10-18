@@ -221,6 +221,10 @@ export const RequestDetailsTable = ({
           {refundAmount}
         </span>
       </div>
+    <div className="py-6 px-2.5 bg-blue-200 text-gray-600 m-4 rounded-lg border border-blue-200">
+          <h2>Refund Amount</h2>
+          <span>{refundAmount}</span>
+    </div>
 
       <hr />
       <h2 className="p-2.5 text-xl text-[#111827] font-medium">
@@ -271,6 +275,19 @@ interface DocumentProps {
   size: any;
   dateUploaded: string;
 }
+export const DocumentUploaded = ({ fileName, size, dateUploaded }: DocumentProps) => {
+  return(
+    <div className="0 py-4 px-1.5 border border-gray-300 bg-gray-200 rounded-lg">
+        <div className="flex gap-4">
+            <img src={downloadClip} alt="clip" className="w-4.5 h-4.5"/>
+          <ul>
+            <li className="text-[13px] font-bold">{fileName}</li>
+            <li className="flex gap-1.5 text-[10px]">
+                <span>{size} MB</span>
+                <span>Uploaded on {dateUploaded} </span>
+            </li>
+          </ul>
+        </div>
 export const DocumentUploaded = ({
   fileName,
   size,
@@ -329,6 +346,10 @@ const ReqHistory = ({
 };
 
 export const RequestHistoryTable = () => {
+  return(
+    <div className="border border-gray-300 rounded-lg w-[27rem]">
+      <h2 className="p-3.5 mb-2">Request History</h2>
+      <hr/>
   return (
     <div className="border border-gray-300 rounded-lg w-[460px]">
       <h2 className="p-2.5 text-xl text-[#111827] font-medium">
@@ -367,7 +388,7 @@ export const CommunicationSection = () => {
   return (
     <div className="border border-gray-300 rounded-lg w-[460px]">
       <h2 className="p-3.5">Communication</h2>
-      <hr />
+      <hr className="border-gray-200"/>
 
       <div className="p-4">
         <input

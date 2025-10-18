@@ -61,14 +61,14 @@ const ManageRoles = () => {
          <section className="flex gap-4.5 flex-wrap mt-6">
           {Object.entries(data).map(([roleGroup, rolesArr]) => (
             <div key={roleGroup} className="w-max py-4 px-6 rounded-lg bg-gray-50 h-max">
-              <h3 className="font-bold text-lg mb-1">{roleGroup.replace(/_/g, " ")}</h3>
-              <span className="block mb-2 text-sm text-gray-600">
+              <h3 className="font-bold text-lg mb-1 text-gray-700">{roleGroup.replace(/_/g, " ")}</h3>
+              <span className="block mb-2 text-sm text-gray-500">
                 Total users with this role: {rolesArr.length}
               </span>
               {rolesArr.map((role, index) => (
                 <div key={index} className='list-none mt-2'>
-                  <span className='font-bold text-[15px]'>{role.name}</span>
-                  <ul className='text-[14px] list-none ml-2'>
+                  <span className='font-bold text-gray-600 text-[15px]'>{role.name}</span>
+                  <ul className='text-[14px] list-none ml-2 text-gray-700'>
                     {role.permissions.map((perm, i) => (
                       <li key={i}>{perm}</li>
                     ))}
@@ -76,7 +76,7 @@ const ManageRoles = () => {
                 </div>
               ))}
 
-               <div className='flex gap-2 mt-3'>
+               <div className='flex gap-2 mt-6'>
                  <button className='bg-white text-black role-btns'>Edit Roles</button>
                  <button className='bg-blue-700 text-white role-btns'>View Users</button>
                </div>

@@ -15,10 +15,10 @@ import Headbar from "./components/Headbar";
 
 function App() {
   const location = useLocation();
-  const hideSidebarRoutes = ["/login"];
+  const hideSidebarRoutes = ["/"];
   const shouldShowSidebar = !hideSidebarRoutes.includes(location.pathname);
 
-  const hideHeadbar = ["/login"];
+  const hideHeadbar = ["/"];
   const shouldHideHeadbar = !hideHeadbar.includes(location.pathname);
 
   return (
@@ -27,11 +27,11 @@ function App() {
     <div className="flex bg-[#ffffff]">
       {shouldShowSidebar && <Sidebar />}
 
-      <main className="flex-1 p-[24px] flex flex-col gap-2">
+      <main className="flex-1 px-2.5 py-1 flex flex-col gap-2">
         {shouldHideHeadbar && <Headbar />}
 
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/policy-management" element={<PolicyPage />} />
           <Route path="/requests/dashboard" element={<Request />} />
           <Route path="/requests/data" element={<RequestReview />} />
@@ -39,7 +39,7 @@ function App() {
           <Route path="/role-management" element={<ManageRoles />} />
           <Route path="/createPolicy" element={<CreatePolicy />} />
           <Route path="/audit" element={<AuditTrail />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
         </Routes>
       </main>
     </div>

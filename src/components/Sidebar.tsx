@@ -19,7 +19,7 @@ const Sidebar = () => {
     to: string;
   }
   const sideBar: sidebarType[] = [
-    { icon: homeIcon, title: "Dashboard", to: "/" },
+    { icon: homeIcon, title: "Dashboard", to: "/dashboard" },
     { icon: requestIcon, title: "Request", to: "/requests/dashboard" },
     { icon: policyIcon, title: "Policy Management", to: "/policy-management" },
     { icon: alertIcon, title: "Alert & Notifications", to: "/notifications" },
@@ -83,7 +83,7 @@ const Sidebar = () => {
               <p className="text-[11px] text-[#93C5FD]">Admin Account</p>
             </span>
           </div>
-          <NavLink to='/login' className="p-2 flex flex-row gap-3 items-center mt-3 cursor-pointer">
+          <NavLink to='/' className="p-2 flex flex-row gap-3 items-center mt-3 cursor-pointer">
             <img className="w-[24px]" src={logOutIcon} alt="" />
             <span>
               <p className="text-[16px] text-[#888991]">Logout</p>

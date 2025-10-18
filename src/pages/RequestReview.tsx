@@ -26,7 +26,7 @@ const RequestReview = () => {
         </button>
       </div>
 
-      <div className="flex flex-row gap-6">
+      <div className="flex flex-row gap-3">
         <RequestDetailsTable
           customerName="John Smith"
           customerEmail="johnsmith@example.com"

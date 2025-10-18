@@ -16,7 +16,7 @@ interface ReviewHeadingProps {
 
 export const ReviewHeading = ({ reqNo, reqDate }: ReviewHeadingProps) => {
   return (
-    <div>
+    <div className="py-2 px-14">
       <h1 className="text-[24px] font-semibold inline-block bg-gold-400">
         Review Request {reqNo}
       </h1>
@@ -77,195 +77,200 @@ export const RequestDetailsTable = ({
   accountNumber,
 }: CustomerDetailsProps) => {
   return (
-    <div className="flex flex-col  flex-1 border border-gray-300 rounded-lg">
-      <header className="flex justify-between px-3.5 py-4">
-        <div className="text-[14px] text-[#111827] font-semibold">
-          Request Details
-        </div>
-        <div className="flex items-center gap-2 bg-gray-300 px-3 py-1.5 rounded-2xl text-[12px]">
-          <span className="bg-[#FE8F31] w-[8px] h-[8px] rounded-full">
-            {""}
+    <section className="py-2 px-16 w-full">
+      <div className="flex flex-1 flex-col border border-gray-300 rounded-lg">
+        <header className="flex justify-between px-3.5 py-4">
+          <div className="text-[14px] text-[#111827] font-semibold">
+            Request Details
+          </div>
+          <div className="flex items-center gap-2 bg-gray-300 px-3 py-1.5 rounded-2xl text-[12px]">
+            <span className="bg-[#FE8F31] w-[8px] h-[8px] rounded-full">
+              {""}
+            </span>
+            <p className="text-[#374151] text-[12px] font-medium">Pending</p>
+          </div>
+        </header>
+        <hr />
+
+        <main className="p-6 flex justify-between">
+          <ul className="details-list">
+            <li>
+              <h1 className="details-heading">Customer</h1>
+              <div className="flex items-center gap-4">
+                <div className="bg-[#DBEAFE] p-1.5 rounded-[50%] h-max w-max">
+                  <img src={user} alt="p" className="w-[26px] h-[26px]" />
+                </div>
+                <div>
+                  <li className="details-span">{customerName}</li>
+                  <li className="text-[11px] text-[#6B7280]">
+                    {customerEmail}
+                  </li>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <h1 className="details-heading">Booking Reference</h1>
+              <span className="details-span">{bookingRefNo}</span>
+            </li>
+
+            <li>
+              <h1 className="details-heading">Request Type</h1>
+              <span className="details-span">{reqType}</span>
+            </li>
+
+            <li>
+              <h1 className="details-heading">Ticket Sales(Booking Source)</h1>
+              <span className="details-span">{TicketSale}</span>
+            </li>
+          </ul>
+
+          <ul className="details-list">
+            <li>
+              <h1 className="details-heading">Flight Date</h1>
+              <span className="details-span">
+                <img
+                  src={calender}
+                  alt="calender"
+                  className="w-4 h-4 mr-1.5 inline-block"
+                />
+                {flightDate}
+              </span>
+            </li>
+
+            <li>
+              <h1 className="details-heading">Ticket Class</h1>
+              <span className="details-span">{ticketClass}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Reason</h1>
+              <span className="details-span">{reason}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Route</h1>
+              <span className="details-span">{route}</span>
+            </li>
+          </ul>
+
+          <ul className="details-list">
+            <li>
+              <h1 className="details-heading">Ticket Class</h1>
+              <span className="details-span">{reqId}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Approved By</h1>
+              <span className="details-span">{approvedBy}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Ticket Type</h1>
+              <span className="details-span">{ticketType}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Approved On</h1>
+              <span className="details-span">
+                <img
+                  src={calender}
+                  alt="calender"
+                  className="w-4 h-4 mr-1.5 inline-block"
+                />
+                {approvedOn}
+              </span>
+            </li>
+          </ul>
+        </main>
+        <hr />
+        <h2 className="p-2.5 text-xl text-[#111827] font-medium">
+          Fare Breakdown
+        </h2>
+        <hr />
+
+        <main className="p-6 flex">
+          <ul className="details-list">
+            <li>
+              <h1 className="details-heading">Base Fare</h1>
+              <span className="details-span">N{baseFare}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Airport</h1>
+              <span className="details-span">{serviceFee}</span>
+            </li>
+          </ul>
+
+          <ul className="details-list">
+            <li>
+              <h1 className="details-heading">Tax & Govt Fees</h1>
+              <span className="details-span">{taxGovtFee}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Ancillary (Seat + Bag)</h1>
+              <span className="details-span">{ancillary}</span>
+            </li>
+          </ul>
+
+          <ul className="details-list">
+            <li>
+              <h1 className="details-heading">Fuel Surcharge</h1>
+              <span className="details-span">{FuelSurcharge}</span>
+            </li>
+            <li>
+              <h1 className="details-heading">Total</h1>
+              <span className="text-2xl font-bold">N{total}</span>
+            </li>
+          </ul>
+        </main>
+
+        <div className="py-6 px-2.5 bg-[#EFF6FF] text-gray-600 m-4 rounded-lg border border-[#DBEAFE]">
+          <h2 className="text-xl text-[#6B7280] font-medium">Refund Amount</h2>
+          <span className="text-[#111827] text-2xl font-semibold">
+            {refundAmount}
           </span>
-          <p className="text-[#374151] text-[12px] font-medium">Pending</p>
         </div>
-      </header>
-      <hr />
-      <main className="p-6 flex justify-between">
-        <ul className="details-list">
-          <li>
-            <h1 className="details-heading">Customer</h1>
-            <div className="flex items-center gap-4">
-              <div className="bg-[#DBEAFE] p-1.5 rounded-[50%] h-max w-max">
-                <img src={user} alt="p" className="w-[26px] h-[26px]" />
-              </div>
-              <div>
-                <li className="details-span">{customerName}</li>
-                <li className="text-[11px] text-[#6B7280]">{customerEmail}</li>
-              </div>
-            </div>
-          </li>
+        <div className="py-6 px-2.5 bg-blue-200 text-gray-600 m-4 rounded-lg border border-blue-200">
+          <h2>Refund Amount</h2>
+          <span>{refundAmount}</span>
+        </div>
 
-          <li>
-            <h1 className="details-heading">Booking Reference</h1>
-            <span className="details-span">{bookingRefNo}</span>
-          </li>
+        <hr />
+        <h2 className="p-2.5 text-xl text-[#111827] font-medium">
+          Payment Details
+        </h2>
+        <hr />
 
-          <li>
-            <h1 className="details-heading">Request Type</h1>
-            <span className="details-span">{reqType}</span>
+        <ul className="flex px-9 py-4">
+          <li className="flex-1">
+            <h1 className="details-heading">Account Name</h1>
+            <span className="details-span">{customerName}</span>
           </li>
-
-          <li>
-            <h1 className="details-heading">Ticket Sales(Booking Source)</h1>
-            <span className="details-span">{TicketSale}</span>
+          <li className="flex-1">
+            <h1 className="details-heading">Bank Name</h1>
+            <span className="details-span">{bankName}</span>
+          </li>
+          <li className="flex-1">
+            <h1 className="details-heading">Account Number</h1>
+            <span className="details-span">{accountNumber}</span>
           </li>
         </ul>
 
-        <ul className="details-list">
-          <li>
-            <h1 className="details-heading">Flight Date</h1>
-            <span className="details-span">
-              <img
-                src={calender}
-                alt="calender"
-                className="w-4 h-4 mr-1.5 inline-block"
-              />
-              {flightDate}
-            </span>
-          </li>
+        <hr />
+        <h2 className="p-2.5 text-xl text-[#111827] font-medium">
+          Supporting Documents
+        </h2>
+        <hr />
 
-          <li>
-            <h1 className="details-heading">Ticket Class</h1>
-            <span className="details-span">{ticketClass}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Reason</h1>
-            <span className="details-span">{reason}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Route</h1>
-            <span className="details-span">{route}</span>
-          </li>
-        </ul>
-
-        <ul className="details-list">
-          <li>
-            <h1 className="details-heading">Ticket Class</h1>
-            <span className="details-span">{reqId}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Approved By</h1>
-            <span className="details-span">{approvedBy}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Ticket Type</h1>
-            <span className="details-span">{ticketType}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Approved On</h1>
-            <span className="details-span">
-              <img
-                src={calender}
-                alt="calender"
-                className="w-4 h-4 mr-1.5 inline-block"
-              />
-              {approvedOn}
-            </span>
-          </li>
-        </ul>
-      </main>
-      <hr />
-      <h2 className="p-2.5 text-xl text-[#111827] font-medium">
-        Fare Breakdown
-      </h2>
-      <hr />
-
-      <main className="p-6 flex">
-        <ul className="details-list">
-          <li>
-            <h1 className="details-heading">Base Fare</h1>
-            <span className="details-span">N{baseFare}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Airport</h1>
-            <span className="details-span">{serviceFee}</span>
-          </li>
-        </ul>
-
-        <ul className="details-list">
-          <li>
-            <h1 className="details-heading">Tax & Govt Fees</h1>
-            <span className="details-span">{taxGovtFee}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Ancillary (Seat + Bag)</h1>
-            <span className="details-span">{ancillary}</span>
-          </li>
-        </ul>
-
-        <ul className="details-list">
-          <li>
-            <h1 className="details-heading">Fuel Surcharge</h1>
-            <span className="details-span">{FuelSurcharge}</span>
-          </li>
-          <li>
-            <h1 className="details-heading">Total</h1>
-            <span className="text-2xl font-bold">N{total}</span>
-          </li>
-        </ul>
-      </main>
-
-      <div className="py-6 px-2.5 bg-[#EFF6FF] text-gray-600 m-4 rounded-lg border border-[#DBEAFE]">
-        <h2 className="text-xl text-[#6B7280] font-medium">Refund Amount</h2>
-        <span className="text-[#111827] text-2xl font-semibold">
-          {refundAmount}
-        </span>
+        <div className="py-3.5 px-5 flex flex-col gap-1.5">
+          <DocumentUploaded
+            fileName="Medical Certificate"
+            size={1.2}
+            dateUploaded="Novermber 15, 2023"
+          />
+          <DocumentUploaded
+            fileName="Medical Certificate"
+            size={1.2}
+            dateUploaded="Novermber 15, 2023"
+          />
+        </div>
       </div>
-      <div className="py-6 px-2.5 bg-blue-200 text-gray-600 m-4 rounded-lg border border-blue-200">
-        <h2>Refund Amount</h2>
-        <span>{refundAmount}</span>
-      </div>
-
-      <hr />
-      <h2 className="p-2.5 text-xl text-[#111827] font-medium">
-        Payment Details
-      </h2>
-      <hr />
-
-      <ul className="flex px-9 py-4">
-        <li className="flex-1">
-          <h1 className="details-heading">Account Name</h1>
-          <span className="details-span">{customerName}</span>
-        </li>
-        <li className="flex-1">
-          <h1 className="details-heading">Bank Name</h1>
-          <span className="details-span">{bankName}</span>
-        </li>
-        <li className="flex-1">
-          <h1 className="details-heading">Account Number</h1>
-          <span className="details-span">{accountNumber}</span>
-        </li>
-      </ul>
-
-      <hr />
-      <h2 className="p-2.5 text-xl text-[#111827] font-medium">
-        Supporting Documents
-      </h2>
-      <hr />
-
-      <div className="py-3.5 px-5 flex flex-col gap-1.5">
-        <DocumentUploaded
-          fileName="Medical Certificate"
-          size={1.2}
-          dateUploaded="Novermber 15, 2023"
-        />
-        <DocumentUploaded
-          fileName="Medical Certificate"
-          size={1.2}
-          dateUploaded="Novermber 15, 2023"
-        />
-      </div>
-    </div>
+    </section>
   );
 };
 

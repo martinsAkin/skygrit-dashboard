@@ -1,0 +1,92 @@
+{
+ "Domestic": [
+    {
+      "id": 1,
+    "heading": "Standard Economy Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Active"
+   },
+   {
+    "id": 2,
+    "heading": "Business Class Refund Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Inactive"
+   },
+   {
+    "id": 3,
+    "heading": "First Class Refund Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Active"
+   },
+   {
+    "id": 4,
+    "heading": "Holiday Season Special Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Inactive"
+   }
+  ],
+  "International": [
+    {
+      "id": 1,
+    "heading": "Standard Economy Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Active"
+   },
+   {
+    "id": 2,
+    "heading": "Business Class Refund Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Inactive"
+   },
+   {
+    "id": 3,
+    "heading": "First Class Refund Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Active"
+   },
+   {
+    "id": 4,
+    "heading": "Holiday Season Special Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Inactive"
+   }
+  ],
+  "Regional": [
+    {
+      "id": 1,
+    "heading": "Standard Economy Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Active"
+   },
+   {
+    "id": 2,
+    "heading": "Business Class Refund Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Inactive"
+   },
+   {
+    "id": 3,
+    "heading": "First Class Refund Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Active"
+   },
+   {
+    "id": 4,
+    "heading": "Holiday Season Special Policy",
+    "desc": "Default refund policy for economy class tickets",
+    "lastUpdated": "2023-10-15",
+    "status": "Inactive"
+   }
+  ]
+}

@@ -1,65 +1,56 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
-import RefundCalculation from "./RefundCalculation";
+import React, { useState } from "react";
+// import RefundCalculation from "./RefundCalculation";
+import searchIcon from "/assets/Icons/Searchhh.svg";
+import type { FlightButtonsProps, FlightType, PolicyDetailsProps, PolicyListProps } from "../interface";
 
- const placeholderData = [
-   {
-    heading: "Standard Economy Policy",
-    desc: "Default refund policy for economy class tickets",
-    lastUpdate: "2023-10-15",
-    status: "Active"
-   },
-   {
-    heading: "Business Class Refund Policy",
-    desc: "Default refund policy for economy class tickets",
-    lastUpdate: "2023-10-15",
-    status: "Inactive"
-   },
-   {
-    heading: "First Class Refund Policy",
-    desc: "Default refund policy for economy class tickets",
-    lastUpdate: "2023-10-15",
-    status: "Active"
-   },
-   {
-    heading: "Holiday Season Special Policy",
-    desc: "Default refund policy for economy class tickets",
-    lastUpdate: "2023-10-15",
-    status: "Inactive"
-   }
- ]
+export const SearchPolicy = ({
+  policies,
+  selectedFlightType,
+  selectedPolicy,
+  onSelectPolicy
+}: PolicyListProps) => {
 
-export const SearchPolicy = () => {
+  // if (!selectedFlightType) {
+  //   return <p>Select a flight type to view available policies</p>
+  // }
 
-  const [active, setActive] = useState(placeholderData[0].heading);
+  // const [active, setActive] = useState(data[0].id);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
  return(
     <div className="border-1 border-gray-200 rounded-md w-[20rem] h-max">
-      <div className="p-2.5 mx-0">
-       <input
-        type="text"
-        name=""
-        id=""
-        placeholder="Search Policies"
-        className="bg-gray-400 p-1 rounded-sm text-sm w-[95%]"
-       />
-      </div>
+        <div className="flex flex-row w-[95%] m-2.5 px-4 py-2.5 gap-3 bg-gray-50 border border-gray-300 rounded items-center hover:border-blue-400 transition-colors">
+          <img src={searchIcon} alt="" />
+          <input
+            className="w-full outline-none text-[14px] font-medium bg-transparent placeholder-gray-400"
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search"
+          />
+        </div>
+
+        {/* <h2 className="text-lg font-semibold mb-3 capitalize">
+          {selectedFlightType} flight policies
+        </h2> */}
 
       <div>
-       {placeholderData.map((dataItems, index) => (
+       {policies.map((dataItems: any) => (
         <div 
-          key={index} 
-          onClick={() => setActive(dataItems.heading)}
-          className={`flex overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 p-1.5 hover:bg-teal-400 hover:border-l-1 hover:border-0 hover:border-b-0 hover:border-t-0 
+          key={dataItems.id} 
+          onClick={() => onSelectPolicy(dataItems)}
+          className={`flex overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 p-1.5 cursor-pointer
             ${
-              active === dataItems.heading ? "bg-teal-400 border-l-1 border-0 border-b-0 border-t-0" : ""
+              selectedPolicy?.id === dataItems.id ? "bg-[#EFF6FF] border-l-2 border-l-[#0D47A1] border-0 border-b-0 border-t-0" : ""
             }
             `}
         >
           <div className="flex flex-col gap-1">
            <h2>{dataItems.heading}</h2>
            <span className="text-[13px]">{dataItems.desc}</span>
-           <span className="text-[14px]">Last Updated: {dataItems.lastUpdate}</span>
+           <span className="text-[14px]">Last Updated: {dataItems.lastUpdated}</span>
           </div>
 
           <div className="status">{dataItems.status}</div>
@@ -70,25 +61,55 @@ export const SearchPolicy = () => {
  )
 }
 
-export const FlightTypeToggle = () => {
+
+
+  
+
+
+export const FlightTypeToggle: React.FC<FlightButtonsProps> = ({ selectedFlightType, onSelect }) => {
+
+  const flightTypes: FlightType[] =[
+    "Domestic",
+    "International",
+    "Regional"
+  ]
+
+  // const [selected, setSelected] = useState<string>(flightTypes[0]);
+  // const [ selectedSubTab, setSelectedSubTab ] = useState<"Domestic" | "International" | "Regional"> ("Domestic")
+
   return(
-    <div className="bg-blue-300 p-[5px] flex rounded-2xl w-max h-max">
-      <div className="flightType-toggle">Domestic Flight</div>
-      <div className="flightType-toggle">International Flight</div>
+
+    <div className="bg-[#EFF6FF] p-[5px] flex rounded-2xl w-max h-max gap-4">
+      {
+        flightTypes.map((flight):any => (
+          <div
+            key={flight}
+            onClick={() => onSelect(flight)}
+            className={`flightType-toggle cursor-pointer ${
+              selectedFlightType === flight 
+                ? "bg-blue-500 text-white"
+                : "bg-none"
+            }`}
+          >
+            {flight} Flight
+          </div>
+        ))
+      }
     </div>
   )
 }
 
-export const PolicyDetails = () => {
+export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
+  selectedFlightType,
+  selectedPolicy
+}) => {
 
-  const [ activeSubTab, setActiveSubTab ] = useState<"policyMatrix" | "refundAmount"> ("policyMatrix")
-  const Data = placeholderData[1]
-
-  return(
-    <section className="border border-gray-200 rounded-lg">
+  if(selectedPolicy){
+    return (
+      <section className="border border-gray-200 rounded-lg">
         <div className="flex justify-between items-center p-2.5">
           <span>Policy Details</span>
-          <button className="px-5 py-2 border border-gray-500 rounded-2xl">Edit</button>
+          <button className="px-5 py-2 border border-gray-200 rounded-2xl">Edit</button>
         </div>
 
         <hr />
@@ -98,61 +119,99 @@ export const PolicyDetails = () => {
             <ul className="flex gap-[10rem]">
               <li>
                 <h2 className="data-heading">Policy Name</h2>
-                <span className="data-value">{Data.heading}</span>
+                <span className="data-value">{selectedPolicy.heading}</span>
               </li>
               <li>
                 <h2 className="data-heading">Status</h2>
-                <span className="data-value">{Data.status}</span>
+                <span className="data-value">{selectedPolicy.status}</span>
               </li>
             </ul>
 
             <li className="mt-4">
               <h2 className="data-heading">Description</h2>
-              <span className="data-value">{Data.desc}</span>
+              <span className="data-value">{selectedPolicy.desc}</span>
             </li>
           </ol>  
         </div>
 
-          {/* css styling just to confirm something */}
-        <div className="flex gap-8 pl-[15px] pt-10 pb-3">
-          <button 
-            onClick={() => setActiveSubTab("policyMatrix")}
-            className={`
-              cursor-pointer 
-              hover:text-blue-400
-              transition ${
-                activeSubTab === "policyMatrix" ? "text-blue-600" : "text-black"
-              }
-              `}
-          >
-            Policy Matrix
-          </button>
-          <button 
-            onClick={() => setActiveSubTab("refundAmount")}
-            className={`
-              cursor-pointer 
-              hover:text-blue-400
-              transition ${
-                activeSubTab === "refundAmount" ? "text-blue-600" : "text-black"
-              }
-              `}
-          >
-            Refund Amounts
-          </button>
-        </div>
-        <hr />
-
-        <div>
-            {activeSubTab === "policyMatrix" && <TicketTable/> }
-            {activeSubTab === "refundAmount" && <RefundCalculation/> }
-        </div>
-        
-          {/* <section>
-              <TicketTable />
-          </section> */}
-
     </section>
-  )
+    )
+  }
+
+  if (selectedFlightType) {
+    return <p>Select a policy to view its details</p>
+  }
+
+  return <p>No policy selected yet!</p>
+
+  // const [ activeSubTab, setActiveSubTab ] = useState<"policyMatrix" | "refundAmount"> ("policyMatrix")
+  // const Data = placeholderData[1]
+
+  // return(
+  //   <section className="border border-gray-200 rounded-lg">
+  //       <div className="flex justify-between items-center p-2.5">
+  //         <span>Policy Details</span>
+  //         <button className="px-5 py-2 border border-gray-200 rounded-2xl">Edit</button>
+  //       </div>
+
+  //       <hr />
+
+  //       <div className="p-[10px]">
+  //         <ol className="list-none">
+  //           <ul className="flex gap-[10rem]">
+  //             <li>
+  //               <h2 className="data-heading">Policy Name</h2>
+  //               <span className="data-value">{Data.heading}</span>
+  //             </li>
+  //             <li>
+  //               <h2 className="data-heading">Status</h2>
+  //               <span className="data-value">{Data.status}</span>
+  //             </li>
+  //           </ul>
+
+  //           <li className="mt-4">
+  //             <h2 className="data-heading">Description</h2>
+  //             <span className="data-value">{Data.desc}</span>
+  //           </li>
+  //         </ol>  
+  //       </div>
+
+  //         {/* css styling just to confirm something */}
+  //       {/* <div className="flex gap-8 pl-[15px] pt-10 pb-3">
+  //         <button 
+  //           onClick={() => setActiveSubTab("policyMatrix")}
+  //           className={`
+  //             cursor-pointer 
+  //             hover:text-blue-400
+  //             transition ${
+  //               activeSubTab === "policyMatrix" ? "text-blue-600" : "text-black"
+  //             }
+  //             `}
+  //         >
+  //           Policy Matrix
+  //         </button>
+  //         <button 
+  //           onClick={() => setActiveSubTab("refundAmount")}
+  //           className={`
+  //             cursor-pointer 
+  //             hover:text-blue-400
+  //             transition ${
+  //               activeSubTab === "refundAmount" ? "text-blue-600" : "text-black"
+  //             }
+  //             `}
+  //         >
+  //           Refund Amounts
+  //         </button>
+  //       </div>
+  //       <hr />
+
+  //       <div>
+  //           {activeSubTab === "policyMatrix" && <TicketTable/> }
+  //           {activeSubTab === "refundAmount" && <RefundCalculation/> }
+  //       </div> */}
+
+  //   </section>
+  // )
 }
 
 
@@ -312,7 +371,7 @@ export default function TicketTable() {
       )}
        <div className="flex justify-between items-center p-2.5">
           <span className="text-2xl">Cancellation & Refund Policy Matrix</span>
-          <button className="px-5 py-2 border border-gray-500 rounded-2xl">Edit</button>
+          <button className="px-5 py-2 border border-gray-200 rounded-2xl">Edit</button>
         </div>
       <div className="overflow-x-auto rounded-lg">
         <table className="table-auto w-full bg-gray-200 shadow border-collapse">

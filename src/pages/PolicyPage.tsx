@@ -1,7 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Outlet, NavLink } from 'react-router-dom';
 import { FlightTypeToggle, PolicyDetails, SearchPolicy } from '../components/PolicyComponents'
+import { useState } from 'react';
+import flightPolicies from '../../public/data/FlightPolicyType.json'
+import type { Policy, FlightType } from '../interface';
 
 const PolicyPage: React.FC = () => {
+    const [selectedFlightType, setSelectedFlightType] = useState<FlightType | null>(null);
+    const [selectedPolicy, setSelectedPolicy] = useState<Policy | null>(null)
+    
+    const handleFlightTypeClick = (type: FlightType) => {
+      setSelectedFlightType(type);
+      setSelectedPolicy(null)
+    }
+
+    const handlePolicyClick = (policy: Policy) => {
+      setSelectedPolicy(policy)
+    }
+    const currentPolicies: Policy[] = selectedFlightType && 
+      Array.isArray(flightPolicies[selectedFlightType])
+      ? flightPolicies[selectedFlightType]
+      : [];
+
+
+    // const [ selectedSubTab, setSelectedSubTab ] = useState<string> ("Domestic")
   return (
     <div>
 
@@ -21,17 +43,30 @@ const PolicyPage: React.FC = () => {
         <Outlet />
 
         <div className='flex gap-[1rem]'>
-          <section className='flex'>
-           <SearchPolicy />
-          </section>
+            <section className='flex'>
+            <SearchPolicy 
+              policies={currentPolicies}
+              selectedFlightType={selectedFlightType}
+              selectedPolicy={selectedPolicy}
+              onSelectPolicy={handlePolicyClick}
+            />
+            </section>
+          
 
-          <div className='flex flex-col gap-4 w-[100%]'>
-            <FlightTypeToggle />
-            <PolicyDetails />
-          </div>
-
+            <div className='flex flex-col gap-4 w-[100%]'>
+                <div className="bg-[#EFF6FF] p-[5px] flex rounded-2xl w-max h-max gap-4">
+                  <FlightTypeToggle 
+                    selectedFlightType={selectedFlightType}
+                    onSelect={handleFlightTypeClick}
+                  />
+                </div>
+                  <PolicyDetails 
+                    selectedPolicy={selectedPolicy}
+                    selectedFlightType={selectedFlightType}
+                  />
+                
+            </div>
         </div>
-
       </main>
       
     </div>

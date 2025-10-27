@@ -75,3 +75,35 @@ export interface MenuUserMgtProps{
   onDelete: () =>  void
   onClose: () =>  void
 }
+
+export type FlightType = "Domestic" | "International" | "Regional"
+  
+export interface FlightButtonsProps {
+  selectedFlightType: FlightType | null;
+  onSelect: (type: FlightType) => void;
+}
+
+export interface Policy {
+  id: number;
+  heading: string
+  // name: string;
+  desc: string;
+  lastUpdated: string;
+  status: string
+}
+
+export interface PolicyListProps {
+  policies: Policy[];
+  selectedFlightType: FlightType | null;
+  selectedPolicy: Policy | null;
+  onSelectPolicy: (policy: Policy) => void;
+}
+
+export interface PolicyDetailsProps{
+  selectedPolicy: Policy | null;
+  selectedFlightType: FlightType | null;
+}
+
+export interface Refund {
+  [key: string]: string;
+}

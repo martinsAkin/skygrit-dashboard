@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import homeIcon from "/assets/Icons/house-simple.svg";
 import requestIcon from "/assets/Icons/arrows-left-right.svg";
 import policyIcon from "/assets/Icons/material-symbols_text-compare-outline.svg";
@@ -32,6 +34,7 @@ const Sidebar = () => {
   ];
 
   const [active, setActive] = useState(sideBar[0].title);
+  const navigate = useNavigate()
   return (
     <div>
       <div className="bg-[#030E20] w-[268px] h-[max-content] flex flex-col gap-[16px]">
@@ -83,7 +86,14 @@ const Sidebar = () => {
               <p className="text-[11px] text-[#93C5FD]">Admin Account</p>
             </span>
           </div>
-          <NavLink to='/' className="p-2 flex flex-row gap-3 items-center mt-3 cursor-pointer">
+          <NavLink 
+            to='/' 
+            className="p-2 flex flex-row gap-3 items-center mt-3 cursor-pointer"
+            onClick={()=> {
+              Cookies.remove("token");
+              navigate("/")
+            }}
+          >
             <img className="w-[24px]" src={logOutIcon} alt="" />
             <span>
               <p className="text-[16px] text-[#888991]">Logout</p>

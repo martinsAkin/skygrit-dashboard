@@ -9,7 +9,7 @@ import calender from "/assets/Icons/calender.png";
 import user from "/assets/Icons/user.png";
 
 interface ReviewHeadingProps {
-  reqNo: number;
+  reqNo: string | undefined;
   // reqDate should be a  date, to review later
   reqDate: string;
 }
@@ -41,12 +41,12 @@ interface CustomerDetailsProps {
   TicketSale: any;
   route: string;
   approvedOn: any;
-  baseFare: number;
-  taxGovtFee: number;
-  FuelSurcharge: number;
-  serviceFee: number;
-  ancillary: number;
-  total: number;
+  baseFare: any;
+  taxGovtFee: any;
+  FuelSurcharge: any;
+  serviceFee: any;
+  ancillary: any;
+  total: any;
   refundAmount: any;
   bankName: string;
   accountNumber: any;
@@ -92,11 +92,11 @@ export const RequestDetailsTable = ({
         </header>
         <hr />
 
-        <main className="p-6 flex justify-between">
+        <main className="p-4 flex justify-between gap-2.5">
           <ul className="details-list">
             <li>
               <h1 className="details-heading">Customer</h1>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
                 <div className="bg-[#DBEAFE] p-1.5 rounded-[50%] h-max w-max">
                   <img src={user} alt="p" className="w-[26px] h-[26px]" />
                 </div>
@@ -339,8 +339,8 @@ const ReqHistory = ({
 
 export const RequestHistoryTable = () => {
   return (
-    <div className="border border-gray-300 rounded-lg w-[460px]">
-      <h2 className="p-2.5 text-xl text-[#111827] font-medium">
+    <div className="border border-gray-300 rounded-lg w-[460px] mt-2">
+      <h2 className="p-4 text-bold text-[#111827] font-medium">
         Request History
       </h2>
       <hr />

@@ -1,20 +1,10 @@
 // import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FilterAndSearch from "./molecules/FilterAndSearch";
+import type { Refund } from "../interface";
 
-interface Refund {
-  id: string;
-  date: string;
-  customerName: string;
-  type: string;
-  email: string;
-  amount: string;
-  refundValue: string;
-  status: string;
-  actions: string;
-}
 
 const RequestRefundDashboard = () => {
   const categories = [
@@ -151,11 +141,11 @@ const RequestRefundDashboard = () => {
                   {item.status}
                 </td>
                 <td className="px-4 py-2 border-b border-gray-200 text-[12px]">
-                  <NavLink to="/requests/data">
+                  <Link to={`/details/${item.id}`}>
                     <button className="text-blue-600 hover:underline cursor-pointer">
                       {item.actions}
                     </button>
-                  </NavLink>
+                  </Link>
                 </td>
               </tr>
             ))}

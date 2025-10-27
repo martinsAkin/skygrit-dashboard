@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff } from 'lucide-react';
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,14 +9,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
 
-  // const togglePassword = () => {
-  //   setShowPassword(!showPassword);
-  // };
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent form reload
-    alert(email)
-    navigate("/dashboard"); // Redirect to dashboard
+    if (email === "test@example.com" && password === "1234"){
+      Cookies.set("token", "sampletoken123", { expires: 1 });
+      navigate("/dashboard");
+    } else{
+      alert("invalid credentials");
+    }
   };
   return (
     <div className="flex flex-row justify-between items-center h-[100%]">
@@ -33,7 +35,7 @@ const Login = () => {
         </div>
 
         {/* Form */}
-        <form action="#" className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form action="#" className="flex flex-col gap-4" onSubmit={handleLogin}>
           {/* Email */}
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="email" className="text-[16px] text-[#303030]">

@@ -5,14 +5,32 @@ import {
   ReviewHeading,
   VerifyClaim,
 } from "../components/ReviewRequestComponents";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import type { Refund } from "../interface";
+import axios from "axios";
 import prevPage from "/assets/Icons/move-left.png";
 
 const RequestReview = () => {
+  const { id } = useParams()
+
+  const [data, setData] = useState<Refund[]>([]);
+  
+    useEffect(() => {
+      axios
+        .get("/data/RequestRefundData.json")
+        .then((response) => setData(response.data))
+        .catch((error) => console.error("Error fetching JSON:", error));
+    }, []);
+
+    const userData = data.find(req => req.id === id)
+    if(!userData) return <p className="text-red-600 text-2xl">Request not found!</p>
+
   return (
-    <div className="ml-1.5">
+    <div className="">
       <div className="flex justify-between my-2.5">
-        <ReviewHeading reqNo={1001} reqDate="November 15, 2023" />
+        <ReviewHeading reqNo={userData.id} reqDate={userData.reqDate} />
 
         <button className="text-blue-950 bg-white rounded-md px-3.5 py-0 text-sm cursor-pointer">
           <NavLink to="/requests/dashboard">
@@ -26,30 +44,30 @@ const RequestReview = () => {
         </button>
       </div>
 
-      <div className="flex flex-row gap-3">
+      <div className="flex flex-row gap-0">
         <RequestDetailsTable
-          customerName="John Smith"
-          customerEmail="johnsmith@example.com"
-          bookingRefNo="AC48721"
-          reqType="Refund"
-          TicketSale={"Direct from airline"}
-          flightDate={"December 10, 2023"}
-          ticketClass="Yanky"
-          reason={"No Show"}
-          route="Domestic"
-          reqId={"REQ -10001"}
-          approvedBy="System"
-          ticketType="Individual"
-          approvedOn={"December 20, 2023"}
-          baseFare={200000}
-          taxGovtFee={10000}
-          FuelSurcharge={5000}
-          serviceFee={1000}
-          ancillary={0}
-          total={216000}
-          refundAmount={"-"}
-          bankName="Kuda MFB"
-          accountNumber={"011****445"}
+          customerName={userData.customerName}
+          customerEmail={userData.customerEmail}
+          bookingRefNo={userData.bookingRefNo}
+          reqType={userData.reqType}
+          TicketSale={userData.TicketSale}
+          flightDate={userData.flightDate}
+          ticketClass={userData.ticketClass}
+          reason={userData.reason}
+          route={userData.route}
+          reqId={userData.id}
+          approvedBy={userData.approvedBy}
+          ticketType={userData.ticketType}
+          approvedOn={userData.approvedOn}
+          baseFare={userData.baseFare}
+          taxGovtFee={userData.taxGovtFee}
+          FuelSurcharge={userData.FuelSurcharge}
+          serviceFee={userData.serviceFee}
+          ancillary={userData.ancillary}
+          total={userData.total}
+          refundAmount={userData.refundAmount}
+          bankName={userData.bankName}
+          accountNumber={userData.accountNumber}
         />
 
         <div className="flex flex-col gap-4">

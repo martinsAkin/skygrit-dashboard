@@ -28,7 +28,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1002",
@@ -59,7 +60,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1003",
@@ -90,7 +92,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1004",
@@ -121,7 +124,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1005",
@@ -152,7 +156,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1006",
@@ -183,7 +188,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1007",
@@ -214,7 +220,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1008",
@@ -245,7 +252,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Declined"
     },
     {
       "id": "1009",
@@ -276,7 +284,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Pending"
     },
     {
       "id": "1010",
@@ -307,7 +316,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Approved"
     },
     {
       "id": "1011",
@@ -338,7 +348,8 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Declined"
     },
     {
       "id": "1012",
@@ -369,6 +380,7 @@
       "total": "216000",
       "refundAmount": "-",
       "bankName": "Kuda MFB",
-      "accountNumber": "011****445"
+      "accountNumber": "011****445",
+      "reviewStatus": "Approved"
     }
    ]

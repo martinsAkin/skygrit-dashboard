@@ -50,6 +50,7 @@ interface CustomerDetailsProps {
   refundAmount: any;
   bankName: string;
   accountNumber: any;
+  reviewStatus: string;
 }
 
 export const RequestDetailsTable = ({
@@ -75,19 +76,30 @@ export const RequestDetailsTable = ({
   refundAmount,
   bankName,
   accountNumber,
+  reviewStatus,
 }: CustomerDetailsProps) => {
   return (
-    <section className="py-2 px-16 w-full">
-      <div className="flex flex-1 flex-col border border-gray-300 rounded-lg">
+    <section className="py-2 px-12 w-full">
+      <div className="flex flex-col border border-gray-300 rounded-lg">
         <header className="flex justify-between px-3.5 py-4">
           <div className="text-[14px] text-[#111827] font-semibold">
             Request Details
           </div>
           <div className="flex items-center gap-2 bg-gray-300 px-3 py-1.5 rounded-2xl text-[12px]">
-            <span className="bg-[#FE8F31] w-[8px] h-[8px] rounded-full">
+            <span
+              className={`w-[8px] h-[8px] rounded-full ${
+                reviewStatus === "Approved"
+                  ? "bg-green-500"
+                  : reviewStatus === "Declined"
+                  ? "bg-red-500"
+                  : "bg-[#FE8F31] "
+              }`}
+            >
               {""}
             </span>
-            <p className="text-[#374151] text-[12px] font-medium">Pending</p>
+            <p className="text-[#374151] text-[12px] font-medium">
+              {reviewStatus}
+            </p>
           </div>
         </header>
         <hr />
@@ -339,7 +351,7 @@ const ReqHistory = ({
 
 export const RequestHistoryTable = () => {
   return (
-    <div className="border border-gray-300 rounded-lg w-[460px] mt-2">
+    <div className="bg-amber-300 border border-gray-300 rounded-lg w-[460px] mt-2">
       <h2 className="p-4 text-bold text-[#111827] font-medium">
         Request History
       </h2>

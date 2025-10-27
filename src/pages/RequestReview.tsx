@@ -13,22 +13,23 @@ import axios from "axios";
 import prevPage from "/assets/Icons/move-left.png";
 
 const RequestReview = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
   const [data, setData] = useState<Refund[]>([]);
-  
-    useEffect(() => {
-      axios
-        .get("/data/RequestRefundData.json")
-        .then((response) => setData(response.data))
-        .catch((error) => console.error("Error fetching JSON:", error));
-    }, []);
 
-    const userData = data.find(req => req.id === id)
-    if(!userData) return <p className="text-red-600 text-2xl">Request not found!</p>
+  useEffect(() => {
+    axios
+      .get("/data/RequestRefundData.json")
+      .then((response) => setData(response.data))
+      .catch((error) => console.error("Error fetching JSON:", error));
+  }, []);
+
+  const userData = data.find((req) => req.id === id);
+  if (!userData)
+    return <p className="text-red-600 text-2xl">Request not found!</p>;
 
   return (
-    <div className="">
+    <div className="w-full">
       <div className="flex justify-between my-2.5">
         <ReviewHeading reqNo={userData.id} reqDate={userData.reqDate} />
 
@@ -44,7 +45,7 @@ const RequestReview = () => {
         </button>
       </div>
 
-      <div className="flex flex-row gap-0">
+      <div className="flex flex-row">
         <RequestDetailsTable
           customerName={userData.customerName}
           customerEmail={userData.customerEmail}
@@ -68,6 +69,7 @@ const RequestReview = () => {
           refundAmount={userData.refundAmount}
           bankName={userData.bankName}
           accountNumber={userData.accountNumber}
+          reviewStatus={userData.reviewStatus}
         />
 
         <div className="flex flex-col gap-4">

@@ -20,7 +20,7 @@ const AddUser = ({ onCancel }: ModulesProps) => {
             <input
               type="text"
               placeholder="Enter Name"
-              className="addUdserForm-input"
+              className="addUserForm-input"
             />
           </div>
           <div className="addUserForm-div">
@@ -31,6 +31,7 @@ const AddUser = ({ onCancel }: ModulesProps) => {
               type="email"
               placeholder="Enter email address"
               className="addUserForm-input"
+              required
             />
           </div>
           <div className="addUserForm-div">
@@ -44,14 +45,11 @@ const AddUser = ({ onCancel }: ModulesProps) => {
             </select>
           </div>
 
-        <ModulesBtnSet 
-          text2='Add User'
-          onCancel={onCancel}
-        />
-      </form>
+          <ModulesBtnSet text2="Add User" onCancel={onCancel} />
+        </form>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
 export default AddUser;

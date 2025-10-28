@@ -1,7 +1,6 @@
 import { useState } from "react";
-import type { ModulesProps } from "../../interface";
 
-const ApprovePaymentUpdate = ({ onCancel }: ModulesProps) => {
+const ApprovePaymentUpdate = () => {
   const [visible, setVisible] = useState(false);
   const handleCancel = () => {
     setVisible(!visible);
@@ -9,7 +8,8 @@ const ApprovePaymentUpdate = ({ onCancel }: ModulesProps) => {
 
   return (
     <div
-      className={`flex justify-center items-center bg-black w-screen h-screen backdrop-blur-xl ${
+      // className="fixed inset-0 bg-black/50 flex justify-center items-center z-50"
+      className={`fixed inset-0 bg-black/50 flex justify-center items-center z-50 ${
         !visible ? "" : "hidden"
       }`}
     >
@@ -60,7 +60,7 @@ const ApprovePaymentUpdate = ({ onCancel }: ModulesProps) => {
           <div className="w-full h-[44px] flex gap-[10px] mt-8">
             <button
               className="w-[218px] h-[44px] border-2 border-[#E8E8E8] rounded-[4px] text-[16px] text-[#121212] font-medium"
-              onClick={onCancel}
+              onClick={handleCancel}
             >
               Cancel
             </button>

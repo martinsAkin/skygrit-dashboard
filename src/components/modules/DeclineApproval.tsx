@@ -7,7 +7,7 @@ const DeclineApproval = () => {
   };
   return (
     <div
-      className={`flex justify-center items-center bg-black w-screen h-screen backdrop-blur-xl ${
+      className={`fixed inset-0 bg-black/50 flex justify-center items-center z-50 ${
         !visible ? "" : "hidden"
       }`}
     >

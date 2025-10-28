@@ -2,14 +2,14 @@ import { useState } from "react";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
 import type { ModulesProps } from "../../interface";
 
-const RemoveTicketClass = ({onCancel}: ModulesProps) => {
+const RemoveTicketClass = ({ onCancel }: ModulesProps) => {
   const [visible, setVisible] = useState(false);
   const handleCancel = () => {
     setVisible(!visible);
   };
   return (
     <div
-      className={`flex justify-center items-center bg-black w-screen h-screen backdrop-blur-xl ${
+      className={`fixed inset-0 bg-black/50 flex justify-center items-center z-50 ${
         !visible ? "" : "hidden"
       }`}
     >
@@ -38,7 +38,7 @@ const RemoveTicketClass = ({onCancel}: ModulesProps) => {
             </h2>
           </div>
 
-          <ModulesBtnSet text2="Remove" onCancel={onCancel}/>
+          <ModulesBtnSet text2="Remove" onCancel={onCancel} />
         </div>
       </div>
     </div>

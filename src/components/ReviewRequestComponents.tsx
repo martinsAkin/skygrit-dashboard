@@ -7,6 +7,9 @@ import downloadClip from "/assets/Icons/clip.png";
 import calender from "/assets/Icons/calender.png";
 // import send from "/assets/Icons/send.png"
 import user from "/assets/Icons/user.png";
+import { useState } from "react";
+import ApprovePaymentUpdate from "./modules/ApprovePaymentUpdate";
+import DeclineApproval from "./modules/DeclineApproval";
 
 interface ReviewHeadingProps {
   reqNo: string | undefined;
@@ -104,7 +107,7 @@ export const RequestDetailsTable = ({
         </header>
         <hr />
 
-        <main className="p-4 flex justify-between gap-2.5">
+        <main className="p-4 flex justify-between gap-16">
           <ul className="details-list">
             <li>
               <h1 className="details-heading">Customer</h1>
@@ -237,13 +240,9 @@ export const RequestDetailsTable = ({
             {refundAmount}
           </span>
         </div>
-        <div className="py-6 px-2.5 bg-blue-200 text-gray-600 m-4 rounded-lg border border-blue-200">
-          <h2>Refund Amount</h2>
-          <span>{refundAmount}</span>
-        </div>
 
         <hr />
-        <h2 className="p-2.5 text-xl text-[#111827] font-medium">
+        <h2 className="p-2.5 text-[16px] text-[#111827] font-medium">
           Payment Details
         </h2>
         <hr />
@@ -264,7 +263,7 @@ export const RequestDetailsTable = ({
         </ul>
 
         <hr />
-        <h2 className="p-2.5 text-xl text-[#111827] font-medium">
+        <h2 className="p-2.5 text-[16px] text-[#111827] font-medium">
           Supporting Documents
         </h2>
         <hr />
@@ -351,7 +350,7 @@ const ReqHistory = ({
 
 export const RequestHistoryTable = () => {
   return (
-    <div className="bg-amber-300 border border-gray-300 rounded-lg w-[460px] mt-2">
+    <div className=" border border-gray-300 rounded-lg w-[460px] mt-2">
       <h2 className="p-4 text-bold text-[#111827] font-medium">
         Request History
       </h2>
@@ -387,7 +386,7 @@ export const RequestHistoryTable = () => {
 export const CommunicationSection = () => {
   return (
     <div className="border border-gray-300 rounded-lg w-[460px]">
-      <h2 className="p-3.5">Communication</h2>
+      <h2 className="p-3.5 text-[16px]">Communication</h2>
       <hr className="border-gray-200" />
 
       <div className="p-4">
@@ -409,9 +408,14 @@ export const VerifyClaim = ({
   verifiedOn,
   approver,
 }: VerifyClaimsProps) => {
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const handleApprovalModule = () => {
+    setActiveModal("approval");
+  };
+  const handleDeclineModule = () => setActiveModal("decline");
   return (
     <div className="border border-gray-300 rounded-lg w-[460px]">
-      <h2 className="p-3.5">Verification</h2>
+      <h2 className="p-3.5 text-[16px]">Verification</h2>
       <hr />
 
       <div className="p-4 mt-4">
@@ -452,16 +456,18 @@ export const VerifyClaim = ({
         </div>
 
         <section className="flex gap-[4%] mt-20">
-          <button className="verification-btn">
+          <button className="verification-btn" onClick={handleDeclineModule}>
             <img src={cancel} alt="x" className="w-4.5 h-4.5" />
             <span className="text-red-700">Decline</span>
           </button>
-          <button className="verification-btn">
+          <button className="verification-btn" onClick={handleApprovalModule}>
             <img src={confirm} alt="check" className="w-4.5 h-4.5" />
             <span className="text-green-600">Approve</span>
           </button>
         </section>
       </div>
+      {activeModal === "approval" && <ApprovePaymentUpdate />}
+      {activeModal === "decline" && <DeclineApproval />}
     </div>
   );
 };

@@ -116,10 +116,10 @@ export const RequestDetailsTable = ({
                   <img src={user} alt="p" className="w-[26px] h-[26px]" />
                 </div>
                 <div>
-                  <li className="details-span">{customerName}</li>
-                  <li className="text-[11px] text-[#6B7280]">
+                  <span className="details-span">{customerName}</span>
+                  <span className="text-[11px] text-[#6B7280]">
                     {customerEmail}
-                  </li>
+                  </span>
                 </div>
               </div>
             </li>

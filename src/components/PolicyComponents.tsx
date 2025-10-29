@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-// import RefundCalculation from "./RefundCalculation";
+import RefundCalculation from "./RefundCalculation";
+import TicketTable from '../components/PolicyComponents'
 import searchIcon from "/assets/Icons/Searchhh.svg";
 import type { FlightButtonsProps, FlightType, PolicyDetailsProps, PolicyListProps } from "../interface";
 
@@ -38,8 +39,8 @@ export const SearchPolicy = ({
 
       <div>
        {policies.map((dataItems: any) => (
-        <div 
-          key={dataItems.id} 
+        <div
+          key={dataItems.id}
           onClick={() => onSelectPolicy(dataItems)}
           className={`flex overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 p-1.5 cursor-pointer
             ${
@@ -63,7 +64,7 @@ export const SearchPolicy = ({
 
 
 
-  
+
 
 
 export const FlightTypeToggle: React.FC<FlightButtonsProps> = ({ selectedFlightType, onSelect }) => {
@@ -86,7 +87,7 @@ export const FlightTypeToggle: React.FC<FlightButtonsProps> = ({ selectedFlightT
             key={flight}
             onClick={() => onSelect(flight)}
             className={`flightType-toggle cursor-pointer ${
-              selectedFlightType === flight 
+              selectedFlightType === flight
                 ? "bg-blue-500 text-white"
                 : "bg-none"
             }`}
@@ -103,6 +104,8 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
   selectedFlightType,
   selectedPolicy
 }) => {
+
+   const [ activeSubTab, setActiveSubTab ] = useState<"policyMatrix" | "refundAmount"> ("policyMatrix")
 
   if(selectedPolicy){
     return (
@@ -131,8 +134,41 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
               <h2 className="data-heading">Description</h2>
               <span className="data-value">{selectedPolicy.desc}</span>
             </li>
-          </ol>  
+          </ol>
         </div>
+
+        <div className="flex gap-8 pl-[15px] pt-10 pb-3">
+               <button
+                 onClick={() => setActiveSubTab("policyMatrix")}
+                 className={`
+                   cursor-pointer
+                   hover:text-blue-400
+                   transition ${
+                     activeSubTab === "policyMatrix" ? "text-blue-600" : "text-black"
+                   }
+                   `}
+                >
+                  Policy Matrix
+                </button>
+                <button
+                  onClick={() => setActiveSubTab("refundAmount")}
+                 className={`
+                   cursor-pointer
+                   hover:text-blue-400
+                   transition ${
+                     activeSubTab === "refundAmount" ? "text-blue-600" : "text-black"
+                   }
+                   `}
+               >
+                  Refund Amounts
+                </button>
+              </div>
+              <hr />
+
+              <div>
+                  {activeSubTab === "policyMatrix" && <TicketTable/> }
+                  {activeSubTab === "refundAmount" && <RefundCalculation/> }
+              </div>
 
     </section>
     )
@@ -143,75 +179,6 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
   }
 
   return <p>No policy selected yet!</p>
-
-  // const [ activeSubTab, setActiveSubTab ] = useState<"policyMatrix" | "refundAmount"> ("policyMatrix")
-  // const Data = placeholderData[1]
-
-  // return(
-  //   <section className="border border-gray-200 rounded-lg">
-  //       <div className="flex justify-between items-center p-2.5">
-  //         <span>Policy Details</span>
-  //         <button className="px-5 py-2 border border-gray-200 rounded-2xl">Edit</button>
-  //       </div>
-
-  //       <hr />
-
-  //       <div className="p-[10px]">
-  //         <ol className="list-none">
-  //           <ul className="flex gap-[10rem]">
-  //             <li>
-  //               <h2 className="data-heading">Policy Name</h2>
-  //               <span className="data-value">{Data.heading}</span>
-  //             </li>
-  //             <li>
-  //               <h2 className="data-heading">Status</h2>
-  //               <span className="data-value">{Data.status}</span>
-  //             </li>
-  //           </ul>
-
-  //           <li className="mt-4">
-  //             <h2 className="data-heading">Description</h2>
-  //             <span className="data-value">{Data.desc}</span>
-  //           </li>
-  //         </ol>  
-  //       </div>
-
-  //         {/* css styling just to confirm something */}
-  //       {/* <div className="flex gap-8 pl-[15px] pt-10 pb-3">
-  //         <button 
-  //           onClick={() => setActiveSubTab("policyMatrix")}
-  //           className={`
-  //             cursor-pointer 
-  //             hover:text-blue-400
-  //             transition ${
-  //               activeSubTab === "policyMatrix" ? "text-blue-600" : "text-black"
-  //             }
-  //             `}
-  //         >
-  //           Policy Matrix
-  //         </button>
-  //         <button 
-  //           onClick={() => setActiveSubTab("refundAmount")}
-  //           className={`
-  //             cursor-pointer 
-  //             hover:text-blue-400
-  //             transition ${
-  //               activeSubTab === "refundAmount" ? "text-blue-600" : "text-black"
-  //             }
-  //             `}
-  //         >
-  //           Refund Amounts
-  //         </button>
-  //       </div>
-  //       <hr />
-
-  //       <div>
-  //           {activeSubTab === "policyMatrix" && <TicketTable/> }
-  //           {activeSubTab === "refundAmount" && <RefundCalculation/> }
-  //       </div> */}
-
-  //   </section>
-  // )
 }
 
 
@@ -237,7 +204,7 @@ export default function TicketTable() {
     { name: "Martins" },
     { name: "Nancy" },
     { name: "Bravo" },
-    { name: "Skygrit" },  
+    { name: "Skygrit" },
   ]);
 
   // 🔹 Mock ticket class data

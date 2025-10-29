@@ -21,16 +21,16 @@ body {
   @apply px-4 py-2;
 }
 .status{
-  @apply bg-blue-300 text-white rounded-md p-2 h-max text-[11px]
+  @apply bg-[#DCFCE7] flex items-center text-[#166534] rounded-full px-2.5 py-1.5 text-[11px]
 }
 .flightType-toggle{
-  @apply rounded-2xl text-[13px] px-4 py-1.5
+  @apply rounded-full text-[13px] px-9 py-2
 }
 .data-heading{
-  @apply text-[12px] font-bold
+  @apply text-[12px] font-medium text-[#374151]
 }
 .data-value{
-  @apply font-bold
+  @apply font-bold text-[14px]
 }
 .details-list{
   @apply flex flex-col gap-6 flex-1

@@ -1,21 +1,21 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { Eye, EyeOff } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import Cookies from "js-cookie";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (email === "test@example.com" && password === "1234"){
+    if (email === "test@example.com" && password === "1234") {
       Cookies.set("token", "sampletoken123", { expires: 1 });
       navigate("/dashboard");
-    } else{
+    } else {
       alert("invalid credentials");
     }
   };
@@ -23,9 +23,9 @@ const Login = () => {
     <div className="flex flex-row justify-between items-center h-[100%]">
       <div className="p-2 max-w-[386px] w-full h-full flex flex-col gap-6 ml-12 pt-[7%]">
         {/* Logo div */}
-        <div className=" py-9 w-[160px] h-[25px] flex justify-start items-center relative">
-          <img src="assets/skygrit-logo.svg" alt="logo" />
-          <span className="absolute right-0 top-3.5">
+        <div className=" py-9 w-[157px] h-[25px] flex justify-start items-center relative">
+          <img src="assets/SkygritLogo.svg" alt="logo" />
+          <span className="absolute right-[-7px] top-3">
             <img
               className="w-[16px] h-[16px]"
               src="assets/ph_trademark.svg"
@@ -93,10 +93,10 @@ const Login = () => {
         </form>
 
         <footer className="absolute bottom-5">
-            <div className="text-gray-800 opacity-50 text-sm">
-              Revolutionizing Post-Booking Airline Experience
-            </div>
-          </footer>
+          <div className="text-gray-800 opacity-50 text-sm">
+            Revolutionizing Post-Booking Airline Experience
+          </div>
+        </footer>
       </div>
       {/* Image */}
       <div className="h-[40rem] py-2.5 w-max mt-0 mr-10 bg-white">

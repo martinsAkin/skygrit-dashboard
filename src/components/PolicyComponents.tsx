@@ -65,7 +65,15 @@ export const SearchPolicy = ({
               </span>
             </div>
 
-            <div className="status">{dataItems.status}</div>
+            <div
+              className={
+                dataItems.status === "Active"
+                  ? "status"
+                  : "bg-[#F3F4F6] flex items-center rounded-full px-2.5 py-1.5 text-[11px]"
+              }
+            >
+              {dataItems.status}
+            </div>
           </div>
         ))}
       </div>
@@ -143,7 +151,7 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
           </ol>
         </div>
 
-        <div className="flex gap-8 pl-[15px] pt-10 pb-3">
+        {/* <div className="flex gap-8 pl-[15px] pt-10 pb-3 bg-amber-500 relative">
           <button
             onClick={() => setActiveSubTab("policyMatrix")}
             className={`
@@ -186,7 +194,29 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
           >
             Rerouting
           </button>
+        </div> */}
+        <div className="flex gap-8 pl-[15px] pt-10 pb-3">
+          {[
+            { id: "policyMatrix", label: "Policy Matrix" },
+            { id: "refundAmount", label: "Refund Amounts" },
+            { id: "reRouting", label: "Rerouting" },
+          ].map(({ id, label }: any) => (
+            <div key={id} className="relative">
+              <button
+                onClick={() => setActiveSubTab(id)}
+                className={`cursor-pointer hover:text-blue-400 transition text-sm ${
+                  activeSubTab === id ? "text-blue-600" : "text-[#6B7280]"
+                }`}
+              >
+                {label}
+              </button>
+              {activeSubTab === id && (
+                <span className="absolute left-0 right-0 bottom-[-4px] h-[3px] bg-[#0D47A1] rounded-t-sm"></span>
+              )}
+            </div>
+          ))}
         </div>
+
         <hr />
 
         <div>
@@ -366,16 +396,16 @@ export default function TicketTable() {
         <table className="table-auto w-full bg-gray-200 shadow border-collapse">
           <thead>
             <tr>
-              <th className="border border-gray-300 p-[0.35rem] text-[11px] font-bold text-left">
+              <th className="border border-gray-300 p-[0.35rem] text-sm font-medium text-left text-[#263238]">
                 Categories
               </th>
-              <th className="border border-gray-300 p-[0.35rem] text-[11px] font-bold text-left">
+              <th className="border border-gray-300 p-[0.35rem] text-sm font-medium text-left text-[#263238]">
                 Sub-categories
               </th>
               {headers.map((header, idx) => (
                 <th
                   key={idx}
-                  className="border p-2 text-[10px] border-gray-400 text-gray-700"
+                  className="border p-2 text-[12px] font-medium border-gray-400 text-[#263238]"
                 >
                   {header.name}
                 </th>
@@ -391,13 +421,13 @@ export default function TicketTable() {
                   <tr key={key} className="text-[10px]">
                     {i === 0 && (
                       <th
-                        className="border border-gray-400 p-[0.35rem] pr-0 text-gray-800 text-left"
+                        className="border border-gray-400 p-[0.35rem] pr-0 text-sm font-medium text-left"
                         rowSpan={keys.length}
                       >
                         {groupLabel}
                       </th>
                     )}
-                    <th className="border p-[0.35rem] border-gray-400 text-left">
+                    <th className="border p-[0.35rem] border-gray-400 text-left text-sm font-medium">
                       {rowHeader.label}
                     </th>
                     {headers.map((header) => {
@@ -432,12 +462,17 @@ export default function TicketTable() {
           </tbody>
         </table>
       </div>
-      <button
-        onClick={handleSave}
-        className="mt-6 block mx-auto px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        Save Changes
-      </button>
+      <div className="flex flex-row items-center justify-end gap-4 mt-3">
+        <button className=" px-6 py-2 border border-[#D1D5DB] rounded hover:bg-gray-300">
+          Cancel
+        </button>
+        <button
+          onClick={handleSave}
+          className=" px-6 py-2 bg-[#0D47A1] text-white rounded hover:bg-blue-700"
+        >
+          Save Changes
+        </button>
+      </div>
     </div>
   );
 }

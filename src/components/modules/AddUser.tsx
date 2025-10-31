@@ -4,10 +4,10 @@ import ModulesBtnSet from "../molecules/ModulesBtnSet";
 const AddUser = ({ onCancel }: ModulesProps) => {
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-5 w-[30rem]">
+      <div className="bg-white rounded-lg px-7 py-6">
         <div className="mb-4">
-          <h1 className="text-[25px]">Add User</h1>
-          <span className="text-[13px]">
+          <h1 className="text-[25px] text-[#374151]">Add User</h1>
+          <span className="text-[12px] text-[#374151]">
             Provide required information to create a user
           </span>
         </div>

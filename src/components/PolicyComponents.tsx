@@ -348,32 +348,32 @@ export default function TicketTable() {
   };
 
   return (
-    <div className="p-1.5 bg-gray-100 min-h-screen">
+    <div className="p-3 bg-[#FAFAFA] rounded-lg h-full m-4">
       {responseMessage && (
-        <pre className="bg-gray-200 p-4 rounded mb-6 max-w-3xl mx-auto whitespace-pre-wrap">
+        <pre className=" p-4 mb-6 max-w-3xl mx-auto whitespace-pre-wrap">
           {responseMessage}
         </pre>
       )}
       <div className="flex justify-between items-center p-2.5">
-        <span className="text-2xl">Cancellation & Refund Policy Matrix</span>
+        <span className="text-2xl">Eligibility Conditions</span>
         <button className="px-5 py-2 border border-gray-200 rounded-2xl">
           Edit
         </button>
       </div>
       <div className="overflow-x-auto rounded-lg">
-        <table className="table-auto w-full bg-gray-200 shadow border-collapse">
+        <table className="table-auto w-full bg-[#FAFAFA] shadow border-collapse">
           <thead>
             <tr>
-              <th className="border border-gray-300 p-[0.35rem] text-sm font-medium text-left text-[#263238]">
+              <th className="border border-[#CBD5E1] p-[0.35rem] text-[13px] font-medium text-left text-[#263238]">
                 Categories
               </th>
-              <th className="border border-gray-300 p-[0.35rem] text-sm font-medium text-left text-[#263238]">
+              <th className="border border-[#CBD5E1] p-[0.35rem] text-[13px] font-medium text-left text-[#263238]">
                 Sub-categories
               </th>
               {headers.map((header, idx) => (
                 <th
                   key={idx}
-                  className="border p-2 text-[12px] font-medium border-gray-400 text-[#263238]"
+                  className="border p-2 text-[13px] font-medium border-[#CBD5E1] text-[#263238]"
                 >
                   {header.name}
                 </th>
@@ -386,16 +386,16 @@ export default function TicketTable() {
                 const rowHeader = rowHeaders.find((rh) => rh.key === key);
                 if (!rowHeader) return null;
                 return (
-                  <tr key={key} className="text-[10px]">
+                  <tr key={key}>
                     {i === 0 && (
                       <th
-                        className="border border-gray-400 p-[0.35rem] pr-0 text-sm font-medium text-left"
+                        className="border border-[#CBD5E1] p-[0.35rem] pr-0 text-[12px] font-medium text-left"
                         rowSpan={keys.length}
                       >
                         {groupLabel}
                       </th>
                     )}
-                    <th className="border p-[0.35rem] border-gray-400 text-left text-sm font-medium">
+                    <th className="border p-[0.35rem] border-[#CBD5E1] text-left text-[12px] font-medium">
                       {rowHeader.label}
                     </th>
                     {headers.map((header) => {
@@ -406,7 +406,7 @@ export default function TicketTable() {
                       return (
                         <td
                           key={header.name + key}
-                          className="border p-2 text-left border-gray-400"
+                          className="border p-2 text-left border-[#CBD5E1]"
                         >
                           <input
                             type="checkbox"

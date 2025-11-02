@@ -4,7 +4,6 @@ import type { RefundRowType, RefundData } from "../interface";
 import RefundTable, { ActionButtons } from "./RefundTable";
 import { useEffect, useState } from "react";
 
-
 const refundRows: RefundRowType[] = [
   { label: "Refund Timeline", type: "select", key: "refundTimeLine" },
   { label: "Min Hour To Flight", type: "number", key: "minHoursBeforeFlight" },
@@ -14,7 +13,11 @@ const refundRows: RefundRowType[] = [
   { label: "Fuel Surcharge", type: "number", key: "fuelSurcharge" },
   { label: "Airport Service Fees", type: "number", key: "airportServiceFees" },
   { label: "Ancillary (seat + bag)", type: "number", key: "ancillary" },
-  { label: "Penalty fee (% or flat rate)", type: "number", key: "penaltyValue" },
+  {
+    label: "Penalty fee (% or flat rate)",
+    type: "number",
+    key: "penaltyValue",
+  },
 ];
 
 const refundTimelineOptions = [
@@ -97,7 +100,11 @@ export default function RefundCalculation() {
           if (input) {
             const value = input.value;
             row[r.key] =
-              value === "" ? null : isNaN(Number(value)) ? value : Number(value);
+              value === ""
+                ? null
+                : isNaN(Number(value))
+                ? value
+                : Number(value);
             if (value !== String(input.dataset.original)) {
               row._changed = true;
             }

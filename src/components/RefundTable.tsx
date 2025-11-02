@@ -1,5 +1,9 @@
-import type { RefundTableProps, RefundCellProps, RefundRowProps, ActionBtnProps } from "../interface";
-
+import type {
+  RefundTableProps,
+  RefundCellProps,
+  RefundRowProps,
+  ActionBtnProps,
+} from "../interface";
 
 export default function RefundTable({
   ticketClasses,
@@ -49,8 +53,6 @@ export default function RefundTable({
   );
 }
 
-
-
 export function RefundRow({
   reason,
   row,
@@ -63,10 +65,7 @@ export function RefundRow({
   return (
     <tr>
       {idx === 0 && (
-        <th
-          className="border border-gray-200 relative bg-blue-50"
-          rowSpan={9}
-        >
+        <th className="border border-gray-200 relative bg-blue-50" rowSpan={9}>
           {reason}
         </th>
       )}
@@ -87,9 +86,6 @@ export function RefundRow({
     </tr>
   );
 }
-
-
-
 
 export function RefundCell({
   reason,
@@ -136,9 +132,6 @@ export function RefundCell({
     </td>
   );
 }
-
-
-
 
 export function ActionButtons({ changed, onSave, onCancel }: ActionBtnProps) {
   return (

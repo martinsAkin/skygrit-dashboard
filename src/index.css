@@ -61,16 +61,16 @@ body {
   @apply text-[13px] hover:bg-blue-500 hover:text-red-500 rounded-md p-1 cursor-pointer
 }
 .addUserForm-div{
-  @apply flex flex-col gap-[0.3rem]
+  @apply flex flex-col gap-[0.5rem] mb-4
 }
 .addUserForm-label{
-  @apply font-bold text-[13px]
+  @apply text-[14px] font-medium text-[#1F2937]
 }
 .addUserForm-input{
-  @apply border border-gray-500 rounded-lg p-2 outline-none
+  @apply w-full h-[52px] border border-[#C6C6C6] rounded-[8px] px-4 text-[16px] text-[#202020] placeholder-[#8D8D8D] active:outline-none focus:outline-none cursor-pointer
 }
 .role-btns{
-  @apply rounded-lg px-2.5 py-1.5 text-[13px]
+  @apply rounded-lg px-6 py-2 text-[13px]
 }
 hr{
   @apply border-gray-200

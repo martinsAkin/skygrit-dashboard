@@ -1,29 +1,44 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RefundCalculation from "./RefundCalculation";
 import menuOptIcon from "/assets/Icons/qlementine-icons_menu-dots-16.svg";
-import TicketTable from "../components/PolicyComponents";
 import searchIcon from "/assets/Icons/Searchhh.svg";
 import type {
   FlightButtonsProps,
   FlightType,
+  Policy,
   PolicyDetailsProps,
   PolicyListProps,
 } from "../interface";
+import { fetchAllPolicies } from "../api/policyManagementService";
 
 export const SearchPolicy = ({
-  policies,
   selectedFlightType,
   selectedPolicy,
   onSelectPolicy,
 }: PolicyListProps) => {
-  // if (!selectedFlightType) {
-  //   return <p>Select a flight type to view available policies</p>
-  // }
-
-  // const [active, setActive] = useState(data[0].id);
+  
+  const [policies, setPolicies] = useState<Policy[]>([])
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  useEffect(() => {
+  fetchAllPolicies().then((data) => {
+        if (Array.isArray(data)) {
+          setPolicies(data);
+        } else {
+          console.error("Expected array, got:", data);
+          setPolicies([]);
+        }
+      });
+    }, []);
+
+    console.log("Loaded policies:", policies);
+
+    // useEffect(() => {
+    //   fetchAllPolicies().then((data) => {
+    //     setPolicies(data);
+    //   });
+    // }, []);
 
   return (
     <div className="border-1 border-gray-200 rounded-md max-w-xl">
@@ -38,30 +53,27 @@ export const SearchPolicy = ({
         />
       </div>
 
-      {/* <h2 className="text-lg font-semibold mb-3 capitalize">
-          {selectedFlightType} flight policies
-        </h2> */}
-
+    { selectedFlightType ?
       <div>
         {policies.map((dataItems: any) => (
           <div
             key={dataItems.id}
             onClick={() => onSelectPolicy(dataItems)}
-            className={`flex overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 px-4 py-1 cursor-pointer items-start
+            className={`flex justify-between overflow-hidden border-1 border-t-gray-300 border-b-0 border-l-0 border-r-0 px-4 py-1 cursor-pointer items-start
             ${
               selectedPolicy?.id === dataItems.id
-                ? "bg-[#EFF6FF] border-l-2 border-l-[#0D47A1] border-0 border-b-0 border-t-0"
+                ? "bg-[#EFF6FF] border-l-4 border-l-[#0D47A1] border-0 border-b-0 border-t-0"
                 : ""
             }
             `}
           >
             <div className="flex flex-col gap-1.5">
-              <h2 className="text-lg font-medium">{dataItems.heading}</h2>
-              <span className="text-[12px] text-[#6B7280]">
-                {dataItems.desc}
+              <h2 className="text-[15px] font-medium">{dataItems.cabinType}</h2>
+              <span className="text-[14px] text-[#6B7280]">
+                {dataItems.description}
               </span>
               <span className="text-[12px] text-[#6B7280]">
-                Last Updated: {dataItems.lastUpdated}
+                Last Updated: {dataItems.updatedAt}
               </span>
             </div>
 
@@ -77,6 +89,9 @@ export const SearchPolicy = ({
           </div>
         ))}
       </div>
+      
+      : <p className="p-4">Please select a flight type to view policies.</p>
+    }
     </div>
   );
 };
@@ -86,9 +101,6 @@ export const FlightTypeToggle: React.FC<FlightButtonsProps> = ({
   onSelect,
 }) => {
   const flightTypes: FlightType[] = ["Domestic", "International", "Regional"];
-
-  // const [selected, setSelected] = useState<string>(flightTypes[0]);
-  // const [ selectedSubTab, setSelectedSubTab ] = useState<"Domestic" | "International" | "Regional"> ("Domestic")
 
   return (
     <div className=" p-[5px] flex rounded-2xl w-max  gap-4">
@@ -136,7 +148,7 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
             <ul className="flex gap-[10rem]">
               <li>
                 <h2 className="data-heading">Policy Name</h2>
-                <span className="data-value">{selectedPolicy.heading}</span>
+                <span className="data-value">{selectedPolicy.name}</span>
               </li>
               <li>
                 <h2 className="data-heading">Status</h2>
@@ -146,55 +158,11 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
 
             <li className="mt-4">
               <h2 className="data-heading">Description</h2>
-              <span className="data-value">{selectedPolicy.desc}</span>
+              <span className="data-value">{selectedPolicy.description}</span>
             </li>
           </ol>
         </div>
 
-        {/* <div className="flex gap-8 pl-[15px] pt-10 pb-3 bg-amber-500 relative">
-          <button
-            onClick={() => setActiveSubTab("policyMatrix")}
-            className={`
-                   cursor-pointer
-                   hover:text-blue-400
-                   transition ${
-                     activeSubTab === "policyMatrix"
-                       ? "text-blue-600"
-                       : "text-black"
-                   }
-                   `}
-          >
-            Policy Matrix
-          </button>
-          <button
-            onClick={() => setActiveSubTab("refundAmount")}
-            className={`
-                   cursor-pointer
-                   hover:text-blue-400
-                   transition ${
-                     activeSubTab === "refundAmount"
-                       ? "text-blue-600"
-                       : "text-black"
-                   }
-                   `}
-          >
-            Refund Amounts
-          </button>
-          <button
-            onClick={() => setActiveSubTab("reRouting")}
-            className={`
-                   cursor-pointer
-                   hover:text-blue-400
-                   transition ${
-                     activeSubTab === "reRouting"
-                       ? "text-blue-600"
-                       : "text-black"
-                   }
-                   `}
-          >
-            Rerouting
-          </button>
-        </div> */}
         <div className="flex gap-8 pl-[15px] pt-10 pb-3">
           {[
             { id: "policyMatrix", label: "Policy Matrix" },

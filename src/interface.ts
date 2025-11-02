@@ -85,15 +85,23 @@ export interface FlightButtonsProps {
 
 export interface Policy {
   id: number;
-  heading: string
-  // name: string;
-  desc: string;
-  lastUpdated: string;
-  status: string
+  createdAt: string;
+  updatedAt: string;
+  policyId: string;
+  cabinType: string;
+  name: string;
+  description: string;
+  status: string;
+}
+export interface NewPolicy{
+  cabinType: string;
+  name: string;
+  description: string;
+  status: string;
 }
 
 export interface PolicyListProps {
-  policies: Policy[];
+  // policies: Policy[];
   selectedFlightType: FlightType | null;
   selectedPolicy: Policy | null;
   onSelectPolicy: (policy: Policy) => void;

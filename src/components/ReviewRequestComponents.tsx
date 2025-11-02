@@ -169,8 +169,8 @@ export const RequestDetailsTable = ({
 
           <ul className="details-list">
             <li>
-              <h1 className="details-heading">Ticket Class</h1>
-              <span className="details-span">{reqId}</span>
+              <h1 className="details-heading">Request ID</h1>
+              <span className="details-span">REQ-{reqId}</span>
             </li>
             <li>
               <h1 className="details-heading">Approved By</h1>

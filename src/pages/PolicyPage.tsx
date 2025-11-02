@@ -19,7 +19,7 @@ const PolicyPage: React.FC = () => {
 
   const handleFlightTypeClick = (type: FlightType) => {
     setSelectedFlightType(type);
-    setSelectedPolicy(null);
+
   };
 
   const handlePolicyClick = (policy: Policy) => {
@@ -30,7 +30,6 @@ const PolicyPage: React.FC = () => {
       ? flightPolicies[selectedFlightType]
       : [];
 
-  // const [ selectedSubTab, setSelectedSubTab ] = useState<string> ("Domestic")
   return (
     <div>
       <main>

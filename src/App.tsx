@@ -13,6 +13,7 @@ import UserManagement from "./pages/UserManagement";
 import AuditTrail from "./pages/AuditTrail";
 import ManageRoles from "./pages/ManageRoles";
 import Headbar from "./components/Headbar";
+import UpgradeSetup from "./components/UpgradeSetup";
 
 function App() {
   const location = useLocation();
@@ -32,18 +33,22 @@ function App() {
         {shouldHideHeadbar && <Headbar />}
 
         <Routes>
-          <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/policy-management"
             element={
               <ProtectedRoute>
                 <PolicyPage />
               </ProtectedRoute>
-            } />
+            }
+          />
           <Route
             path="/requests/dashboard"
             element={
@@ -76,12 +81,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/create-policy"
-            element={
-                <CreatePolicy />
-            }
-          />
+          <Route path="/create-policy" element={<CreatePolicy />} />
+          <Route path="/upgrade-setup" element={<UpgradeSetup />} />
           <Route
             path="/audit"
             element={

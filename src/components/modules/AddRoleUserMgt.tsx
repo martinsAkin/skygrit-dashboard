@@ -16,6 +16,7 @@ const AddRoleUserMgt = ({ onCancel }: ModulesProps) => {
             <label htmlFor="role_name" className="addUserForm-label">
               Enter Role Name: *
             </label>
+            -
             <input
               type="text"
               placeholder="Enter Role name"

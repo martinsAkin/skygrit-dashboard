@@ -19,7 +19,6 @@ const PolicyPage: React.FC = () => {
 
   const handleFlightTypeClick = (type: FlightType) => {
     setSelectedFlightType(type);
-
   };
 
   const handlePolicyClick = (policy: Policy) => {
@@ -45,7 +44,9 @@ const PolicyPage: React.FC = () => {
             </div>
             <div className="flex gap-4 items-center">
               <span className="text-[15px] text-[#0D47A1] font-semibold">
-                Upgrade and Downgrade Setup
+                <NavLink to="/upgrade-setup">
+                  Upgrade and Downgrade Setup
+                </NavLink>
               </span>
               <button className="flex gap-1.5 flex-row items-center justify-center px-4 py-2.5 bg-[#0D47A1] text-white rounded-[8px] text-[14px] font-medium  hover:bg-[#1565C0] transition">
                 <img src={addIcon} alt="add" />

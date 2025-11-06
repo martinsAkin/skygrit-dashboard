@@ -5,32 +5,49 @@ import { createNewPolicy } from "../api/policyManagementService";
 import { useState } from "react";
 
 const CreatePolicy = () => {
- const navigate = useNavigate()
+ const navigate = useNavigate();
 
- const [ formData, setFormData ] = useState({
-   cabinType: "",
-   name: "",
-   description: "",
-   status: ""
- })
+ const [formData, setFormData] = useState({
+  cabinType: "",
+  name: "",
+  description: "",
+  status: "",
+ });
 
- const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+ const handleInputChange = (
+  e: React.ChangeEvent<
+   HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >,
+ ) => {
   const { name, value } = e.target;
-  setFormData((prev) => ({...prev, [name]: value}))
- }
+  setFormData((prev) => ({ ...prev, [name]: value }));
+ };
 
  const handleFormSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+  e.preventDefault();
+
+  if (
+   !formData.name ||
+   !formData.description ||
+   !formData.cabinType ||
+   !formData.status
+  ) {
+   alert("Please fill out all required fields.");
+   return;
+  }
 
   try {
-   await createNewPolicy(formData)
-   alert("Policy created successfully!")
-   console.log("Form data: ", formData)
-   navigate("/policy-management")
+   await createNewPolicy(formData);
+   alert("Policy created successfully!");
+   console.log("Form data: ", formData);
+   navigate("/policy-management");
   } catch (error: any) {
-   console.error("something went wrong:", error.response?.data || error.message)
+   console.error(
+    "something went wrong:",
+    error.response?.data || error.message,
+   );
   }
- }
+ };
 
  return (
   <div className="py-4 px-16">
@@ -59,7 +76,7 @@ const CreatePolicy = () => {
    </span>
 
    <div className="flex gap-16">
-    <form 
+    <form
      className="border border-[#E5E7EB] p-3.5 rounded-lg flex-1"
      onSubmit={handleFormSubmit}
     >
@@ -67,22 +84,13 @@ const CreatePolicy = () => {
       <label htmlFor="policyName" className="text-lg font-medium block mb-2">
        Policy Name*
       </label>
-      {/* <input
+      <input
        type="text"
-       name="policyName"
-       id="policyName"
-       className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
+       name="name"
        placeholder="Enter policy name"
+       className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
        value={formData.name}
        onChange={handleInputChange}
-      /> */}
-      <input 
-        type="text" 
-        name="name" 
-        placeholder="Enter policy name" 
-        className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
-        value={formData.name}
-        onChange={handleInputChange}
       />
      </div>
      <section className="flex gap-8">
@@ -97,10 +105,10 @@ const CreatePolicy = () => {
         onChange={handleInputChange}
         className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
        >
-         <option value="">Select Cabin Type</option>
-         <option value="ECONOMY">Economy</option>
-         <option value="BUSINESS">Business</option>
-         <option value="FIRST_CLASS">First Class</option>
+        <option value="">Select Cabin Type</option>
+        <option value="ECONOMY">Economy</option>
+        <option value="BUSINESS">Business</option>
+        <option value="FirstClass">First Class</option>
        </select>
       </div>
       <div className="w-[50%]">
@@ -114,9 +122,9 @@ const CreatePolicy = () => {
         onChange={handleInputChange}
         className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
        >
-         <option value="">Select Policy Status</option>
-         <option value="INACTIVE">Inactive</option>
-         <option value="ACTIVE">Active</option>
+        <option value="">Select Policy Status</option>
+        <option value="INACTIVE">Inactive</option>
+        <option value="ACTIVE">Active</option>
        </select>
       </div>
      </section>
@@ -140,7 +148,7 @@ const CreatePolicy = () => {
       <button className="p-2.5 rounded-lg text-[13px] text-black bg-white border border-gray-400">
        Cancel
       </button>
-      <button 
+      <button
        className="p-2.5 rounded-lg text-[13px] bg-blue-900 text-white"
        type="submit"
       >

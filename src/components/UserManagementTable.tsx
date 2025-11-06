@@ -1,17 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import menuOptIcon from "/assets/Icons/qlementine-icons_menu-dots-16.svg";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import MenuUserMgt from "./molecules/MenuUserMgt";
+import type{ User } from "../interface";
+import { fetchAddedUsers } from "../api/adminService";
 
-
-interface User {
-  userID: any;
-  name: string;
-  email: string;
-  role: string;
-  status: string;
-}
 
 const UserManagementTable = () => {
   const headFields = ["User ID", "Full Name", "Email", "Role", "Status", ""];
@@ -31,21 +23,22 @@ const UserManagementTable = () => {
     console.log("Delete user:", id)
     setOpenMenu(null)
   }
-  
-  const [data, setData] = useState<User[]>([]);
+
+  const [userData, setUserData] = useState<User[]>([]);
+
+  // .get("/data/TableData.json") // ✅ served from public folder
   useEffect(() => {
-    axios
-      .get("/data/TableData.json") // ✅ served from public folder
-      .then((response) => setData(response.data))
+    fetchAddedUsers()
+      .then(setUserData)
       .catch((error) => console.error("Error fetching JSON:", error));
   }, []);
 
-  if (data.length === 0) return <div>Loading....</div>;
+  if (userData.length === 0) return <div>Loading....</div>;
 
   return (
     <div className="overflow-visible">
       <table className="w-full border-collapse border-b border-[#E5E7EB]">
-        
+
         <thead>
           <tr>
             {headFields.map((field, index) => (
@@ -60,7 +53,7 @@ const UserManagementTable = () => {
         </thead>
 
         <tbody>
-          {data.map((item, rowIndex) => (
+          {userData.map((item, rowIndex) => (
             <tr
               key={rowIndex}
               className="hover:bg-gray-50 transition-colors duration-200"
@@ -90,7 +83,7 @@ const UserManagementTable = () => {
                 </button>
                   { openMenu === item.userID && (
                     <div className="absolute right-4 top-8">
-                      <MenuUserMgt 
+                      <MenuUserMgt
                         onEdit={() => handleEdit(item.userID)}
                         onDeactivate={() => handleDeactivate(item.userID)}
                         onDelete={() => handleDelete(item.userID)}

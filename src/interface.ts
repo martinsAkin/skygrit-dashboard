@@ -1,117 +1,134 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface VerifyClaimsProps{
+export interface VerifyClaimsProps {
  verifier: string;
  verifiComment?: string;
  verifiedOn: {
-   dateVerified: string,
-   timeVerified: string,
-   dateApproved: string,
-   timeApproved: string
- }
+  dateVerified: string;
+  timeVerified: string;
+  dateApproved: string;
+  timeApproved: string;
+ };
  approver: string;
 }
 
-
 export interface RefundRowType {
-  label: string;
-  type: "select" | "number";
-  key: string;
+ label: string;
+ type: "select" | "number";
+ key: string;
 }
 
 export interface RefundData {
-  policyId: number;
-  routeType: string;
-  cabinType: string;
-  ticketClass: string;
-  reason: string;
-  [key: string]: string | number | null;
+ policyId: number;
+ routeType: string;
+ cabinType: string;
+ ticketClass: string;
+ reason: string;
+ [key: string]: string | number | null;
 }
 
 export interface RefundTableProps {
-  ticketClasses: string[];
-  reasons: string[];
-  refundDataMap: Record<string, any>;
-  refundRows: RefundRowType[];
-  refundTimelineOptions: string[];
-  onChange: () => void;
+ ticketClasses: string[];
+ reasons: string[];
+ refundDataMap: Record<string, any>;
+ refundRows: RefundRowType[];
+ refundTimelineOptions: string[];
+ onChange: () => void;
 }
 
 export interface RefundRowProps {
-  reason: string;
-  row: RefundRowType;
-  idx: number;
-  ticketClasses: string[];
-  refundDataMap: Record<string, any>;
-  refundTimelineOptions: string[];
-  onChange: () => void;
+ reason: string;
+ row: RefundRowType;
+ idx: number;
+ ticketClasses: string[];
+ refundDataMap: Record<string, any>;
+ refundTimelineOptions: string[];
+ onChange: () => void;
 }
 
 export interface RefundCellProps {
-  reason: string;
-  tc: string;
-  row: RefundRowType;
-  refundDataMap: Record<string, any>;
-  refundTimelineOptions: string[];
-  onChange: () => void;
+ reason: string;
+ tc: string;
+ row: RefundRowType;
+ refundDataMap: Record<string, any>;
+ refundTimelineOptions: string[];
+ onChange: () => void;
 }
 export interface ActionBtnProps {
-  changed: boolean;
-  onSave: () => void;
-  onCancel: () => void;
-}
-
-export interface ModulesBtnSetProps{
- text1?: string
- text2?: string
- onCancel: () => void
-}
-export interface ModulesProps{
+ changed: boolean;
+ onSave: () => void;
  onCancel: () => void;
 }
 
-export interface MenuUserMgtProps{
-  onEdit: () =>  void
-  onDeactivate: () =>  void
-  onDelete: () =>  void
-  onClose: () =>  void
+export interface ModulesBtnSetProps {
+ text1?: string;
+ text2?: string;
+ onCancel: () => void;
+}
+export interface ModulesProps {
+ onCancel: () => void;
 }
 
-export type FlightType = "Domestic" | "International" | "Regional"
-  
+export interface User {
+ userID: any;
+ name: string;
+ email: string;
+ role: string;
+ status: string;
+}
+export interface MenuUserMgtProps {
+ onEdit: () => void;
+ onDeactivate: () => void;
+ onDelete: () => void;
+ onClose: () => void;
+}
+
+export interface RoleAuthority {
+ authority: string;
+ authorityFriendlyName: string;
+ module: string;
+}
+
+export interface NewRole {
+ roleName: string;
+ authorities: RoleAuthority[];
+}
+
+export type FlightType = "Domestic" | "International" | "Regional";
+
 export interface FlightButtonsProps {
-  selectedFlightType: FlightType | null;
-  onSelect: (type: FlightType) => void;
+ selectedFlightType: FlightType | null;
+ onSelect: (type: FlightType) => void;
 }
 
 export interface Policy {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-  policyId: string;
-  cabinType: string;
-  name: string;
-  description: string;
-  status: string;
+ id: number;
+ createdAt: string;
+ updatedAt: string;
+ policyId: string;
+ cabinType: string;
+ name: string;
+ description: string;
+ status: string;
 }
-export interface NewPolicy{
-  cabinType: string;
-  name: string;
-  description: string;
-  status: string;
+export interface NewPolicy {
+ cabinType: string;
+ name: string;
+ description: string;
+ status: string;
 }
 
 export interface PolicyListProps {
-  // policies: Policy[];
-  selectedFlightType: FlightType | null;
-  selectedPolicy: Policy | null;
-  onSelectPolicy: (policy: Policy) => void;
+ // policies: Policy[];
+ selectedFlightType: FlightType | null;
+ selectedPolicy: Policy | null;
+ onSelectPolicy: (policy: Policy) => void;
 }
 
-export interface PolicyDetailsProps{
-  selectedPolicy: Policy | null;
-  selectedFlightType: FlightType | null;
+export interface PolicyDetailsProps {
+ selectedPolicy: Policy | null;
+ selectedFlightType: FlightType | null;
 }
 
 export interface Refund {
-  [key: string]: string;
+ [key: string]: string;
 }

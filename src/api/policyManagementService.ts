@@ -1,5 +1,4 @@
 import type { Policy, NewPolicy } from "../interface";
-// import axios from "axios";
 import Cookies from "js-cookie";
 import apiClient from "./apiClient";
 

@@ -81,8 +81,38 @@ function App() {
        </ProtectedRoute>
       }
      />
-     <Route path="/create-policy" element={<CreatePolicy />} />
-     <Route path="/upgrade-setup" element={<UpgradeSetup />} />
+     <Route
+      path="/create-policy"
+      element={
+       <ProtectedRoute>
+        <CreatePolicy />
+       </ProtectedRoute>
+      }
+     />
+     <Route
+      path="/upgrade-setup"
+      element={
+       <ProtectedRoute>
+        <UpgradeSetup />
+       </ProtectedRoute>
+      }
+     />
+     <Route
+      path="/notifications"
+      element={
+       <ProtectedRoute>
+        <p>Page under construction</p>
+       </ProtectedRoute>
+      }
+     />
+     <Route
+      path="/analytics"
+      element={
+       <ProtectedRoute>
+        <p>Page under construction</p>
+       </ProtectedRoute>
+      }
+     />
      <Route
       path="/audit"
       element={
@@ -91,17 +121,35 @@ function App() {
        </ProtectedRoute>
       }
      />
-     {/* <Route path="/requests/data" element={<RequestReview />} /> */}
-     {/* <Route path="/user-management" element={<UserManagement />} /> */}
-     {/* <Route path="/role-management" element={<ManageRoles />} /> */}
-     {/* <Route path="/createPolicy" element={<CreatePolicy />} /> */}
-     {/* <Route path="/audit" element={<AuditTrail />} /> */}
+     <Route
+      path="/support"
+      element={
+       <ProtectedRoute>
+        <p>Page under construction</p>
+       </ProtectedRoute>
+      }
+     />
+     <Route
+      path="/manual"
+      element={
+       <ProtectedRoute>
+        <p>Page under construction</p>
+       </ProtectedRoute>
+      }
+     />
+     <Route
+      path="/settings"
+      element={
+       <ProtectedRoute>
+        <p>Page under construction</p>
+       </ProtectedRoute>
+      }
+     />
+
      <Route path="/" element={<Login />} />
     </Routes>
    </main>
   </div>
-
-  // </Router>
  );
 }
 

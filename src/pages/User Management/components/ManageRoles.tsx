@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import addIcon from "/assets/Icons/material-symbols_add-rounded.svg";
 import prevPage from "/assets/Icons/move-left.png";
-import AddRoleUserMgt from "../components/modules/AddRoleUserMgt";
+import AddRoleUserMgt from "../../../components/modules/AddRoleUserMgt";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 

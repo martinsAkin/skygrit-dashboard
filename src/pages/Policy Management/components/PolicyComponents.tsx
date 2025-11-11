@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import RefundCalculation from "./RefundCalculation";
+import RefundCalculation from "../components/RefundCalculation";
 import menuOptIcon from "/assets/Icons/qlementine-icons_menu-dots-16.svg";
 import searchIcon from "/assets/Icons/Searchhh.svg";
 import { ChevronDown } from "lucide-react";
@@ -13,13 +13,13 @@ import type {
  PolicyRefundMetric,
  Header,
  EditableRefundMetric,
-} from "../interface";
+} from "../../../interface";
 import {
  fetchAllPolicies,
  createPolicyRefundMetric,
  fetchPolicyRefundMetrics,
  fetchTicketClasses,
-} from "../api/policyManagementService";
+} from "../../../api/policyManagementService";
 
 export const SearchPolicy = ({
  selectedFlightType,

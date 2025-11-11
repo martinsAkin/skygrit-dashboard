@@ -5,11 +5,12 @@ import {
   FlightTypeToggle,
   PolicyDetails,
   SearchPolicy,
-} from "../components/PolicyComponents";
+} from "./components/PolicyComponents";
 // import TicketTable from '../components/PolicyComponents'
 import { useState } from "react";
-import flightPolicies from "../../public/data/FlightPolicyType.json";
-import type { Policy, FlightType } from "../interface";
+// import flightPolicies from "../public/data/FlightPolicyType.json";
+import flightPolicies from "/data/FlightPolicyType.json?url";
+import type { Policy, FlightType } from "../../interface";
 
 const PolicyPage: React.FC = () => {
   const [selectedFlightType, setSelectedFlightType] =

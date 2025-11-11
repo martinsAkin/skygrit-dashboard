@@ -3,17 +3,22 @@ import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import PolicyPage from "./pages/PolicyPage";
-import CreatePolicy from "./components/CreatePolicy";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import PolicyPage from "./pages/Policy Management/PolicyPage";
+import CreatePolicy from "./pages/Policy Management/components/CreatePolicy";
 import Login from "./pages/Login";
-import Request from "./pages/Request";
-import RequestReview from "./pages/RequestReview";
-import UserManagement from "./pages/UserManagement";
-import AuditTrail from "./pages/AuditTrail";
-import ManageRoles from "./pages/ManageRoles";
+import Request from "./pages/Request/Request";
+import RequestReview from "./pages/Request/components/RequestReview";
+import UserManagement from "./pages/User Management/UserManagement";
+import AuditTrail from "./pages/Audit Trail/AuditTrail";
+import ManageRoles from "./pages/User Management/components/ManageRoles";
 import Headbar from "./components/Headbar";
-import UpgradeSetup from "./components/UpgradeSetup";
+import UpgradeSetup from "./pages/Policy Management/components/UpgradeSetup";
+import AlertsAndNotifications from "./pages/Alerts and Notifications/AlertsAndNotifications";
+import CreateTemplate from "./pages/Alerts and Notifications/components/CreateTemplate";
+import TemplateDetails from "./pages/Alerts and Notifications/components/TemplateDetails";
+// import EditTemplate from "./components/EditTemplate";
+// import ViewTemplate from "./components/ViewTemplate";
 
 function App() {
  const location = useLocation();
@@ -24,8 +29,6 @@ function App() {
  const shouldHideHeadbar = !hideHeadbar.includes(location.pathname);
 
  return (
-  // <Router>
-
   <div className="flex bg-[#ffffff]">
    {shouldShowSidebar && <Sidebar />}
 
@@ -81,38 +84,9 @@ function App() {
        </ProtectedRoute>
       }
      />
-     <Route
-      path="/create-policy"
-      element={
-       <ProtectedRoute>
-        <CreatePolicy />
-       </ProtectedRoute>
-      }
-     />
-     <Route
-      path="/upgrade-setup"
-      element={
-       <ProtectedRoute>
-        <UpgradeSetup />
-       </ProtectedRoute>
-      }
-     />
-     <Route
-      path="/notifications"
-      element={
-       <ProtectedRoute>
-        <p>Page under construction</p>
-       </ProtectedRoute>
-      }
-     />
-     <Route
-      path="/analytics"
-      element={
-       <ProtectedRoute>
-        <p>Page under construction</p>
-       </ProtectedRoute>
-      }
-     />
+     <Route path="/create-policy" element={<CreatePolicy />} />
+     <Route path="/create-template" element={<CreateTemplate />} />
+     <Route path="/upgrade-setup" element={<UpgradeSetup />} />
      <Route
       path="/audit"
       element={
@@ -121,32 +95,21 @@ function App() {
        </ProtectedRoute>
       }
      />
-     <Route
-      path="/support"
-      element={
-       <ProtectedRoute>
-        <p>Page under construction</p>
-       </ProtectedRoute>
-      }
-     />
-     <Route
-      path="/manual"
-      element={
-       <ProtectedRoute>
-        <p>Page under construction</p>
-       </ProtectedRoute>
-      }
-     />
-     <Route
-      path="/settings"
-      element={
-       <ProtectedRoute>
-        <p>Page under construction</p>
-       </ProtectedRoute>
-      }
-     />
-
      <Route path="/" element={<Login />} />
+     <Route path="/notifications" element={<AlertsAndNotifications />} />
+     <Route
+      path="/templates/:id"
+      element={
+       <TemplateDetails
+        category="Booking & Payment"
+        version=" 2.0"
+        update="2023-11-15"
+       />
+      }
+     />
+     <Route path="/" element={<Login />} />
+     {/* <Route path="/templates/edit/:id" element={<EditTemplate />} /> */}
+     {/* <Route path="/templates/view/:id" element={<ViewTemplate />} /> */}
     </Routes>
    </main>
   </div>

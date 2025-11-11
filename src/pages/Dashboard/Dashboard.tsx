@@ -3,8 +3,8 @@ import {
   DashboardAnalytics,
   ActivityItems,
   PendingApproval,
-} from "../components/DashboardComponents";
-import DateRangePicker from "../components/DateRangePicker";
+} from "./components/DashboardComponents";
+import DateRangePicker from "../../components/molecules/DateRangePicker";
 
 const Dashboard = () => {
   return (

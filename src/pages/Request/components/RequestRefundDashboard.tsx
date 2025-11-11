@@ -2,8 +2,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import FilterAndSearch from "./molecules/FilterAndSearch";
-import type { Refund } from "../interface";
+import FilterAndSearch from "../../../components/molecules/FilterAndSearch";
+import type { Refund } from "../../../interface";
 
 const RequestRefundDashboard = () => {
   const categories = [

@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { RefundRowType, RefundData } from "../interface";
-import RefundTable, { ActionButtons } from "./RefundTable";
+import type { RefundRowType, RefundData } from "../../../interface";
+import RefundTable, {
+  ActionButtons,
+} from "../../Request/components/RefundTable";
 import { useEffect, useState } from "react";
 
 const refundRows: RefundRowType[] = [

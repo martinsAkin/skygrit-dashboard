@@ -8,7 +8,7 @@ import {
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import type { Refund } from "../interface";
+import type { Refund } from "../../../interface";
 import axios from "axios";
 import prevPage from "/assets/Icons/move-left.png";
 

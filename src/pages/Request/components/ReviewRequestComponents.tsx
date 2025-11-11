@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { VerifyClaimsProps } from "../interface";
+import type { VerifyClaimsProps } from "../../../interface";
 import historyClock from "/assets/Icons/historyIcon.png";
 import cancel from "/assets/Icons/x.png";
 import confirm from "/assets/Icons/check.png";
@@ -8,8 +8,8 @@ import calender from "/assets/Icons/calender.png";
 // import send from "/assets/Icons/send.png"
 import user from "/assets/Icons/user.png";
 import { useState } from "react";
-import ApprovePaymentUpdate from "./modules/ApprovePaymentUpdate";
-import DeclineApproval from "./modules/DeclineApproval";
+import ApprovePaymentUpdate from "../../../components/modules/ApprovePaymentUpdate";
+import DeclineApproval from "../../../components/modules/DeclineApproval";
 
 interface ReviewHeadingProps {
   reqNo: string | undefined;

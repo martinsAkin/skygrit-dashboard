@@ -3,7 +3,7 @@ import type {
   RefundCellProps,
   RefundRowProps,
   ActionBtnProps,
-} from "../interface";
+} from "../../../interface";
 
 export default function RefundTable({
   ticketClasses,

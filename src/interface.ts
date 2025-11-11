@@ -129,6 +129,33 @@ export interface PolicyDetailsProps {
  selectedFlightType: FlightType | null;
 }
 
+export interface Header {
+ name: string;
+}
+
+export interface PolicyRefundMetric {
+ policyId: string;
+ cancellationType: string;
+ cabinType: string;
+ routeType: string;
+ ticketClass: string;
+ refundTicketType: string;
+ tripType: string[];
+ passengerType: string[];
+ ticketType: string[];
+ waiver: boolean;
+ ticketSales: string[];
+}
+
+export interface EditableRefundMetric {
+ ticketClass: string;
+ policyId?: string | number;
+ routeType?: string;
+ cabinType?: string;
+ cancellationType?: string;
+ selectedConditions: string[]; // replaces `conditions`
+}
+
 export interface Refund {
  [key: string]: string;
 }

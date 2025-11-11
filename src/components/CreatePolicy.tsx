@@ -108,7 +108,7 @@ const CreatePolicy = () => {
         <option value="">Select Cabin Type</option>
         <option value="ECONOMY">Economy</option>
         <option value="BUSINESS">Business</option>
-        <option value="FirstClass">First Class</option>
+        <option value="FIRST">First Class</option>
        </select>
       </div>
       <div className="w-[50%]">

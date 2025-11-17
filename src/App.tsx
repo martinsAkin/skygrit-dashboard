@@ -17,6 +17,7 @@ import UpgradeSetup from "./pages/Policy Management/components/UpgradeSetup";
 import AlertsAndNotifications from "./pages/Alerts and Notifications/AlertsAndNotifications";
 import CreateTemplate from "./pages/Alerts and Notifications/components/CreateTemplate";
 import TemplateDetails from "./pages/Alerts and Notifications/components/TemplateDetails";
+import CreateTrigger from "./pages/Alerts and Notifications/components/CreateTrigger";
 // import EditTemplate from "./components/EditTemplate";
 // import ViewTemplate from "./components/ViewTemplate";
 
@@ -87,6 +88,7 @@ function App() {
             }
           />
           <Route path="/create-policy" element={<CreatePolicy />} />
+          <Route path="/create-trigger" element={<CreateTrigger />} />
           <Route path="/create-template" element={<CreateTemplate />} />
           <Route path="/upgrade-setup" element={<UpgradeSetup />} />
           <Route

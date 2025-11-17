@@ -1,8 +1,11 @@
 import { useState } from "react";
-import FilterAndSearchh from "../../components/molecules/FilterAndSearchh";
-import addIcon from "/assets/Icons/material-symbols_add-rounded.svg";
-import { NavLink } from "react-router-dom";
+// import FilterAndSearchh from "../../components/molecules/FilterAndSearchh";
+
+// import { NavLink } from "react-router-dom";
 import AlertAndNotificationComponents from "./components/AlertAndNotificationComponents";
+import TriggerAndRulesContent from "./components/TriggerAndRulesContent";
+import DeliveryAndAnalyticsContent from "./components/DeliveryAndAnalyticsContent";
+import ChannelsContent from "./components/ChannelsContent";
 // import { data } from "react-router";
 const AlertsAndNotifications = () => {
   const categories = [
@@ -27,7 +30,7 @@ const AlertsAndNotifications = () => {
             Configure and manage passenger communications across all channels
           </p>
         </div>
-        <div className="flex flex-col mb-9">
+        <div className="flex flex-col mb-4">
           <article className="flex flex-row">
             {categories.map((list) => (
               <ul
@@ -48,27 +51,17 @@ const AlertsAndNotifications = () => {
             ))}
           </article>
         </div>
-        {/* <div className="p-6">
+
+        <div>
           {category === "Trigger & Rules" ? (
             <TriggerAndRulesContent />
           ) : category === "Delivery & Analytics" ? (
             <DeliveryAndAnalyticsContent />
+          ) : category === "Templates" ? (
+            <AlertAndNotificationComponents />
           ) : (
             <ChannelsContent />
           )}
-        </div> */}
-        <div className="flex justify-between items-center">
-          <FilterAndSearchh />
-          <NavLink to="/create-template">
-            <button className="flex gap-1.5 flex-row items-center justify-center px-4 py-2.5 bg-[#0D47A1] text-white rounded-[8px] text-[14px] font-medium hover:bg-[#1565C0] transition">
-              <img src={addIcon} alt="add" />
-              <p>New Template</p>
-            </button>
-          </NavLink>
-        </div>
-        <div>
-          {/* Table Component */}
-          <AlertAndNotificationComponents />
         </div>
       </div>
     </div>

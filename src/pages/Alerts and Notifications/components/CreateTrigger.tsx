@@ -1,20 +1,18 @@
-import { useState } from "react";
-import messageChat from "/assets/Icons/materialEmail.svg";
-import chat from "/assets/Icons/materialChat.svg";
-import phone from "/assets/Icons/fluentPhone.svg";
+// import React from 'react'
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import prevPage from "/assets/Icons/move-left.png";
 
-const CreateTemplate = () => {
+const CreateTrigger = () => {
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
+    triggerType: "",
+    template: "",
+    event: "",
     email: false,
     sms: false,
     whatsapp: false,
-    subject: "",
-    message: "",
   });
-
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -29,97 +27,113 @@ const CreateTemplate = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
-
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate at least one channel is selected
-    if (!formData.email && !formData.sms && !formData.whatsapp) {
-      alert("Please select at least one channel");
-      return;
-    }
-
-    alert("Template created successfully!");
-    console.log("Form data: ", formData);
-
-    // TODO: Uncomment when API is ready
-    // try {
-    //   await createNewPolicy(formData);
-    //   navigate("/templates");
-    // } catch (error: any) {
-    //   console.error("Something went wrong:", error.response?.data || error.message);
-    // }
   };
-
   const handleCancel = () => {
     // Reset form or navigate back
     setFormData({
       name: "",
-      category: "",
+      triggerType: "",
+      template: "",
+      event: "",
       email: false,
       sms: false,
       whatsapp: false,
-      subject: "",
-      message: "",
     });
   };
 
   return (
-    <div>
-      <div className="py-4 px-16">
-        <div>
+    <div className="py-4 px-16">
+      <section className="flex justify-between mt-6">
+        <div className="flex flex-col gap-0">
           <h2 className="text-2xl font-semibold text-gray-800">
             Notification Engine
           </h2>
-          <p className="text-[14px] text-gray-500 mt-1">
+          <span className="text-[14px] text-gray-500 mt-1">
             Configure and manage passenger communications across all channels
-          </p>
+          </span>
         </div>
+        <NavLink to="/notifications">
+          <button className="bg-white text-blue-950 rounded-md px-3.5 py-0 text-md">
+            <img
+              src={prevPage}
+              alt="go back"
+              className="inline-block mr-2 h-[20px] w-[20px]"
+            />
+            Back
+          </button>
+        </NavLink>
+      </section>
+
+      <section>
         <div className="mt-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            Create New Template
+            Create New Trigger Rule
           </h2>
           <div className="border border-[#DCDEE6] rounded-lg max-w-6xl">
-            <div className="flex gap-16">
+            <div className="flex">
               <form
                 className="border border-[#E5E7EB] p-6 rounded-lg flex-1"
                 onSubmit={handleFormSubmit}
               >
-                <section className="flex gap-8">
+                <div className="mb-6">
+                  <label
+                    htmlFor="name"
+                    className="text-xl font-medium block mb-2"
+                  >
+                    Rule Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Enter Rule Name"
+                    className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <section className="flex gap-8 mb-6">
                   <div className="w-full">
                     <label
-                      htmlFor="name"
+                      htmlFor="triggerType"
                       className="text-xl font-medium block mb-2"
                     >
-                      Template Name
+                      Trigger Type
                     </label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Enter template name"
-                      className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
-                      value={formData.name}
+                    <select
+                      name="triggerType"
+                      id="triggerType"
+                      value={formData.triggerType}
                       onChange={handleInputChange}
+                      className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
                       required
-                    />
+                    >
+                      <option value="">Select</option>
+                      <option value="BOOKING">Booking</option>
+                      <option value="FLIGHT_STATUS">Flight Status</option>
+                      <option value="CHECK_IN">Check-in</option>
+                      <option value="PROMOTIONAL">Promotional</option>
+                    </select>
                   </div>
                   <div className="w-full">
                     <label
-                      htmlFor="category"
+                      htmlFor="template"
                       className="text-xl font-medium block mb-2"
                     >
-                      Category
+                      Template
                     </label>
                     <select
-                      name="category"
-                      id="category"
-                      value={formData.category}
+                      name="template"
+                      id="template"
+                      value={formData.template}
                       onChange={handleInputChange}
                       className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
                       required
                     >
-                      <option value="">Select Template Category</option>
+                      <option value="">Select</option>
                       <option value="BOOKING">Booking</option>
                       <option value="FLIGHT_STATUS">Flight Status</option>
                       <option value="CHECK_IN">Check-in</option>
@@ -127,13 +141,35 @@ const CreateTemplate = () => {
                     </select>
                   </div>
                 </section>
+                <div className="w-full">
+                  <label
+                    htmlFor="event"
+                    className="text-xl font-medium block mb-2"
+                  >
+                    Event / Timing
+                  </label>
+                  <select
+                    name="event"
+                    id="event"
+                    value={formData.event}
+                    onChange={handleInputChange}
+                    className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="BOOKING">Booking</option>
+                    <option value="FLIGHT_STATUS">Flight Status</option>
+                    <option value="CHECK_IN">Check-in</option>
+                    <option value="PROMOTIONAL">Promotional</option>
+                  </select>
+                </div>
 
                 <section>
-                  <div className="mt-4">
-                    <label className="text-xl font-medium block mb-2">
-                      Channel
+                  <div className="mt-6">
+                    <label className="text-xl font-medium block mb-4">
+                      Delivery Channels
                     </label>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col gap-4">
                       <span className="flex items-center gap-2.5">
                         <input
                           type="checkbox"
@@ -143,8 +179,7 @@ const CreateTemplate = () => {
                           checked={formData.email}
                           onChange={handleInputChange}
                         />
-                        <img src={messageChat} alt="email" />
-                        <p>Email</p>
+                        <p>Email (Primary)</p>
                       </span>
                       <span className="flex items-center gap-2.5">
                         <input
@@ -155,8 +190,8 @@ const CreateTemplate = () => {
                           checked={formData.sms}
                           onChange={handleInputChange}
                         />
-                        <img src={chat} alt="chat" />
-                        <p>SMS</p>
+
+                        <p>SMS (Fallback if email fails)</p>
                       </span>
                       <span className="flex items-center gap-2.5">
                         <input
@@ -167,79 +202,38 @@ const CreateTemplate = () => {
                           checked={formData.whatsapp}
                           onChange={handleInputChange}
                         />
-                        <img src={phone} alt="phone" />
-                        <p>WhatsApp</p>
+
+                        <p>WhatsApp (Fallback if SMS fails)</p>
                       </span>
                     </div>
                   </div>
                 </section>
 
-                <div className="mt-4">
-                  <label
-                    htmlFor="subject"
-                    className="text-xl font-medium block mb-2"
-                  >
-                    Subject Line (Email)
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    id="subject"
-                    placeholder="Your booking is confirmed - {{pnr}}"
-                    className="p-3 border border-[#C6C6C6] w-[100%] rounded-md focus:outline-none"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="mt-4">
-                  <label
-                    htmlFor="message"
-                    className="text-xl font-medium block mb-2"
-                  >
-                    Message Content
-                  </label>
-                  <textarea
-                    name="message"
-                    id="message"
-                    className="border border-[#C6C6C6] p-2.5 w-[100%] h-60 rounded-md focus:outline-none"
-                    placeholder="Dear {{passenger_name}},&#10;Your booking is confirmed!&#10;PNR: {{pnr}}&#10;Flight: {{flight_number}}&#10;Departure: {{departure_time}}&#10;&#10;Thank you for choosing us!"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                  ></textarea>
-                </div>
-
                 <div className="flex gap-2.5 mt-6 justify-end">
                   <NavLink to="/notifications">
                     <button
                       type="button"
+                      onClick={handleCancel}
                       className="p-2.5 rounded-lg text-[13px] text-black bg-white border border-gray-400"
                     >
                       Cancel
                     </button>
                   </NavLink>
-                  <button
-                    type="button"
-                    className="p-2.5 rounded-lg text-[13px] text-black bg-white border border-gray-400"
-                    onClick={handleCancel}
-                  >
-                    Save as Draft
-                  </button>
+
                   <button
                     className="p-2.5 rounded-lg text-[13px] bg-blue-900 text-white"
                     type="submit"
                   >
-                    Publish Template
+                    Save Trigger Rule
                   </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
 
-export default CreateTemplate;
+export default CreateTrigger;

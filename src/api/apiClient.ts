@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import Cookies from "js-cookie";
 
 const apiClient = axios.create({
@@ -7,14 +7,15 @@ const apiClient = axios.create({
  headers: {
   "Content-Type": "application/json",
  },
-}) 
+});
 
 apiClient.interceptors.request.use((config) => {
  const token = Cookies.get("token");
- if (token) {
-  config.headers.Authorization = `Bearer ${token}`;
+ const tokenType = Cookies.get("tokenType");
+ if (token && tokenType) {
+  config.headers.Authorization = `${tokenType} ${token}`;
  }
  return config;
-})
+});
 
-export default apiClient
+export default apiClient;

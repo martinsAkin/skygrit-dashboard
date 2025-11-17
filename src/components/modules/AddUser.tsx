@@ -1,7 +1,36 @@
+import { useState } from "react";
 import type { ModulesProps } from "../../interface";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
+import { addAdmin } from "../../api/adminService";
 
 const AddUser = ({ onCancel }: ModulesProps) => {
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    username: "",
+    role: ""
+  })
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({...prev, [name]: value}))
+   }
+  
+   const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+  
+    alert("it works!");
+    console.log("Submitting user:", formData);
+
+    try {
+     await addAdmin(formData)
+     alert("User Added successfully!")
+     console.log("Form data: ", formData)
+    } catch (error: any) {
+     console.error("something went wrong:", error.response?.data || error.message)
+    }
+   }
+
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg px-7 py-6">
@@ -12,15 +41,19 @@ const AddUser = ({ onCancel }: ModulesProps) => {
           </span>
         </div>
 
-        <form action="" method="post">
+        <form onSubmit={handleFormSubmit}>
           <div className="addUserForm-div">
             <label htmlFor="fullName" className="addUserForm-label">
               Full Name: *
             </label>
             <input
               type="text"
-              placeholder="Enter Name"
+              name="fullName"
+              placeholder="Enter user full Name"
               className="addUserForm-input"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              required
             />
           </div>
           <div className="addUserForm-div">
@@ -28,9 +61,11 @@ const AddUser = ({ onCancel }: ModulesProps) => {
               Email Address: *
             </label>
             <input
-              type="email"
-              placeholder="Enter email address"
+              name="username"
               className="addUserForm-input"
+              placeholder="enter user email address"
+              value={formData.username}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -38,10 +73,17 @@ const AddUser = ({ onCancel }: ModulesProps) => {
             <label htmlFor="role" className="addUserForm-label">
               Assign Role: *
             </label>
-            <select name="role" id="user_role" className="addUserForm-input">
-              <option value="-">Select Role</option>
-              <option value="superadmin">Super Admin</option>
-              <option value="admin">Admin</option>
+            <select 
+              name="role" 
+              id="user_role" 
+              value={formData.role}
+              onChange={handleInputChange}
+              className="addUserForm-input"
+              required
+            >
+              <option value="">Select Role</option>
+              <option value="SUPER_ADMIN">Super Admin</option>
+              <option value="ADMIN">Admin</option>
             </select>
           </div>
 

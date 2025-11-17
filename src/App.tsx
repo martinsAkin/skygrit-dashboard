@@ -18,8 +18,6 @@ import AlertsAndNotifications from "./pages/Alerts and Notifications/AlertsAndNo
 import CreateTemplate from "./pages/Alerts and Notifications/components/CreateTemplate";
 import TemplateDetails from "./pages/Alerts and Notifications/components/TemplateDetails";
 import CreateTrigger from "./pages/Alerts and Notifications/components/CreateTrigger";
-// import EditTemplate from "./components/EditTemplate";
-// import ViewTemplate from "./components/ViewTemplate";
 
 function App() {
   const location = useLocation();
@@ -30,8 +28,6 @@ function App() {
   const shouldHideHeadbar = !hideHeadbar.includes(location.pathname);
 
   return (
-    // <Router>
-
     <div className="flex bg-[#ffffff]">
       {shouldShowSidebar && <Sidebar />}
 
@@ -47,6 +43,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/policy-management"
             element={
@@ -55,6 +52,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/requests/dashboard"
             element={
@@ -63,6 +61,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/details/:id"
             element={
@@ -71,6 +70,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/user-management"
             element={
@@ -79,6 +79,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/role-management"
             element={
@@ -87,10 +88,12 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route path="/create-policy" element={<CreatePolicy />} />
           <Route path="/create-trigger" element={<CreateTrigger />} />
           <Route path="/create-template" element={<CreateTemplate />} />
           <Route path="/upgrade-setup" element={<UpgradeSetup />} />
+
           <Route
             path="/audit"
             element={
@@ -99,30 +102,23 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route path="/requests/data" element={<RequestReview />} /> */}
-          {/* <Route path="/user-management" element={<UserManagement />} /> */}
-          {/* <Route path="/role-management" element={<ManageRoles />} /> */}
-          {/* <Route path="/createPolicy" element={<CreatePolicy />} /> */}
-          {/* <Route path="/audit" element={<AuditTrail />} /> */}
+
           <Route path="/" element={<Login />} />
           <Route path="/notifications" element={<AlertsAndNotifications />} />
+
           <Route
             path="/templates/:id"
             element={
               <TemplateDetails
                 category="Booking & Payment"
-                version=" 2.0"
+                version="2.0"
                 update="2023-11-15"
               />
             }
           />
-          {/* <Route path="/templates/edit/:id" element={<EditTemplate />} /> */}
-          {/* <Route path="/templates/view/:id" element={<ViewTemplate />} /> */}
         </Routes>
       </main>
     </div>
-
-    // </Router>
   );
 }
 

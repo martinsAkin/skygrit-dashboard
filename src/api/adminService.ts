@@ -2,16 +2,6 @@ import type { User, NewRole } from "../interface";
 import apiClient from "./apiClient";
 import Cookies from "js-cookie";
 
-// export const fetchToken = async(clientId: string, clientSecret: string)=> {
-//   const response = await apiClient.post("/auth/token", {
-//     clientId,
-//     clientSecret,
-//   });
-
-//   const { accessToken, tokenType } = response.data;
-//   Cookies.set("token", accessToken);
-//   Cookies.set("tokenType", tokenType);
-// }
 export interface LoginPayload {
  email: string;
  password: string;
@@ -52,7 +42,7 @@ export const fetchAddedUsers = async (): Promise<User[]> => {
   });
   console.log("Raw response:", response);
   console.log("Response data type:", typeof response.data);
-  return response.data.response.content;
+  return response.data?.response.content ?? [];
  } catch (error) {
   console.error("Error Fetching users:", error);
   return [];

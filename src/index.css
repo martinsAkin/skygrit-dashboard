@@ -1,77 +1,80 @@
 @import "tailwindcss";
 
 body {
-  font-family: "Lato", sans-serif;
-  user-select: none;
+ font-family: "Lato", sans-serif;
+ user-select: none;
 }
 
-.sidebar-list{
-  @apply hover:bg-[#0D47A1] hover:text-white hover:cursor-pointer p-2 rounded-md flex items-center gap-2 text-[13px];
+.sidebar-list {
+ @apply hover:bg-[#0D47A1] hover:text-white hover:cursor-pointer p-2 rounded-md flex items-center gap-2 text-[13px];
 }
-.sidebar-icons{
-  @apply h-6;
+.sidebar-icons {
+ @apply h-6;
 }
-.initials-placeholder{
-  @apply bg-blue-800 rounded-[50%] p-[0.26rem] text-white h-8 w-8;
+.initials-placeholder {
+ @apply bg-blue-800 rounded-[50%] p-[0.26rem] text-white h-8 w-8;
 }
-.duration-hover{
-  @apply hover:bg-[#DBEAFE] hover:text-[#2563EB] hover:cursor-pointer px-3 py-1.5 rounded-md text-[14px] font-medium;
+.duration-hover {
+ @apply hover:bg-[#DBEAFE] hover:text-[#2563EB] hover:cursor-pointer px-3 py-1.5 rounded-md text-[14px] font-medium;
 }
-.table-header{
-  @apply px-4 py-2;
+.table-header {
+ @apply px-4 py-2;
 }
-.status{
-  @apply bg-[#DCFCE7] flex items-center text-[#166534] rounded-full px-2.5 py-1.5 text-[11px]
+.status {
+ @apply bg-[#DCFCE7] flex items-center text-[#166534] rounded-full px-2.5 py-1.5 text-[11px];
 }
-.flightType-toggle{
-  @apply rounded-full text-[13px] px-9 py-2
+.flightType-toggle {
+ @apply rounded-full text-[13px] px-9 py-2;
 }
-.data-heading{
-  @apply text-[12px] font-medium text-[#374151]
+.data-heading {
+ @apply text-[12px] font-medium text-[#374151];
 }
-.data-value{
-  @apply font-bold text-[14px]
+.data-value {
+ @apply font-bold text-[14px];
 }
-.details-list{
-  @apply flex flex-col gap-6 flex-1
+.details-list {
+ @apply flex flex-col gap-6 flex-1;
 }
-.details-heading{
-  @apply text-[12px] font-bold text-[#6B7280]
+.details-heading {
+ @apply text-[12px] font-bold text-[#6B7280];
 }
-.details-span{
-  @apply text-[13px] text-[#111827] font-medium flex items-center
+.details-span {
+ @apply text-[13px] text-[#111827] font-medium flex items-center;
 }
 
-.verification-ul{
-  @apply flex flex-col gap-2.5
+.verification-ul {
+ @apply flex flex-col gap-2.5;
 }
-.verification-h2{
-  @apply text-[12px] text-gray-400 mb-1
+.verification-h2 {
+ @apply text-[12px] text-gray-400 mb-1;
 }
-.verification-span{
-  @apply font-bold text-black text-[13px]
+.verification-span {
+ @apply font-bold text-black text-[13px];
 }
-.verification-btn{
-  @apply border border-gray-600 w-[48%] text-center p-2 rounded-lg flex items-center gap-2.5 justify-center hover:cursor-pointer hover:bg-gray-200
+.verification-btn {
+ @apply border border-gray-600 w-[48%] text-center p-2 rounded-lg flex items-center gap-2.5 justify-center hover:cursor-pointer hover:bg-gray-200;
 }
-.userMgtLi{
-  @apply text-[13px] hover:bg-blue-500 hover:text-white rounded-md p-1 cursor-pointer
+.userMgtLi {
+ @apply text-[13px] hover:bg-blue-500 hover:text-white rounded-md p-1 cursor-pointer;
 }
-.userMgtLi-delete{
-  @apply text-[13px] hover:bg-blue-500 hover:text-red-500 rounded-md p-1 cursor-pointer
+.userMgtLi-delete {
+ @apply text-[13px] hover:bg-red-500 hover:text-white rounded-md p-1 cursor-pointer;
 }
-.addUserForm-div{
-  @apply flex flex-col gap-[0.5rem] mb-4
+.addUserForm-div {
+ @apply flex flex-col gap-[0.5rem] mb-4;
 }
-.addUserForm-label{
-  @apply text-[14px] font-medium text-[#1F2937]
+.addUserForm-label {
+ @apply text-[14px] font-medium text-[#1F2937];
 }
-.addUserForm-input{
-  @apply w-full h-[52px] border border-[#C6C6C6] rounded-[8px] px-4 text-[16px] text-[#202020] placeholder-[#8D8D8D] active:outline-none focus:outline-none cursor-pointer
+.addUserForm-input {
+ @apply w-full h-[52px] border border-[#C6C6C6] rounded-[8px] px-4 text-[16px] text-[#202020] placeholder-[#8D8D8D] active:outline-none focus:outline-none cursor-pointer;
 }
-.role-btns{
-  @apply rounded-lg px-6 py-2 text-[13px]
+.role-btns {
+ @apply rounded-lg px-6 py-2 text-[13px];
 }
-hr{
-  @apply border-gray-200
-} 
+hr {
+ @apply border-gray-200;
+}
+.editBtns {
+ @apply border border-gray-400 text-center py-2 px-4 text-[12px] rounded-[10px];
+}

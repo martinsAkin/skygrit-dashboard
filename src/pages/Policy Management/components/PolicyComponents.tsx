@@ -19,7 +19,16 @@ import {
  createPolicyRefundMetric,
  fetchPolicyRefundMetrics,
  fetchTicketClasses,
+ deletePolicy,
+ deleteTicketClass,
+ deleteSubCategory,
+ fetchSubCategory,
 } from "../../../api/policyManagementService";
+import AddSubCategory, {
+ Categories,
+} from "../../../components/modules/AddSubCategory";
+import AddTickets from "../../../components/modules/AddTickets";
+import { CategoryContext } from "../../../hooks/CategoryContext";
 
 export const SearchPolicy = ({
  selectedFlightType,
@@ -128,15 +137,32 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
  const [activeSubTab, setActiveSubTab] = useState<
   "policyMatrix" | "refundAmount" | "reRouting"
  >("policyMatrix");
+ const [isDropdown, setIsDropdown] = useState(false);
 
  if (selectedPolicy) {
   return (
    <section className="border border-gray-200 rounded-lg ">
-    <div className="flex justify-between items-center p-4">
+    <div className="flex justify-between items-center p-4 relative">
      <span className="text-xl font-medium text-[#111827]">Policy Details</span>
-     <button>
-      <img src={menuOptIcon} alt="menu" title="menu" />
-     </button>
+     <div onMouseLeave={() => setIsDropdown(false)}>
+      <button onClick={() => setIsDropdown(!isDropdown)}>
+       <img src={menuOptIcon} alt="menu" title="menu" />
+      </button>
+
+      {isDropdown && (
+       <div className="absolute right-0 top-10">
+        <ol className="flex flex-col">
+         <li className="userMgtLi">Edit</li>
+         <li
+          className="userMgtLi-delete"
+          onClick={() => deletePolicy(selectedPolicy.policyId)}
+         >
+          Delete
+         </li>
+        </ol>
+       </div>
+      )}
+     </div>
     </div>
 
     <hr />
@@ -201,74 +227,120 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
  return <p>No policy selected yet!</p>;
 };
 
-// interface TicketClass {
-//  ticketClass: string;
-//  policyId?: number;
-//  routeType?: string;
-//  cabinType?: string;
-//  [key: string]: any;
-// }
+export const MASTER_VALUES = {
+ ticketSales: ["DIRECT", "INDIRECT"],
+ refundTicketType: ["Refundable", "Non-Refundable"],
+ tripType: ["One-Way", "Round-Trip", "Multi-City"],
+ passengerType: ["ADULT", "CHILD", "INFANT"],
+ ticketType: ["INDIVIDUAL", "GROUP"],
+ waiver: ["Waiver"],
+};
 
 export default function TicketTable() {
  const [responseMessage, setResponseMessage] = useState<string>("");
+ const [activeModal, setActiveModal] = useState<string | null>(null);
  const [headers, setHeaders] = useState<Header[]>([]);
+ const [isEditing, setIsEditing] = useState(false);
  const [editableData, setEditableData] = useState<EditableRefundMetric[]>([]);
  const [apiData, setApiData] = useState<PolicyRefundMetric[]>([]);
  const [changedTicketClasses, setChangedTicketClasses] = useState<Set<string>>(
   new Set(),
  );
+ const [categories, setCategories] = useState<any[]>([]);
+
+ const loadCategories = async () => {
+  try {
+   const response = await fetchSubCategory();
+   setCategories(response.response ?? []);
+  } catch (e) {
+   setResponseMessage(`Failed to load categories. Error: ${e}`);
+  }
+ };
 
  useEffect(() => {
-  const loadHeaders = async () => {
-   try {
-    const data = await fetchTicketClasses();
-    setHeaders(data);
-   } catch (error) {
-    setResponseMessage(`Failed to load ticket classes. error: ${error}`);
-   }
-  };
+  loadCategories();
+ }, []);
 
+ const loadHeaders = async () => {
+  try {
+   const data = await fetchTicketClasses();
+   setHeaders(data);
+  } catch (error) {
+   setResponseMessage(`Failed to load ticket classes. error: ${error}`);
+  }
+ };
+
+ useEffect(() => {
   loadHeaders();
  }, []);
 
- useEffect(() => {
-  const loadMetrics = async () => {
-   try {
-    const data = await fetchPolicyRefundMetrics();
-    setApiData(data);
-    setEditableData(JSON.parse(JSON.stringify(data)));
-   } catch (error) {
-    setResponseMessage(`Failed to load policy refund metrics. error: ${error}`);
-   }
+ const normalize = (value: string): string => {
+  const map: Record<string, string> = {
+   DIRECT: "Direct sales from Airline",
+   INDIRECT: "Indirect sales (OTAs, Agencies)",
+   GROUP: "Group",
+   INDIVIDUAL: "Individual",
+   ADULT: "Adult",
+   CHILD: "Child",
+   INFANT: "Infant",
+   "ONE-WAY": "One-Way",
+   "ROUND-TRIP": "Round-Trip",
+   "MULTI-CITY": "Multi-City",
   };
+  return map[value] ?? value;
+ };
 
+ const loadMetrics = async () => {
+  try {
+   const data = await fetchPolicyRefundMetrics();
+   console.log("Raw metrics response:", data);
+   setApiData(data);
+
+   const transformed: EditableRefundMetric[] = data.map((item) => {
+    const selectedConditions: string[] = [
+     ...(item.refundTicketType ? [item.refundTicketType] : []),
+     ...(item.tripType ?? []),
+     ...(item.passengerType ?? []),
+     ...(item.ticketType ?? []),
+     ...(item.ticketSales ?? []),
+     ...(item.waiver ? ["Waiver"] : []),
+    ];
+
+    return {
+     ticketClass: item.ticketClass,
+     policyId: item.policyId,
+     routeType: item.routeType,
+     cabinType: item.cabinType,
+     cancellationType: item.cancellationType,
+     selectedConditions,
+    };
+   });
+
+   setEditableData(transformed);
+  } catch (error) {
+   setResponseMessage(`Failed to load policy refund metrics. error: ${error}`);
+  }
+ };
+
+ useEffect(() => {
   loadMetrics();
  }, []);
 
- const rowHeaders = [
-  { label: "Direct sale from airline", key: "directSale" },
-  { label: "Indirect sales (OTAs, GDS, Agencies)", key: "inDirectSale" },
-  { label: "Refundable", key: "refundable" },
-  { label: "Non-refundable", key: "nonRefundable" },
-  { label: "One-way", key: "oneWay" },
-  { label: "Round-trip", key: "roundTrip" },
-  { label: "Multi-city", key: "multiCity" },
-  { label: "Waiver", key: "waiver" },
-  { label: "Adult", key: "adult" },
-  { label: "Child", key: "child" },
-  { label: "Infant", key: "infant" },
-  { label: "Individual", key: "individual" },
-  { label: "Group", key: "groupBooking" },
- ];
-
- const groupMap: Record<string, string[]> = {
-  "Ticket sales (booking source)": ["directSale", "inDirectSale"],
-  "Refund Ticket Type": ["refundable", "nonRefundable"],
-  Trip: ["oneWay", "roundTrip", "multiCity"],
-  "Waiver Set": ["waiver"],
-  "Passenger Type": ["adult", "child", "infant"],
-  "Ticket Type": ["individual", "groupBooking"],
+ const handleNewSubCategory = (category: string, name: string) => {
+  MASTER_VALUES[category] = [...new Set([...MASTER_VALUES[category], name])];
  };
+
+ const grouped = Categories.reduce(
+  (acc, item) => {
+   const values = MASTER_VALUES[item.value] ?? [];
+   acc[item.category] = values.map((val) => ({
+    value: val, // ✅ backend value (exact casing)
+    label: normalize(val), // ✅ friendly label for UI
+   }));
+   return acc;
+  },
+  {} as Record<string, { value: string; label: string }[]>,
+ );
 
  const handleSave = async () => {
   if (!Array.isArray(editableData)) return null;
@@ -290,23 +362,24 @@ export default function TicketTable() {
 
    return {
     policyId: String(t.policyId ?? "1000"),
-    cancellationType: t.cancellationType ?? "no reason",
+    cancellationType: t.cancellationType ?? "CUSTOMER_INITIATED",
     cabinType: t.cabinType ?? "ECONOMY",
     routeType: t.routeType ?? "DOMESTIC",
     ticketClass: t.ticketClass,
     refundTicketType:
-     mapConditions(["refundable", "nonRefundable"], selected)[0] ?? "",
-    tripType: mapConditions(["oneWay", "roundTrip", "multiCity"], selected),
-    passengerType: mapConditions(["adult", "child", "infant"], selected),
-    ticketType: mapConditions(["individual", "groupBooking"], selected),
-    waiver: selected.includes("waiver"),
-    ticketSales: mapConditions(["directSale", "inDirectSale"], selected),
+     mapConditions(["Refundable", "Non-Refundable"], selected)[0] ?? "",
+    tripType: mapConditions(["One-Way", "Round-Trip", "Multi-City"], selected),
+    passengerType: mapConditions(["ADULT", "CHILD", "INFANT"], selected),
+    ticketType: mapConditions(["INDIVIDUAL", "GROUP"], selected),
+    waiver: selected.includes("Waiver"),
+    ticketSales: mapConditions(["DIRECT", "INDIRECT"], selected),
    };
   });
 
   try {
    await createPolicyRefundMetric(payload);
    setResponseMessage("Saved successfully!");
+   await loadMetrics();
    setChangedTicketClasses(new Set());
   } catch (error) {
    setResponseMessage(`Failed to save. Please try again.\n${String(error)}`);
@@ -315,7 +388,7 @@ export default function TicketTable() {
 
  const handleCheckboxChange = (
   ticketClass: string,
-  key: string,
+  backendValue: string,
   checked: boolean,
  ) => {
   setEditableData((prev) => {
@@ -330,29 +403,39 @@ export default function TicketTable() {
    } else {
     ticket = {
      ticketClass,
-     policyId: original?.policyId ?? 1,
+     policyId: original?.policyId ?? "1000",
      routeType: original?.routeType ?? "DOMESTIC",
      cabinType: original?.cabinType ?? "ECONOMY",
+     cancellationType: original?.cancellationType ?? "CUSTOMER_INITIATED",
      selectedConditions: [],
     };
    }
 
    ticket.selectedConditions = ticket.selectedConditions || [];
 
+   // ✅ Always store backendValue in selectedConditions
    if (checked) {
-    if (!ticket.selectedConditions.includes(key)) {
-     ticket.selectedConditions.push(key);
+    if (!ticket.selectedConditions.includes(backendValue)) {
+     ticket.selectedConditions.push(backendValue);
     }
    } else {
     ticket.selectedConditions = ticket.selectedConditions.filter(
-     (c) => c !== key,
+     (c) => c !== backendValue,
     );
    }
 
    updated[index !== -1 ? index : updated.length] = ticket;
 
-   // Compare with original to track changes
-   const originalConditions = updated[index]?.selectedConditions || [];
+   // Build comparable array from original backend structure
+   const originalConditions = [
+    ...(original?.refundTicketType ? [original.refundTicketType] : []),
+    ...(original?.tripType ?? []),
+    ...(original?.passengerType ?? []),
+    ...(original?.ticketType ?? []),
+    ...(original?.ticketSales ?? []),
+    ...(original?.waiver ? ["Waiver"] : []),
+   ];
+
    const sortedNew = [...ticket.selectedConditions].sort();
    const sortedOriginal = [...originalConditions].sort();
 
@@ -372,9 +455,29 @@ export default function TicketTable() {
    return updated;
   });
  };
+ console.log("Headers:", headers);
+ console.log("EditableData:", editableData);
+
+ const handleApplyChanges = () => {
+  setIsEditing(false);
+  // window.location.reload();
+ };
 
  return (
   <div className="p-3 bg-[#FAFAFA] rounded-lg h-full m-4">
+   {activeModal === "addSubCategory" && (
+    <CategoryContext.Provider value={{ categories }}>
+     <AddSubCategory
+      onCancel={() => setActiveModal(null)}
+      onSuccess={loadCategories}
+      onNewSubAdded={handleNewSubCategory}
+     />
+    </CategoryContext.Provider>
+   )}
+   {activeModal === "addTicketClass" && (
+    <AddTickets onCancel={() => setActiveModal(null)} onSuccess={loadHeaders} />
+   )}
+
    {responseMessage && (
     <pre className=" p-4 mb-6 max-w-3xl mx-auto whitespace-pre-wrap">
      {responseMessage}
@@ -382,9 +485,32 @@ export default function TicketTable() {
    )}
    <div className="flex justify-between items-center p-2.5">
     <span className="text-2xl">Eligibility Conditions</span>
-    <button className="px-5 py-2 border border-gray-200 rounded-2xl">
-     Edit
-    </button>
+    {isEditing ? (
+     <div className="flex gap-3.5 items-center">
+      <button
+       className="editBtns bg-blue-400"
+       onClick={() => setActiveModal("addTicketClass")}
+      >
+       + Add Ticket Class
+      </button>
+      <button
+       className="editBtns bg-green-400"
+       onClick={() => setActiveModal("addSubCategory")}
+       // check top, before the response message dialing for the condition rendering of the popup
+      >
+       + Add Sub-Category
+      </button>
+      <button className="editBtns bg-gray-400">Download Template</button>
+      <button className="editBtns bg-gray-600">Import</button>
+     </div>
+    ) : (
+     <button
+      className="px-5 py-2 border border-gray-200 rounded-2xl"
+      onClick={() => setIsEditing(true)}
+     >
+      Edit
+     </button>
+    )}
    </div>
    <div className="overflow-x-auto rounded-lg">
     <table className="table-auto w-full bg-[#FAFAFA] shadow border-collapse">
@@ -399,70 +525,96 @@ export default function TicketTable() {
        {headers.map((header, idx) => (
         <th
          key={idx}
-         className="border p-2 text-[13px] font-medium border-[#CBD5E1] text-[#263238]"
+         className="border p-1.5 text-[13px] font-medium border-[#CBD5E1] text-[#263238]"
         >
-         {header.name}
+         <div className="flex items-center gap-2 justify-center">
+          {header.name}
+          {isEditing && (
+           <span
+            className="p-[6.5px] h-5 rounded-[50%] bg-red-600 text-center text-white flex items-center cursor-pointer"
+            onClick={() => deleteTicketClass(header.name)}
+           >
+            -
+           </span>
+          )}
+         </div>
         </th>
        ))}
       </tr>
      </thead>
      <tbody>
-      {Object.entries(groupMap).map(([groupLabel, keys]) =>
-       keys.map((key, i) => {
-        const rowHeader = rowHeaders.find((rh) => rh.key === key);
-        if (!rowHeader) return null;
-        return (
-         <tr key={key}>
-          {i === 0 && (
-           <th
-            className="border border-[#CBD5E1] p-[0.35rem] pr-0 text-[12px] font-medium text-left"
-            rowSpan={keys.length}
-           >
-            {groupLabel}
-           </th>
-          )}
-          <th className="border p-[0.35rem] border-[#CBD5E1] text-left text-[12px] font-medium">
-           {rowHeader.label}
+      {Object.entries(grouped).map(([groupLabel, subCategories]) =>
+       subCategories.map(({ value, label }, i) => (
+        <tr key={groupLabel + "-" + value}>
+         {i === 0 && (
+          <th
+           className="border border-[#CBD5E1] p-[0.35rem] text-[12px] font-medium text-left"
+           rowSpan={subCategories.length}
+          >
+           {groupLabel}
           </th>
-          {headers.map((header) => {
-           const ticket = editableData.find(
-            (t) => t.ticketClass === header.name,
-           );
-           const checked = ticket?.selectedConditions?.includes(key) ?? false;
-           return (
-            <td
-             key={header.name + key}
-             className="border p-2 text-left border-[#CBD5E1]"
+         )}
+         <th className="border p-[0.35rem] border-[#CBD5E1] text-left text-[12px] font-medium">
+          <div className="flex items-center gap-2">
+           {isEditing && (
+            <button
+             className="w-4 h-4 rounded-[50%] bg-red-600 text-center text-white cursor-pointer"
+             onClick={() => deleteSubCategory(value)}
             >
-             <input
-              type="checkbox"
-              checked={checked}
-              onChange={(e) =>
-               handleCheckboxChange(header.name, key, e.target.checked)
-              }
-              className="w-5 h-5 accent-blue-600 cursor-pointer"
-             />
-            </td>
-           );
-          })}
-         </tr>
-        );
-       }),
+             {" "}
+             -{" "}
+            </button>
+           )}
+           {label}
+          </div>
+         </th>
+         {headers.map((header) => {
+          const ticket = editableData.find(
+           (t) => t.ticketClass === header.name,
+          );
+          const checked = ticket?.selectedConditions?.includes(value) ?? false;
+
+          return (
+           <td
+            className="border p-2 text-left border-[#CBD5E1]"
+            key={header.name + "-" + value}
+           >
+            <input
+             type="checkbox"
+             checked={checked}
+             onChange={(e) =>
+              handleCheckboxChange(header.name, value, e.target.checked)
+             }
+            />
+           </td>
+          );
+         })}
+        </tr>
+       )),
       )}
      </tbody>
     </table>
    </div>
-   <div className="flex flex-row items-center justify-end gap-4 mt-3">
-    <button className=" px-6 py-2 border border-[#D1D5DB] rounded hover:bg-gray-300">
-     Cancel
-    </button>
+   {isEditing ? (
     <button
-     onClick={handleSave}
-     className=" px-6 py-2 bg-[#0D47A1] text-white rounded hover:bg-blue-700"
+     className="p-4 rounded-lg bg-green-500 text-center text-white"
+     onClick={handleApplyChanges}
     >
-     Save Changes
+     Apply Changes
     </button>
-   </div>
+   ) : (
+    <div className="flex flex-row items-center justify-end gap-4 mt-3">
+     <button className=" px-6 py-2 border border-[#D1D5DB] rounded hover:bg-gray-300">
+      Cancel
+     </button>
+     <button
+      onClick={handleSave}
+      className=" px-6 py-2 bg-[#0D47A1] text-white rounded hover:bg-blue-700"
+     >
+      Save Changes
+     </button>
+    </div>
+   )}
   </div>
  );
 }

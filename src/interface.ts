@@ -66,6 +66,7 @@ export interface ModulesBtnSetProps {
 }
 export interface ModulesProps {
  onCancel: () => void;
+ onSuccess: () => void;
 }
 
 export interface User {
@@ -158,4 +159,10 @@ export interface EditableRefundMetric {
 
 export interface Refund {
  [key: string]: string;
+}
+
+export interface CancellationReason {
+ passengerNameRecord: string;
+ ticketNumber: string;
+ reason: string;
 }

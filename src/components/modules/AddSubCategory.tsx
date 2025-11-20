@@ -1,125 +1,155 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import React, { useState } from "react";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
 import type { ModulesProps } from "../../interface";
+import { addSubCategory } from "../../api/policyManagementService";
+import { useCategoryContext } from "../../hooks/CategoryContext";
+import { MASTER_VALUES } from "../../pages/Policy Management/components/PolicyComponents";
 
+export const Categories = [
+ {
+  category: "Ticket sales(booking source)",
+  value: "ticketSales",
+ },
+ {
+  category: "Refund Ticket Type",
+  value: "refundTicketType",
+ },
+ {
+  category: "Trip",
+  value: "tripType",
+ },
+ {
+  category: "Passenger Type",
+  value: "passengerType",
+ },
+ {
+  category: "Waiver",
+  value: "waiver",
+ },
+ {
+  category: "Ticket Type",
+  value: "ticketType",
+ },
+];
 
-const AddSubCategory = ({onCancel}: ModulesProps) => {
-  const [visible, setVisible] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
+type AddSubCategoryProps = ModulesProps & {
+ onNewSubAdded: (category: string, name: string) => void;
+};
 
-  const handleCancel = () => {
-    setVisible(!visible);
-  };
+const AddSubCategory = ({
+ onCancel,
+ onSuccess,
+ onNewSubAdded,
+}: AddSubCategoryProps) => {
+ const { categories } = useCategoryContext();
+ // const [newSubValue, setNewSubValue] = useState("")
+ const [formData, setFormData] = useState({
+  category: "",
+  name: "",
+ });
 
-  const subCategory = [
-    "Refund Ticket Type",
-    "Change Ticket Type",
-    "Cancel Ticket Type",
-  ];
+ const handleInputChange = (
+  e: React.ChangeEvent<
+   HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >,
+ ) => {
+  const { name, value } = e.target;
+  setFormData((prev) => ({ ...prev, [name]: value }));
+ };
 
-  const handleSelect = (item: any) => {
-    setSelectedCategory(item);
-    setDropdownOpen(false);
-  };
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  // addSubCategory(formData.category as keyof typeof MASTER_VALUES, newSubValue)
+  // setNewSubValue("")
+  if (!formData.name || !formData.category) {
+   alert("Empty form, kindly fill out the form");
+   return;
+  }
 
-  return (
-    <div
-      className={`flex justify-center items-center bg-black w-screen h-screen backdrop-blur-xl ${
-        !visible ? "" : "hidden"
-      }`}
-    >
-      <div className="bg-white p-9 w-[518px] h-[428px] rounded-[8px]">
-        <div className="w-full flex flex-col gap-[36px]">
-          {/* Header */}
-          <div className="flex flex-row items-center justify-between">
-            <span className="p-3">
-              <h2 className="text-[24px] font-[500] text-[#374151]">
-                Add Sub Category
-              </h2>
-            </span>
-            <span className="w-[36px] h-[36px]" onClick={handleCancel}>
-              <img
-                className="w-full"
-                src="/src/assets/Icons/Cancel.svg"
-                alt="cancel"
-              />
-            </span>
-          </div>
-
-          {/* Form */}
-          <form action="#">
-            <div className="flex flex-col gap-2.5">
-              {/* Category */}
-              <label
-                htmlFor="category"
-                className="h-[24px] text-[16px] font-medium text-[#1F2937]"
-              >
-                Category
-              </label>
-              <span className="relative flex flex-col">
-                <input
-                  id="category"
-                  name="category"
-                  value={selectedCategory}
-                  readOnly
-                  className="w-full h-[52px] border border-[#C6C6C6] rounded-[8px] px-3 text-[16px] text-[#202020] placeholder-[#8D8D8D] active:outline-none focus:outline-none cursor-pointer"
-                  placeholder="Select Category"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                />
-                <img
-                  className="w-[24px] h-[24px] absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
-                  src="/src/assets/Icons/akar-icons_chevron-down.svg"
-                  alt="dropdown"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                />
-                {/* Dropdown */}
-                {dropdownOpen && (
-                  <ul className="absolute top-[56px] w-full bg-white border border-[#C6C6C6] rounded-[8px] shadow-md z-10">
-                    {subCategory.map((item, index) => (
-                      <li
-                        key={index}
-                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-[16px] text-[#202020]"
-                        onClick={() => handleSelect(item)}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </span>
-
-              {/* Sub Category */}
-              <label
-                htmlFor="subCategory"
-                className="h-[24px] text-[16px] font-medium text-[#1F2937]"
-              >
-                Sub Category Name
-              </label>
-              <input
-                id="subCategory"
-                type="text"
-                name="subCategory"
-                required
-                placeholder="Refund Ticket Type"
-                className="px-[16px] py-[12px] border-[1px] border-[#C6C6C6] rounded-[4px] font-medium text-[16px] text-[#263238] placeholder-[#8D8D8D] active:outline-none focus:outline-none"
-              />
-              <p className="text-[12px] font-normal text-[#6B6F80]">
-                This will be added to the selected category
-              </p>
-            </div>
-          </form>
-
-          {/* Actions */}
-                <ModulesBtnSet 
-                  text2="Add Sub-Category"
-                  onCancel={onCancel}
-                />
-        </div>
-      </div>
-    </div>
+  const alreadyExists = categories.some(
+   (item) =>
+    item.category === formData.category &&
+    item.name.trim().toLowerCase() === formData.name.trim().toLowerCase(),
   );
+
+  if (alreadyExists) {
+   alert("This sub-category already exists under the selected category.");
+   return;
+  }
+
+  try {
+   await addSubCategory(formData);
+   onNewSubAdded(formData.category, formData.name);
+   alert("Successful!");
+   onCancel();
+   onSuccess();
+  } catch (e) {
+   alert("Error creating a sub-category");
+   console.error("error:", e);
+  }
+ };
+
+ return (
+  <div className="fixed inset-0 flex justify-center items-center bg-black/50 backdrop-blur-xl">
+   <div className="bg-white p-9 w-[518px] h-[450px] rounded-[8px]">
+    <div className="w-full flex flex-col gap-[36px]">
+     {/* Header */}
+     <div className="flex flex-row items-center justify-between">
+      <h2 className="text-[24px] font-[500] text-[#374151]">
+       Add Sub Category
+      </h2>
+      <button className="w-[36px] h-[36px]" onClick={onCancel}>
+       <img className="w-full" src="/assets/Icons/Cancel.svg" alt="cancel" />
+      </button>
+     </div>
+
+     {/* Form */}
+     <form onSubmit={handleSubmit}>
+      <div className="flex flex-col gap-2.5">
+       <label htmlFor="category" className="text-[16px] font-medium">
+        Category
+       </label>
+       <span className="relative flex flex-col">
+        <select
+         id="category"
+         name="category"
+         value={formData.category}
+         onChange={handleInputChange}
+         className="w-full h-[52px] border rounded-[8px] px-3 cursor-pointer"
+        >
+         <option value="">--Select Category--</option>
+         {Categories.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+           {opt.category}
+          </option>
+         ))}
+        </select>
+       </span>
+
+       <label htmlFor="subCategory" className="text-[16px] font-medium">
+        Sub Category Name
+       </label>
+       <input
+        id="subCategory"
+        type="text"
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
+        required
+        placeholder="Enter Sub Category Name"
+        className="px-[16px] py-[12px] border rounded-[4px]"
+       />
+       <p className="text-[12px] text-[#6B6F80]">
+        This will be added to the selected category
+       </p>
+      </div>
+      <ModulesBtnSet text2="Add Sub-Category" onCancel={onCancel} />
+     </form>
+    </div>
+   </div>
+  </div>
+ );
 };
 
 export default AddSubCategory;

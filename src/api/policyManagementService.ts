@@ -25,6 +25,21 @@ export const fetchAllPolicies = async (): Promise<Policy[]> => {
  }
 };
 
+export const deletePolicy = async (policyId: string) => {
+ try {
+  const response = await apiClient.delete(
+   `/policy-management/delete/${policyId}`,
+  );
+  if (response.data?.success) {
+   console.log("Policy deleted successfully", response.data);
+  } else {
+   console.warn("Failed to delete policy");
+  }
+ } catch (e) {
+  console.error("Error:", e);
+ }
+};
+
 export const createNewPolicy = async (data: NewPolicy) => {
  try {
   const token = Cookies.get("token");
@@ -42,6 +57,26 @@ export const createNewPolicy = async (data: NewPolicy) => {
  }
 };
 
+export const addTicketClass = async (name: string) => {
+ try {
+  const token = Cookies.get("token");
+  const tokenType = Cookies.get("tokenType");
+  const response = await apiClient.post(
+   "/ticket-class",
+   { name },
+   {
+    headers: {
+     Authorization: `${tokenType} ${token}`,
+     "Content-Type": "application/json",
+    },
+   },
+  );
+  return response.data;
+ } catch (e) {
+  console.error("Error:", e);
+ }
+};
+
 export const fetchTicketClasses = async (): Promise<Header[]> => {
  const response = await apiClient.get("/ticket-class");
  return (
@@ -51,6 +86,56 @@ export const fetchTicketClasses = async (): Promise<Header[]> => {
     name: t.name,
    })) ?? []
  );
+};
+export const deleteTicketClass = async (name: string) => {
+ try {
+  const response = await apiClient.delete(`/ticket-class/${name}`);
+  if (response.data?.success) {
+   console.log("Ticket class deleted successfully!");
+   alert("Ticket class deleted successfully!");
+  } else {
+   console.log("Failed to delete ticket class.");
+  }
+ } catch (e) {
+  console.error("Error:", e);
+ }
+};
+
+export const fetchSubCategory = async () => {
+ try {
+  const response = await apiClient.get("/policy-category");
+  return response.data;
+ } catch (e) {
+  console.error("Error:", e);
+ }
+};
+
+export interface categoryPayload {
+ category: string;
+ name: string;
+}
+
+export const addSubCategory = async (payload: categoryPayload) => {
+ try {
+  const response = await apiClient.post("/policy-category", payload);
+  return response.data;
+ } catch (e) {
+  console.error("Error creating sub category:", e);
+ }
+};
+
+export const deleteSubCategory = async (name: string) => {
+ try {
+  const res = await apiClient.delete(`/policy-category/${name}`);
+  if (res.data?.success) {
+   console.log("Sub-Category deleted successfully!");
+   alert("Sub-Category deleted successfully!");
+  } else {
+   console.log("Error deleting Sub-Category");
+  }
+ } catch (e) {
+  console.error("Error:", e);
+ }
 };
 
 // policy checkbox table
@@ -64,7 +149,21 @@ export const fetchPolicyRefundMetrics = async (): Promise<
  PolicyRefundMetric[]
 > => {
  const response = await apiClient.get(
-  "/policy-refund-metric/list?cabinType=BUSINESS&routeType=INTERNATIONAL",
+  "/policy-refund-metric/list?cabinType=ECONOMY&routeType=DOMESTIC",
  );
- return response.data?.response?.content ?? [];
+ return response.data?.response ?? [];
+};
+
+export const fetchCancellationReasons = async () => {
+ const res = await apiClient.get("/cancellation/reason");
+ const data = res.data?.response ?? [];
+ return data;
+};
+
+export interface ReasonProps {
+ reasons: string;
+}
+export const createCancellationReasons = async (payload: ReasonProps) => {
+ const response = await apiClient.post("/cancellation/reason", payload);
+ return response.data?.content ?? [];
 };

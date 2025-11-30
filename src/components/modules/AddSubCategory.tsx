@@ -4,7 +4,6 @@ import ModulesBtnSet from "../molecules/ModulesBtnSet";
 import type { ModulesProps } from "../../interface";
 import { addSubCategory } from "../../api/policyManagementService";
 import { useCategoryContext } from "../../hooks/CategoryContext";
-import { MASTER_VALUES } from "../../pages/Policy Management/components/PolicyComponents";
 
 export const Categories = [
  {
@@ -33,17 +32,15 @@ export const Categories = [
  },
 ];
 
-type AddSubCategoryProps = ModulesProps & {
- onNewSubAdded: (category: string, name: string) => void;
-};
+// type AddSubCategoryProps = ModulesProps & {
+//  onNewSubAdded: (category: string, name: string) => void;
+// };
 
 const AddSubCategory = ({
  onCancel,
  onSuccess,
- onNewSubAdded,
-}: AddSubCategoryProps) => {
+}:ModulesProps) => {
  const { categories } = useCategoryContext();
- // const [newSubValue, setNewSubValue] = useState("")
  const [formData, setFormData] = useState({
   category: "",
   name: "",
@@ -60,8 +57,7 @@ const AddSubCategory = ({
 
  const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
-  // addSubCategory(formData.category as keyof typeof MASTER_VALUES, newSubValue)
-  // setNewSubValue("")
+  
   if (!formData.name || !formData.category) {
    alert("Empty form, kindly fill out the form");
    return;
@@ -78,9 +74,15 @@ const AddSubCategory = ({
    return;
   }
 
+  // const backendValue = formData.name.trim().replace(/\s+/g, "").toUpperCase();
+
   try {
-   await addSubCategory(formData);
-   onNewSubAdded(formData.category, formData.name);
+   await addSubCategory({
+    category: formData.category,
+    name: formData.name,
+    // value: backendValue,
+   });
+  //  onNewSubAdded(formData.category, formData.name);
    alert("Successful!");
    onCancel();
    onSuccess();

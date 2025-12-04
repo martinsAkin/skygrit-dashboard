@@ -96,6 +96,14 @@ const TriggerAndRulesContent = () => {
       ...prev,
       [id]: !prev[id],
     }));
+
+    setTriggerAndRules((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, status: toggles[id] ? "Inactive" : "Active" }
+          : item
+      )
+    );
   };
   return (
     <div>
@@ -146,7 +154,9 @@ const TriggerAndRulesContent = () => {
                 <span className="flex flex-row items-center">
                   <span>
                     <button
-                      onClick={() => handleToggle(trigger.id)}
+                      onClick={() => {
+                        handleToggle(trigger.id);
+                      }}
                       className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${
                         toggles[trigger.id] ? "bg-blue-800" : "bg-gray-400"
                       }`}

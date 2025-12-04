@@ -18,6 +18,7 @@ import AlertsAndNotifications from "./pages/Alerts and Notifications/AlertsAndNo
 import CreateTemplate from "./pages/Alerts and Notifications/components/CreateTemplate";
 import TemplateDetails from "./pages/Alerts and Notifications/components/TemplateDetails";
 import CreateTrigger from "./pages/Alerts and Notifications/components/CreateTrigger";
+import ChannelSettings from "./pages/Alerts and Notifications/components/ChannelSettings";
 
 function App() {
   const location = useLocation();
@@ -105,6 +106,7 @@ function App() {
 
           <Route path="/" element={<Login />} />
           <Route path="/notifications" element={<AlertsAndNotifications />} />
+          <Route path="/channelsetting/:id" element={<ChannelSettings />} />
 
           <Route
             path="/templates/:id"

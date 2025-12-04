@@ -24,9 +24,7 @@ import {
  deleteSubCategory,
  fetchSubCategory,
 } from "../../../api/policyManagementService";
-import AddSubCategory, {
- Categories,
-} from "../../../components/modules/AddSubCategory";
+import AddSubCategory from "../../../components/modules/AddSubCategory";
 import AddTickets from "../../../components/modules/AddTickets";
 import { CategoryContext } from "../../../hooks/CategoryContext";
 
@@ -145,19 +143,19 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
     <div className="flex justify-between items-center p-4 relative">
      <span className="text-xl font-medium text-[#111827]">Policy Details</span>
      <div onMouseLeave={() => setIsDropdown(false)}>
-      <button onClick={() => setIsDropdown(!isDropdown)}>
+      <button onClick={() => setIsDropdown(!isDropdown)} className="cursor-pointer">
        <img src={menuOptIcon} alt="menu" title="menu" />
       </button>
 
       {isDropdown && (
-       <div className="absolute right-0 top-10">
+       <div className="absolute right-0 top-10 bg-gray-300 p-2 rounded-sm">
         <ol className="flex flex-col">
          <li className="userMgtLi">Edit</li>
          <li
           className="userMgtLi-delete"
           onClick={() => deletePolicy(selectedPolicy.policyId)}
          >
-          Delete
+          Deactivate
          </li>
         </ol>
        </div>
@@ -227,14 +225,6 @@ export const PolicyDetails: React.FC<PolicyDetailsProps> = ({
  return <p>No policy selected yet!</p>;
 };
 
-export const MASTER_VALUES = {
- ticketSales: ["DIRECT", "INDIRECT"],
- refundTicketType: ["Refundable", "Non-Refundable"],
- tripType: ["One-Way", "Round-Trip", "Multi-City"],
- passengerType: ["ADULT", "CHILD", "INFANT"],
- ticketType: ["INDIVIDUAL", "GROUP"],
- waiver: ["Waiver"],
-};
 
 export default function TicketTable() {
  const [responseMessage, setResponseMessage] = useState<string>("");
@@ -274,22 +264,6 @@ export default function TicketTable() {
   loadHeaders();
  }, []);
 
- const normalize = (value: string): string => {
-  const map: Record<string, string> = {
-   DIRECT: "Direct sales from Airline",
-   INDIRECT: "Indirect sales (OTAs, Agencies)",
-   GROUP: "Group",
-   INDIVIDUAL: "Individual",
-   ADULT: "Adult",
-   CHILD: "Child",
-   INFANT: "Infant",
-   "ONE-WAY": "One-Way",
-   "ROUND-TRIP": "Round-Trip",
-   "MULTI-CITY": "Multi-City",
-  };
-  return map[value] ?? value;
- };
-
  const loadMetrics = async () => {
   try {
    const data = await fetchPolicyRefundMetrics();
@@ -326,65 +300,103 @@ export default function TicketTable() {
   loadMetrics();
  }, []);
 
- const handleNewSubCategory = (category: string, name: string) => {
-  MASTER_VALUES[category] = [...new Set([...MASTER_VALUES[category], name])];
- };
+ const grouped = categories.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
 
- const grouped = Categories.reduce(
-  (acc, item) => {
-   const values = MASTER_VALUES[item.value] ?? [];
-   acc[item.category] = values.map((val) => ({
-    value: val, // ✅ backend value (exact casing)
-    label: normalize(val), // ✅ friendly label for UI
-   }));
-   return acc;
-  },
-  {} as Record<string, { value: string; label: string }[]>,
- );
+    acc[item.category].push({
+      value: item.name.trim().replace(/\s+/g, "").toUpperCase(), // backend key
+      label: item.name,                                   // friendly label
+    });
 
- const handleSave = async () => {
-  if (!Array.isArray(editableData)) return null;
+    return acc;
+  }, {} as Record<string, { value: string; label: string }[]>);
 
+
+  const handleSave = async () => {
   const changed = editableData.filter((t) =>
-   changedTicketClasses.has(t.ticketClass),
+    changedTicketClasses.has(t.ticketClass)
   );
 
-  if (changed.length === 0) {
-   setResponseMessage("No changes to save.");
-   return;
-  }
+  const payload = changed.map((t) => {
+    const selected = t.selectedConditions ?? [];
 
-  const mapConditions = (keys: string[], selected: string[]) =>
-   selected.filter((c) => keys.includes(c));
+    // Group selected values into fixed backend fields
+    const groupedByField = categories.reduce((acc, cat) => {
+      const normalizedName = cat.name.trim().replace(/\s+/g, "").toUpperCase();
 
-  const payload: PolicyRefundMetric[] = changed.map((t) => {
-   const selected = t.selectedConditions ?? [];
+      if (selected.includes(normalizedName)) {
+        const backendField = cat.value; // e.g. "ticketSales", "tripType"
+        if (!acc[backendField]) acc[backendField] = [];
+        acc[backendField].push(cat.name); // send original name back
+      }
 
-   return {
-    policyId: String(t.policyId ?? "1000"),
-    cancellationType: t.cancellationType ?? "CUSTOMER_INITIATED",
-    cabinType: t.cabinType ?? "ECONOMY",
-    routeType: t.routeType ?? "DOMESTIC",
-    ticketClass: t.ticketClass,
-    refundTicketType:
-     mapConditions(["Refundable", "Non-Refundable"], selected)[0] ?? "",
-    tripType: mapConditions(["One-Way", "Round-Trip", "Multi-City"], selected),
-    passengerType: mapConditions(["ADULT", "CHILD", "INFANT"], selected),
-    ticketType: mapConditions(["INDIVIDUAL", "GROUP"], selected),
-    waiver: selected.includes("Waiver"),
-    ticketSales: mapConditions(["DIRECT", "INDIRECT"], selected),
-   };
+      return acc;
+    }, {} as Record<string, string[]>);
+
+    return {
+      policyId: String(t.policyId ?? "1000"),
+      ticketClass: t.ticketClass,
+      ...groupedByField, // ✅ dynamic subcategories grouped under fixed categories
+    };
   });
 
   try {
-   await createPolicyRefundMetric(payload);
-   setResponseMessage("Saved successfully!");
-   await loadMetrics();
-   setChangedTicketClasses(new Set());
+    await createPolicyRefundMetric(payload);
+    setResponseMessage("Saved successfully!");
+    await loadMetrics(); // reload from backend
+    setChangedTicketClasses(new Set());
   } catch (error) {
-   setResponseMessage(`Failed to save. Please try again.\n${String(error)}`);
+    setResponseMessage(`Failed to save. Please try again.\n${String(error)}`);
   }
- };
+};
+
+
+
+//  const handleSave = async () => {
+//   if (!Array.isArray(editableData)) return null;
+
+//   const changed = editableData.filter((t) =>
+//    changedTicketClasses.has(t.ticketClass),
+//   );
+
+//   if (changed.length === 0) {
+//    setResponseMessage("No changes to save.");
+//    return;
+//   }
+
+  // const mapConditions = (keys: string[], selected: string[]) =>
+  //  selected.filter((c) => keys.includes(c));
+
+  // const payload: PolicyRefundMetric[] = changed.map((t) => {
+  //  const selected = t.selectedConditions ?? [];
+
+  //  return {
+  //   policyId: String(t.policyId ?? "1000"),
+  //   cancellationType: t.cancellationType ?? "CUSTOMER_INITIATED",
+  //   cabinType: t.cabinType ?? "ECONOMY",
+  //   routeType: t.routeType ?? "DOMESTIC",
+  //   ticketClass: t.ticketClass,
+  //   refundTicketType:
+  //    mapConditions(["Refundable", "Non-Refundable"], selected)[0] ?? "",
+  //   tripType: mapConditions(["One-Way", "Round-Trip", "Multi-City"], selected),
+  //   passengerType: mapConditions(["ADULT", "CHILD", "INFANT"], selected),
+  //   ticketType: mapConditions(["INDIVIDUAL", "GROUP"], selected),
+  //   waiver: selected.includes("Waiver"),
+  //   ticketSales: mapConditions(["DIRECT", "INDIRECT"], selected),
+  //  };
+  // });
+
+//   try {
+//    await createPolicyRefundMetric(payload);
+//    setResponseMessage("Saved successfully!");
+//    await loadMetrics();
+//    setChangedTicketClasses(new Set());
+//   } catch (error) {
+//    setResponseMessage(`Failed to save. Please try again.\n${String(error)}`);
+//   }
+//  };
 
  const handleCheckboxChange = (
   ticketClass: string,
@@ -470,7 +482,6 @@ export default function TicketTable() {
      <AddSubCategory
       onCancel={() => setActiveModal(null)}
       onSuccess={loadCategories}
-      onNewSubAdded={handleNewSubCategory}
      />
     </CategoryContext.Provider>
    )}

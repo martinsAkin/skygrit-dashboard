@@ -10,7 +10,7 @@ export interface LoginPayload {
 export const loginAdmin = async (payload: LoginPayload) => {
  try {
   const response = await apiClient.post("/admin/login", payload);
-  const { accessToken, tokenType } = response.data;
+  const { accessToken, tokenType } = response.data.response;
   Cookies.set("token", accessToken);
   Cookies.set("tokenType", tokenType);
   return response.data;
@@ -35,14 +35,24 @@ export const fetchAddedUsers = async (): Promise<User[]> => {
  try {
   const token = Cookies.get("token");
   const tokenType = Cookies.get("tokenType");
+  
+  if (!token || !tokenType) {
+      throw new Error("No auth token found. Please log in.");
+  }
+
   const response = await apiClient.get("/admin", {
    headers: {
     Authorization: `${tokenType} ${token}`,
    },
   });
-  console.log("Raw response:", response);
-  console.log("Response data type:", typeof response.data);
-  return response.data?.response.content ?? [];
+  const content = response.data?.response.content ?? [];
+  return content.map((u: any) => ({
+      userID: u.id,
+      name: u.fullName,
+      email: u.username, // backend uses "username" as email
+      role: u.role,
+      status: u.active ? "Active" : "Inactive", // map boolean to string
+    }));
  } catch (error) {
   console.error("Error Fetching users:", error);
   return [];

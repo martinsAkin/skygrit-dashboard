@@ -13,7 +13,8 @@ apiClient.interceptors.request.use((config) => {
  const token = Cookies.get("token");
  const tokenType = Cookies.get("tokenType");
  if (token && tokenType) {
-  config.headers.Authorization = `${tokenType} ${token}`;
+  config.headers.Authorization = `${tokenType} ${token}`; 
+  // console.log("Auth header being sent:", config.headers.Authorization);
  }
  return config;
 });

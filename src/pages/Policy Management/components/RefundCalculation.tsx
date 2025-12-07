@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { RefundRowType, RefundData } from "../../../interface";
+import { fetchCancellationReasons, fetchTicketClasses, saveRefundMetric, fetchRefundMetrics } from "../../../api/policyManagementService";
+import type { RefundRowType, RefundData, CancellationReason } from "../../../interface";
 import RefundTable, {
  ActionButtons,
 } from "../../Request/components/RefundTable";
+
 import { useEffect, useState } from "react";
 
 const refundRows: RefundRowType[] = [
@@ -32,50 +34,56 @@ const refundTimelineOptions = [
 
 export default function RefundCalculation() {
  const [ticketClasses, setTicketClasses] = useState<string[]>([]);
- const [reasons, setReasons] = useState<string[]>([]);
+ const [reasons, setReasons] = useState<CancellationReason[]>([]);
  const [refundDataMap, setRefundDataMap] = useState<Record<string, any>>({});
  const [changed, setChanged] = useState(false);
 
  // fetch reasons
+ const fetchReasons = async () => {
+  try{
+    const data = await fetchCancellationReasons()
+    setReasons(data);
+  } catch (e) {
+    console.error("Error:", e)
+  }
+ }
  useEffect(() => {
-  fetch("http://74.50.82.253:8093/api/v1/cancellation/reason")
-   .then((res) => res.json())
-   .then((data) => {
-    if (data?.success && Array.isArray(data.response)) {
-     setReasons(data.response.map((item: any) => item.reason));
-     fetchTicketClasses();
-    }
-   })
-   .catch(() => setReasons([]));
+  fetchReasons()
  }, []);
 
- const fetchTicketClasses = () => {
-  fetch("http://74.50.82.253:8093/api/v1/ticket-class")
-   .then((res) => res.json())
-   .then((data) => {
-    if (data?.success && Array.isArray(data.response)) {
-     const classes = data.response.map((item: any) => item.name);
-     setTicketClasses(classes);
-     fetchRefundMetrics(classes);
-    }
-   });
- };
+ const loadTcketClasses = async () => {
+   try {
+    const data = await fetchTicketClasses();
+    setTicketClasses(data.map((t) => t.name));
+   } catch (error) {
+    console.error(`Failed to load ticket classes. error: ${error}`);
+   }
+  };
+   useEffect(() => {
+  loadTcketClasses();
+ }, []);
 
- const fetchRefundMetrics = (tcs: string[]) => {
-  fetch(
-   "http://74.50.82.253:8093/api/v1/refund-metric/list?cabinType=ECONOMY&routeType=DOMESTIC",
-  )
-   .then((res) => res.json())
-   .then((data) => {
-    const map: Record<string, any> = {};
+ const fetchRefundMetricsAndSet = async () => {
+  try {
+    const data = await fetchRefundMetrics("ECONOMY", "DOMESTIC");
+
     if (data?.success && Array.isArray(data.response)) {
-     data.response.forEach((item: any) => {
-      map[`${item.reason}_${item.ticketClass}`] = item;
-     });
+      const map: Record<string, RefundData> = {};
+      data.response.forEach((item: RefundData) => {
+        map[`${item.reason}_${item.ticketClass}`] = item;
+      });
+      setRefundDataMap(map); 
+    } else {
+      console.warn("Unexpected response format:", data);
     }
-    setRefundDataMap(map);
-   });
- };
+  } catch (error) {
+    console.error("Failed to fetch refund metrics:", error);
+  }
+};
+
+useEffect(() => {
+  fetchRefundMetricsAndSet();
+}, []);
 
  const handleChange = () => setChanged(true);
 
@@ -86,11 +94,20 @@ export default function RefundCalculation() {
     const compoundKey = `${reason}_${tc}`;
     const existing = refundDataMap[compoundKey] || {};
     const row: any = {
-     policyId: 1,
-     routeType: "DOMESTIC",
-     cabinType: "ECONOMY",
-     ticketClass: tc,
-     reason,
+      policyId: String(existing.policyId ?? 1),
+      routeType: "DOMESTIC",
+      cabinType: "ECONOMY",
+      ticketClass: tc,
+      reason,
+      baseFare: existing.baseFare ?? 0,
+      tax: existing.tax ?? 0,
+      fuelSurcharge: existing.fuelSurcharge ?? 0,
+      airportServiceFees: existing.airportServiceFees ?? 0,
+      ancillary: existing.ancillary ?? 0,
+      penaltyValue: existing.penaltyValue ?? 0,
+      refundTimeLine: existing.refundTimeLine ?? "",
+      minHoursBeforeFlight: existing.minHoursBeforeFlight ?? 0,
+      maxHoursBeforeFlight: existing.maxHoursBeforeFlight ?? 0,
     };
 
     refundRows.forEach((r) => {
@@ -116,25 +133,17 @@ export default function RefundCalculation() {
   return rows;
  };
 
- const handleSave = () => {
-  const payload = collectTableData();
-
-  fetch("http://74.50.82.253:8093/api/v1/refund-metric/list", {
-   method: "POST",
-   headers: { "Content-Type": "application/json" },
-   body: JSON.stringify(payload),
-  })
-   .then((res) => res.json())
-   .then((data) => {
-    if (data.success) {
-     alert("Refund metrics saved successfully!");
-     setChanged(false);
-    } else {
-     alert("Failed to save refund metrics");
+ const handleSave = async () => {
+    const payload = collectTableData();
+    try{
+      await saveRefundMetric(payload)
+      alert("Refund metrics saved successfully!");
+      console.log("Saved payload:", payload);
+      setChanged(false);
+    } catch (e){
+      console.error("Error while saving metric:", e)
     }
-   })
-   .catch(() => alert("Error occurred while saving data."));
- };
+  }
 
  return (
   <div className="max-w-6xl mx-auto bg-white rounded-lg shadow p-6">

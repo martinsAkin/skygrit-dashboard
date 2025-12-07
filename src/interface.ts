@@ -18,17 +18,25 @@ export interface RefundRowType {
 }
 
 export interface RefundData {
- policyId: number;
- routeType: string;
- cabinType: string;
- ticketClass: string;
- reason: string;
- [key: string]: string | number | null;
+  policyId: string; 
+  routeType: string;
+  cabinType: string;
+  ticketClass: string;
+  reason: string;
+  baseFare: number;
+  tax: number;
+  fuelSurcharge: number;
+  airportServiceFees: number;
+  ancillary: number;
+  penaltyValue: number;
+  refundTimeLine: string;
+  minHoursBeforeFlight: number;
+  maxHoursBeforeFlight: number;
 }
 
 export interface RefundTableProps {
  ticketClasses: string[];
- reasons: string[];
+ reasons: CancellationReason[];
  refundDataMap: Record<string, any>;
  refundRows: RefundRowType[];
  refundTimelineOptions: string[];
@@ -70,12 +78,28 @@ export interface ModulesProps {
 }
 
 export interface User {
- userID: any;
- name: string;
- email: string;
- role: string;
- status: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  username: string;
+  active: boolean;
+  authorities: string[];
+  fullName: string;
+  role: string;
+  firstLogin: boolean;
 }
+
+export interface AdminResponse {
+  content: User[];
+  totalPages: number;
+  totalElements: number;
+  first: boolean;
+  last: boolean;
+  size: number;
+  number: number;
+  empty: boolean;
+}
+
 export interface MenuUserMgtProps {
  onEdit: () => void;
  onDeactivate: () => void;
@@ -133,7 +157,6 @@ export interface PolicyDetailsProps {
 export interface Header {
  name: string;
 }
-
 export interface PolicyRefundMetric {
  policyId: string;
  cancellationType: string;
@@ -162,7 +185,31 @@ export interface Refund {
 }
 
 export interface CancellationReason {
- passengerNameRecord: string;
- ticketNumber: string;
- reason: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  reason: string;
+  activated: boolean;
+}
+
+export type ChannelOption = "EMAIL" | "WHATSAPP" | "SMS";
+export type TemplateStatus = "DRAFT" | "PUBLISHED" | "DEACTIVATED";
+export interface NotificationTemplate {
+  name: string;
+  category: string;
+  channel: ChannelOption[];
+  subject: string;
+  content: string;
+  status: TemplateStatus;
+}
+
+export interface FormState {
+  name: string;
+  category: string;
+  email: boolean;
+  sms: boolean;
+  whatsapp: boolean;
+  subject: string;
+  message: string;
+  status: "DRAFT" | "PUBLISHED" | "DEACTIVATED" | "";
 }

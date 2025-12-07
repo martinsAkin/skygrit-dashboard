@@ -7,6 +7,7 @@ import MenuUserMgt from "../../../components/molecules/MenuUserMgt";
 const UserManagementTable = () => {
  const headFields = ["User ID", "Full Name", "Email", "Role", "Status", ""];
  const [openMenu, setOpenMenu] = useState<number | null>(null);
+ const [userData, setUserData] = useState<User[]>([]);
 
  const handleEdit = (id: number) => {
   console.log("Edit user:", id);
@@ -23,8 +24,6 @@ const UserManagementTable = () => {
   setOpenMenu(null);
  };
 
- const [userData, setUserData] = useState<User[]>([]);
-
  // .get("/data/TableData.json") // ✅ served from public folder
  useEffect(() => {
   fetchAddedUsers()
@@ -32,7 +31,10 @@ const UserManagementTable = () => {
    .catch((error) => console.error("Error fetching JSON:", error));
  }, []);
 
- if (userData.length === 0) return <div>Loading....</div>;
+  if (!Array.isArray(userData) || userData.length === 0) {
+    return <div>Loading....</div>;
+  }
+
 
  return (
   <div className="overflow-visible">
@@ -57,39 +59,39 @@ const UserManagementTable = () => {
        className="hover:bg-gray-50 transition-colors duration-200"
       >
        <td className="px-4 py-4 border-b border-gray-200 text-[13px] text-[#263238]">
-        REQ-{item.userID}
+        REQ-{item.id}
        </td>
        <td className="px-4 py-4 border-b border-gray-200 text-[13px] text-[#263238]">
-        {item.name}
+        {item.fullName}
        </td>
        <td className="px-4 py-4 border-b border-gray-200 text-[13px] text-[#263238]">
-        {item.email}
+        {item.username}
        </td>
        <td className="px-4 py-4 border-b border-gray-200 text-[13px] text-[#263238]">
         {item.role}
        </td>
        <td
         className={`px-4 py-4 border-b border-gray-200 font-medium text-[13px] ${
-         item.status === "Active" ? "text-green-600" : "text-orange-700"
+         item.active ? "text-green-600" : "text-orange-700"
         }`}
        >
-        {item.status}
+        {item.active ? "Active" : "Inactive"}
        </td>
        <td className="px-4 py-2 border-b border-gray-200 relative">
         <button
          className="cursor-pointer"
          onClick={() =>
-          setOpenMenu(openMenu === item.userID ? null : item.userID)
+          setOpenMenu(openMenu === item.id ? null : item.id)
          }
         >
          <img src={menuOptIcon} alt="menu" title="menu" />
         </button>
-        {openMenu === item.userID && (
+        {openMenu === item.id && (
          <div className="absolute right-4 top-8">
           <MenuUserMgt
-           onEdit={() => handleEdit(item.userID)}
-           onDeactivate={() => handleDeactivate(item.userID)}
-           onDelete={() => handleDelete(item.userID)}
+           onEdit={() => handleEdit(item.id)}
+           onDeactivate={() => handleDeactivate(item.id)}
+           onDelete={() => handleDelete(item.id)}
            onClose={() => setOpenMenu(null)}
           />
          </div>

@@ -3,6 +3,7 @@ import type {
  NewPolicy,
  PolicyRefundMetric,
  Header,
+ RefundData,
 } from "../interface";
 import Cookies from "js-cookie";
 import apiClient from "./apiClient";
@@ -155,15 +156,44 @@ export const fetchPolicyRefundMetrics = async (): Promise<
 };
 
 export const fetchCancellationReasons = async () => {
- const res = await apiClient.get("/cancellation/reason");
+  const token = Cookies.get("token");
+  const tokenType = Cookies.get("tokenType");
+ const res = await apiClient.get("/cancellation/reason", {
+  headers: {
+     Authorization: `${tokenType} ${token}`,
+     "Content-Type": "application/json",
+    },
+ });
  const data = res.data?.response ?? [];
  return data;
 };
 
-export interface ReasonProps {
- reasons: string;
+export const saveRefundMetric = async (payload: RefundData[]) => {
+   const token = Cookies.get("token");
+  const tokenType = Cookies.get("tokenType");
+ const res = await apiClient.post("/refund-metric/list", payload, {
+  headers: {
+     Authorization: `${tokenType} ${token}`,
+     "Content-Type": "application/json",
+    },
+ });
+  return res.data;
 }
-export const createCancellationReasons = async (payload: ReasonProps) => {
- const response = await apiClient.post("/cancellation/reason", payload);
- return response.data?.content ?? [];
+
+export const fetchRefundMetrics = async (
+  cabinType: string,
+  routeType: string
+) => {
+  const token = Cookies.get("token");
+  const tokenType = Cookies.get("tokenType");
+
+  const res = await apiClient.get("/refund-metric/list", {
+    params: { cabinType, routeType },
+    headers: {
+      Authorization: `${tokenType} ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  return res.data;
 };

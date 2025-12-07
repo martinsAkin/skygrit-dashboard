@@ -3,9 +3,11 @@ import messageChat from "/assets/Icons/materialEmail.svg";
 import chat from "/assets/Icons/materialChat.svg";
 import phone from "/assets/Icons/fluentPhone.svg";
 import { NavLink } from "react-router-dom";
+import type { ChannelOption, NotificationTemplate, FormState } from "../../../interface"
+import { createNotificationTemplate } from "../../../api/notificationService";
 
 const CreateTemplate = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormState>({
     name: "",
     category: "",
     email: false,
@@ -13,7 +15,21 @@ const CreateTemplate = () => {
     whatsapp: false,
     subject: "",
     message: "",
+    status: "PUBLISHED",
   });
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      category: "",
+      email: false,
+      sms: false,
+      whatsapp: false,
+      subject: "",
+      message: "",
+      status: "",   // reset status back to empty string
+    });
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -30,25 +46,51 @@ const CreateTemplate = () => {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+    const buildPayload = (status: "DRAFT" | "PUBLISHED" | "DEACTIVATED"): NotificationTemplate => {
+    const channels: ChannelOption[] = [];
+    if (formData.email) channels.push("EMAIL");
+    if (formData.sms) channels.push("SMS");
+    if (formData.whatsapp) channels.push("WHATSAPP");
+
+    return {
+      name: formData.name,
+      category: formData.category,
+      channel: channels,
+      subject: formData.subject,
+      content: formData.message,
+      status,
+      };
+    };
+  
+      const handleSaveDraft = async () => {
+    const payload = buildPayload("DRAFT");
+    try {
+      const res = await createNotificationTemplate(payload);
+      alert("Template saved as draft!");
+      console.log("Saved payload:", payload, "Response:", res);
+      resetForm();
+    } catch (err) {
+      console.error("Error saving draft:", err);
+    }
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate at least one channel is selected
     if (!formData.email && !formData.sms && !formData.whatsapp) {
       alert("Please select at least one channel");
       return;
     }
 
-    alert("Template created successfully!");
-    console.log("Form data: ", formData);
-
-    // TODO: Uncomment when API is ready
-    // try {
-    //   await createNewPolicy(formData);
-    //   navigate("/templates");
-    // } catch (error: any) {
-    //   console.error("Something went wrong:", error.response?.data || error.message);
-    // }
+    const payload = buildPayload("PUBLISHED");
+    try {
+      const res = await createNotificationTemplate(payload);
+      alert("Template published successfully!");
+      console.log("Published payload:", payload, "Response:", res);
+      resetForm();
+    } catch (err) {
+      console.error("Error publishing template:", err);
+    }
   };
 
   const handleCancel = () => {
@@ -61,6 +103,7 @@ const CreateTemplate = () => {
       whatsapp: false,
       subject: "",
       message: "",
+      status: "PUBLISHED",
     });
   };
 
@@ -215,6 +258,7 @@ const CreateTemplate = () => {
                     <button
                       type="button"
                       className="p-2.5 rounded-lg text-[13px] text-black bg-white border border-gray-400"
+                      onClick={handleCancel}
                     >
                       Cancel
                     </button>
@@ -222,7 +266,8 @@ const CreateTemplate = () => {
                   <button
                     type="button"
                     className="p-2.5 rounded-lg text-[13px] text-black bg-white border border-gray-400"
-                    onClick={handleCancel}
+                    value={formData.status}
+                    onClick={handleSaveDraft}
                   >
                     Save as Draft
                   </button>

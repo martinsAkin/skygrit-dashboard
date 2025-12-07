@@ -34,11 +34,11 @@ export default function RefundTable({
         </tr>
       </thead>
       <tbody>
-        {reasons.map((reason) =>
+        {reasons.map((reasonObject) =>
           refundRows.map((row, idx) => (
             <RefundRow
-              key={`${reason}_${row.key}`}
-              reason={reason}
+              key={`${reasonObject.reason}_${row.key}`}
+              reason={reasonObject.reason}
               row={row}
               idx={idx}
               ticketClasses={ticketClasses}

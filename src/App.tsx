@@ -32,7 +32,7 @@ function App() {
     <div className="flex bg-[#ffffff]">
       {shouldShowSidebar && <Sidebar />}
 
-      <main className="flex-1 px-2.5 py-1 flex flex-col gap-2">
+      <main className="flex-1 px-2.5 py-1 flex flex-col gap-2 pl-80">
         {shouldHideHeadbar && <Headbar />}
 
         <Routes>

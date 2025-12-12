@@ -1,9 +1,9 @@
 import apiClient from "./apiClient";
-import type { NotificationTemplate } from "../interface";
+import type { NotificationTemplate, NotificationTemplatePayload } from "../interface";
 import Cookies from "js-cookie";
 
 
-export const createNotificationTemplate = async (payload: NotificationTemplate) => {
+export const createNotificationTemplate = async (payload: NotificationTemplatePayload) => {
  try {
    const token = Cookies.get("token");
   const tokenType = Cookies.get("tokenType");
@@ -24,4 +24,18 @@ export const createNotificationTemplate = async (payload: NotificationTemplate) 
    console.error("error:", error);
    throw error;
   }
+}
+
+export const fetchNotificationTemplates = async (): Promise<NotificationTemplate[]> => {
+  const token = Cookies.get("token");
+  const tokenType = Cookies.get("tokenType");
+
+  const res = await apiClient.get<{ response: NotificationTemplate[] }>("/notification-template/", {
+    headers: {
+      Authorization: `${tokenType} ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+
+  return res.data.response ?? [];
 }

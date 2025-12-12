@@ -194,13 +194,19 @@ export interface CancellationReason {
 
 export type ChannelOption = "EMAIL" | "WHATSAPP" | "SMS";
 export type TemplateStatus = "DRAFT" | "PUBLISHED" | "DEACTIVATED";
-export interface NotificationTemplate {
+export interface NotificationTemplatePayload {
   name: string;
   category: string;
   channel: ChannelOption[];
   subject: string;
   content: string;
   status: TemplateStatus;
+}
+
+export interface NotificationTemplate extends NotificationTemplatePayload {
+  id: string;        // or number, depending on backend
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface FormState {

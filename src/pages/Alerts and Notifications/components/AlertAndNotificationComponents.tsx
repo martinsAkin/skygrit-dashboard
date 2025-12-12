@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import editIcon from "/assets/Icons/edit-outline.svg";
 import viewIcon from "/assets/Icons/icons-view.svg";
@@ -9,59 +9,68 @@ import messageIcon from "/assets/Icons/messageIcon.svg";
 import chatIcon from "/assets/Icons/chatIcon.svg";
 import phoneIcon from "/assets/Icons/phoneIcon.svg";
 import FilterAndSearchh from "../../../components/molecules/FilterAndSearchh";
+import type { NotificationTemplate } from "../../../interface";
+import { fetchNotificationTemplates } from "../../../api/notificationService";
 // import TemplateDetails from "./TemplateDetails";
 
-interface AlertAndNotificationComponentsProps {
-  id: string;
-  templateName: string;
-  category: string;
-  status: string | boolean;
-}
+// interface AlertAndNotificationComponentsProps {
+//   id: string;
+//   templateName: string;
+//   category: string;
+//   status: string | boolean;
+// }
 
-const initialTemplates: AlertAndNotificationComponentsProps[] = [
-  {
-    id: "1",
-    templateName: "Booking Confirmation",
-    category: "Templates",
-    status: "Published",
-  },
-  {
-    id: "2",
-    templateName: "Flight Delay Notification",
-    category: "Templates",
-    status: "Published",
-  },
-  {
-    id: "3",
-    templateName: "Check-in Reminder",
-    category: "Templates",
-    status: "Published",
-  },
-  {
-    id: "4",
-    templateName: "Gate Change Alert",
-    category: "Templates",
-    status: "Published",
-  },
-  {
-    id: "5",
-    templateName: "Flight Cancellation",
-    category: "Templates",
-    status: "Draft",
-  },
-];
+// const initialTemplates: AlertAndNotificationComponentsProps[] = [
+//   {
+//     id: "1",
+//     templateName: "Booking Confirmation",
+//     category: "Templates",
+//     status: "Published",
+//   },
+//   {
+//     id: "2",
+//     templateName: "Flight Delay Notification",
+//     category: "Templates",
+//     status: "Published",
+//   },
+//   {
+//     id: "3",
+//     templateName: "Check-in Reminder",
+//     category: "Templates",
+//     status: "Published",
+//   },
+//   {
+//     id: "4",
+//     templateName: "Gate Change Alert",
+//     category: "Templates",
+//     status: "Published",
+//   },
+//   {
+//     id: "5",
+//     templateName: "Flight Cancellation",
+//     category: "Templates",
+//     status: "Draft",
+//   },
+// ];
 
 const AlertAndNotificationComponents = () => {
   const navigate = useNavigate();
-  const [templates, setTemplates] = useState(initialTemplates);
+  // const [templates, setTemplates] = useState(initialTemplates);
+  const [templateData, setTemplateData] = useState<NotificationTemplate[]>([])
+
+   useEffect(() => {
+    fetchNotificationTemplates()
+     .then(setTemplateData)
+     .catch((error) => console.error("Error fetching Templates:", error));
+   }, []);
 
   const handleDelete = (index: number) => {
     if (
       window.confirm(
-        `Are you sure you want to delete "${templates[index].templateName}"?`
+        `Are you sure you want to delete "${templateData[index].name}"?`
       )
     ) {
-      setTemplates(templates.filter((_, i) => i !== index));
+      setTemplateData(templateData.filter((_, i) => i !== index));
     }
   };
 
@@ -73,16 +82,20 @@ const AlertAndNotificationComponents = () => {
     navigate(`/templates/view/${id}`);
   };
 
-  const handleCopy = (template: AlertAndNotificationComponentsProps) => {
-    const newTemplate = {
-      ...template,
-      id: Date.now().toString(),
-      templateName: `${template.templateName} (Copy)`,
-      status: "Draft",
-    };
-    setTemplates([...templates, newTemplate]);
-    alert(`Template "${template.templateName}" copied successfully!`);
+  const handleCopy = (template: NotificationTemplate) => {
+  const newTemplate: NotificationTemplate = {
+    ...template,
+    id: Date.now().toString(), 
+    name: `${template.name} (Copy)`,
+    status: "DRAFT", // ✅ match union type casing
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
+
+  setTemplateData([...templateData, newTemplate]);
+  alert(`Template "${template.name}" copied successfully!`);
+};
+
 
   const handleCardClick = (id: string) => {
     navigate(`/templates/${id}`);
@@ -101,7 +114,7 @@ const AlertAndNotificationComponents = () => {
       </div>
 
       <div className="flex flex-col">
-        {templates.map((template, index) => (
+        {templateData.map((template, index) => (
           <div
             key={template.id}
             className="p-6 border border-[#DCDEE6] rounded-lg mb-4 hover:shadow-md transition-shadow cursor-pointer"
@@ -111,15 +124,15 @@ const AlertAndNotificationComponents = () => {
               <div className="flex flex-row items-center gap-9 flex-1">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800">
-                    {template.templateName}
+                    {template.name}
                   </h3>
                 </div>
                 <div>
                   <span
                     className={`text-sm font-medium px-2 py-1 rounded-full ${
-                      template.status === "Published"
+                      template.status === "PUBLISHED"
                         ? "bg-green-100 text-green-800"
-                        : template.status === "Draft"
+                        : template.status === "DRAFT"
                         ? "bg-gray-300 text-gray-800"
                         : "bg-red-100 text-red-800"
                     }`}
@@ -159,7 +172,14 @@ const AlertAndNotificationComponents = () => {
             </div>
 
             <div className="flex gap-7 items-center text-lg text-gray-600">
-              <p>Updated: 2023-11-10</p>
+              <p>
+                Updated: {new Date(template.updatedAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </p>
+
               <p>Sent: 342 times</p>
 
               <span className="flex flex-row items-center">

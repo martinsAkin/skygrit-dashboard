@@ -8,9 +8,15 @@ import { NavLink } from "react-router-dom";
 
 const UserManagement = () => {
   const [showForm, setShowForm] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);  
 
   const handleOpenForm = () => setShowForm(true);
   const handleCloseForm = () => setShowForm(false);
+
+  const handleRefresh = () => {
+    setShowForm(false);
+    setRefreshKey((prevKey) => prevKey + 1);
+  }
 
   return (
     <div>
@@ -43,13 +49,13 @@ const UserManagement = () => {
 
             <div className="p-4 border-[1px] border-[#E5E7EB] rounded-[8px] flex flex-col gap-6 mt-8">
               <FilterAndSearch />
-              <UserManagementTable />
+              <UserManagementTable refreshKey={refreshKey}/>
             </div>
           </section>
         </div>
       </div>
 
-      {showForm && <AddUser onCancel={handleCloseForm} />}
+      {showForm && <AddUser onCancel={handleCloseForm} onSuccess={handleRefresh} />}
     </div>
   );
 };

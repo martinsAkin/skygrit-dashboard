@@ -13,49 +13,9 @@ import type { NotificationTemplate } from "../../../interface";
 import { fetchNotificationTemplates } from "../../../api/notificationService";
 // import TemplateDetails from "./TemplateDetails";
 
-// interface AlertAndNotificationComponentsProps {
-//   id: string;
-//   templateName: string;
-//   category: string;
-//   status: string | boolean;
-// }
-
-// const initialTemplates: AlertAndNotificationComponentsProps[] = [
-//   {
-//     id: "1",
-//     templateName: "Booking Confirmation",
-//     category: "Templates",
-//     status: "Published",
-//   },
-//   {
-//     id: "2",
-//     templateName: "Flight Delay Notification",
-//     category: "Templates",
-//     status: "Published",
-//   },
-//   {
-//     id: "3",
-//     templateName: "Check-in Reminder",
-//     category: "Templates",
-//     status: "Published",
-//   },
-//   {
-//     id: "4",
-//     templateName: "Gate Change Alert",
-//     category: "Templates",
-//     status: "Published",
-//   },
-//   {
-//     id: "5",
-//     templateName: "Flight Cancellation",
-//     category: "Templates",
-//     status: "Draft",
-//   },
-// ];
 
 const AlertAndNotificationComponents = () => {
   const navigate = useNavigate();
-  // const [templates, setTemplates] = useState(initialTemplates);
   const [templateData, setTemplateData] = useState<NotificationTemplate[]>([])
 
    useEffect(() => {
@@ -63,6 +23,12 @@ const AlertAndNotificationComponents = () => {
      .then(setTemplateData)
      .catch((error) => console.error("Error fetching Templates:", error));
    }, []);
+
+   const handleCardClick = (template: NotificationTemplate) => {
+    navigate(`/templates/${template.id}`, {
+    state: { template },
+    });
+  };
 
   const handleDelete = (index: number) => {
     if (
@@ -97,9 +63,9 @@ const AlertAndNotificationComponents = () => {
 };
 
 
-  const handleCardClick = (id: string) => {
-    navigate(`/templates/${id}`);
-  };
+  // const handleCardClick = (id: string) => {
+  //   navigate(`/templates/${id}`);
+  // };
 
   return (
     <>
@@ -118,7 +84,7 @@ const AlertAndNotificationComponents = () => {
           <div
             key={template.id}
             className="p-6 border border-[#DCDEE6] rounded-lg mb-4 hover:shadow-md transition-shadow cursor-pointer"
-            onClick={() => handleCardClick(template.id)}
+            onClick={() => handleCardClick(template)}
           >
             <div className="flex justify-between items-center mb-4">
               <div className="flex flex-row items-center gap-9 flex-1">

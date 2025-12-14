@@ -39,3 +39,7 @@ export const fetchNotificationTemplates = async (): Promise<NotificationTemplate
 
   return res.data.response ?? [];
 }
+
+export const ViewTemplateById = async() => {
+
+}

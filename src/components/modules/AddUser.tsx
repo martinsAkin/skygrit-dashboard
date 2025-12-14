@@ -3,7 +3,7 @@ import type { ModulesProps } from "../../interface";
 import ModulesBtnSet from "../molecules/ModulesBtnSet";
 import { addAdmin } from "../../api/adminService";
 
-const AddUser = ({ onCancel }: ModulesProps) => {
+const AddUser = ({ onCancel, onSuccess }: ModulesProps) => {
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -19,12 +19,18 @@ const AddUser = ({ onCancel }: ModulesProps) => {
    const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
   
-    alert("it works!");
+    if (!formData.fullName || !formData.username || !formData.role) {
+      alert("Empty form, kindly fill out all inputs");
+      return;
+    }
+
     console.log("Submitting user:", formData);
 
     try {
      await addAdmin(formData)
      alert("User Added successfully!")
+     onCancel();
+     onSuccess();
      console.log("Form data: ", formData)
     } catch (error: any) {
      console.error("something went wrong:", error.response?.data || error.message)

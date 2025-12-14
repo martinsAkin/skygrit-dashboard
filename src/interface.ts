@@ -204,7 +204,7 @@ export interface NotificationTemplatePayload {
 }
 
 export interface NotificationTemplate extends NotificationTemplatePayload {
-  id: string;        // or number, depending on backend
+  id: number;
   createdAt: string;
   updatedAt: string;
 }

@@ -32,9 +32,6 @@ export const Categories = [
  },
 ];
 
-// type AddSubCategoryProps = ModulesProps & {
-//  onNewSubAdded: (category: string, name: string) => void;
-// };
 
 const AddSubCategory = ({
  onCancel,

@@ -112,9 +112,7 @@ function App() {
             path="/templates/:id"
             element={
               <TemplateDetails
-                category="Booking & Payment"
                 version="2.0"
-                update="2023-11-15"
               />
             }
           />

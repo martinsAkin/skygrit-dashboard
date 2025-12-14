@@ -4,7 +4,11 @@ import type { User } from "../../../interface";
 import { fetchAddedUsers } from "../../../api/adminService";
 import MenuUserMgt from "../../../components/molecules/MenuUserMgt";
 
-const UserManagementTable = () => {
+interface UserManagementTableProps {
+  refreshKey: number;
+}
+
+const UserManagementTable = ({refreshKey}:UserManagementTableProps) => {
  const headFields = ["User ID", "Full Name", "Email", "Role", "Status", ""];
  const [openMenu, setOpenMenu] = useState<number | null>(null);
  const [userData, setUserData] = useState<User[]>([]);
@@ -24,12 +28,17 @@ const UserManagementTable = () => {
   setOpenMenu(null);
  };
 
- // .get("/data/TableData.json") // ✅ served from public folder
+ const fetchData = async () => {
+  try {
+    const data = await fetchAddedUsers();
+    setUserData(data);
+  } catch (error) {
+   console.error("Error fetching user data:", error); 
+  }
+ }
  useEffect(() => {
-  fetchAddedUsers()
-   .then(setUserData)
-   .catch((error) => console.error("Error fetching JSON:", error));
- }, []);
+  fetchData();
+ }, [refreshKey]);
 
   if (!Array.isArray(userData) || userData.length === 0) {
     return <div>Loading....</div>;

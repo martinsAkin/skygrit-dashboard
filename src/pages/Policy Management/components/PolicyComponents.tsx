@@ -352,52 +352,6 @@ export default function TicketTable() {
   }
 };
 
-
-
-//  const handleSave = async () => {
-//   if (!Array.isArray(editableData)) return null;
-
-//   const changed = editableData.filter((t) =>
-//    changedTicketClasses.has(t.ticketClass),
-//   );
-
-//   if (changed.length === 0) {
-//    setResponseMessage("No changes to save.");
-//    return;
-//   }
-
-  // const mapConditions = (keys: string[], selected: string[]) =>
-  //  selected.filter((c) => keys.includes(c));
-
-  // const payload: PolicyRefundMetric[] = changed.map((t) => {
-  //  const selected = t.selectedConditions ?? [];
-
-  //  return {
-  //   policyId: String(t.policyId ?? "1000"),
-  //   cancellationType: t.cancellationType ?? "CUSTOMER_INITIATED",
-  //   cabinType: t.cabinType ?? "ECONOMY",
-  //   routeType: t.routeType ?? "DOMESTIC",
-  //   ticketClass: t.ticketClass,
-  //   refundTicketType:
-  //    mapConditions(["Refundable", "Non-Refundable"], selected)[0] ?? "",
-  //   tripType: mapConditions(["One-Way", "Round-Trip", "Multi-City"], selected),
-  //   passengerType: mapConditions(["ADULT", "CHILD", "INFANT"], selected),
-  //   ticketType: mapConditions(["INDIVIDUAL", "GROUP"], selected),
-  //   waiver: selected.includes("Waiver"),
-  //   ticketSales: mapConditions(["DIRECT", "INDIRECT"], selected),
-  //  };
-  // });
-
-//   try {
-//    await createPolicyRefundMetric(payload);
-//    setResponseMessage("Saved successfully!");
-//    await loadMetrics();
-//    setChangedTicketClasses(new Set());
-//   } catch (error) {
-//    setResponseMessage(`Failed to save. Please try again.\n${String(error)}`);
-//   }
-//  };
-
  const handleCheckboxChange = (
   ticketClass: string,
   backendValue: string,
@@ -472,7 +426,6 @@ export default function TicketTable() {
 
  const handleApplyChanges = () => {
   setIsEditing(false);
-  // window.location.reload();
  };
 
  return (

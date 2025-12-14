@@ -4,10 +4,12 @@ import PreviewContent from "./PreviewContent";
 import VersionHistoryContent from "./VersionHistoryContent";
 import messageChat from "/assets/Icons/materialEmail.svg";
 import chat from "/assets/Icons/materialChat.svg";
+import type { NotificationTemplate } from "../../../interface";
+
 type prop = {
-  status: string;
+  template: NotificationTemplate
 };
-const TemplateDetailsComponent = ({ status }: prop) => {
+const TemplateDetailsComponent = ({ template }: prop) => {
   const [category, setCategory] = useState("Preview");
   return (
     <div className="py-4 px-16">
@@ -38,14 +40,14 @@ const TemplateDetailsComponent = ({ status }: prop) => {
             <div className="flex items-center gap-6 p-4">
               <span
                 className={`text-lg font-medium px-3 py-1 rounded-full ${
-                  status === "Published"
+                  template.status === "PUBLISHED"
                     ? "bg-green-100 text-green-800"
-                    : status === "Draft"
+                    : template.status === "DRAFT"
                     ? "bg-gray-300 text-gray-800"
                     : "bg-red-100 text-red-800"
                 }`}
               >
-                {status}
+                {template.status}
               </span>
               <button className="flex items-center gap-2 px-3 py-1.5 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
                 <img
@@ -88,14 +90,22 @@ const TemplateDetailsComponent = ({ status }: prop) => {
               <div className="p-4">
                 <h3 className="text-lg text-gray-800">Created</h3>
                 <div className="flex flex-col gap-1 mt-3">
-                  <p>2023-10-15</p>
+                  <p>{new Date(template.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}</p>
                   <p>By: admin@skygrit.com </p>
                 </div>
               </div>
               <div className="p-4">
-                <h3 className="text-lg text-gray-800">Last Updated</h3>
+                <h3 className="text-lg text-gray-800">Last Updated:</h3>
                 <div className="flex flex-col gap-1 mt-3">
-                  <p>2023-10-15</p>
+                  <p>{new Date(template.updatedAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}</p>
                 </div>
               </div>
             </div>

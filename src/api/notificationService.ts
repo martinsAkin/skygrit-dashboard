@@ -40,6 +40,32 @@ export const fetchNotificationTemplates = async (): Promise<NotificationTemplate
   return res.data.response ?? [];
 }
 
-export const ViewTemplateById = async() => {
+// export const editTemplate = async (
+//   id: number,
+//   payload: NotificationTemplatePayload
+// ): Promise<NotificationTemplate> => {
+//   const token = Cookies.get("token");
+//   const tokenType = Cookies.get("tokenType");
 
-}
+//   const res = await apiClient.put(`/notification-template/${id}`, payload, {
+//     headers: {
+//       Authorization: `${tokenType} ${token}`,
+//       "Content-Type": "application/json",
+//     },
+//   });
+
+//   return res.data;
+// };
+
+
+export const deleteNotificationTemplate = async (id: number): Promise<void> => {
+  const token = Cookies.get("token");
+  const tokenType = Cookies.get("tokenType");
+
+  await apiClient.delete(`/notification-template/${id}`, {
+    headers: {
+      Authorization: `${tokenType} ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+};

@@ -10,7 +10,7 @@ import chatIcon from "/assets/Icons/chatIcon.svg";
 import phoneIcon from "/assets/Icons/phoneIcon.svg";
 import FilterAndSearchh from "../../../components/molecules/FilterAndSearchh";
 import type { NotificationTemplate } from "../../../interface";
-import { fetchNotificationTemplates } from "../../../api/notificationService";
+import { deleteNotificationTemplate, fetchNotificationTemplates } from "../../../api/notificationService";
 // import TemplateDetails from "./TemplateDetails";
 
 
@@ -30,30 +30,52 @@ const AlertAndNotificationComponents = () => {
     });
   };
 
-  const handleDelete = (index: number) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete "${templateData[index].name}"?`
-      )
-    ) {
-      setTemplateData(templateData.filter((_, i) => i !== index));
-    }
-  };
-
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: number) => {
     navigate(`/templates/edit/${id}`);
   };
 
-  const handleView = (id: string) => {
+    //   const handleEdit = async (id: number, updatedData: NotificationTemplatePayload) => {
+    //   try {
+    //     navigate(`/templates/edit/${id}`);
+    //     const res = await editTemplate(id, updatedData);
+    //     alert(`Template "${res.name}" updated successfully!`);
+    //     // Optionally update local state so UI reflects changes
+    //     setTemplateData((prev) =>
+    //       prev.map((t) => (t.id === id ? { ...t, ...res } : t))
+    //     );
+    //   } catch (err) {
+    //     console.error("Error updating template:", err);
+    //     alert("Failed to update template");
+    //   }
+    // };
+
+
+        const handleDelete = async (id: number) => {
+        if (window.confirm("Are you sure you want to delete this template?")) {
+          try {
+            await deleteNotificationTemplate(id);
+            alert("Template deleted successfully!");
+
+            // Update local state so UI reflects deletion
+            setTemplateData((prev) => prev.filter((t) => t.id !== id));
+          } catch (err) {
+            console.error("Error deleting template:", err);
+            alert("Failed to delete template");
+          }
+        }
+      };
+
+
+  const handleView = (id: number) => {
     navigate(`/templates/view/${id}`);
   };
 
   const handleCopy = (template: NotificationTemplate) => {
   const newTemplate: NotificationTemplate = {
     ...template,
-    id: Date.now().toString(), 
+    id: Date.now(), 
     name: `${template.name} (Copy)`,
-    status: "DRAFT", // ✅ match union type casing
+    status: "DRAFT",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -80,7 +102,7 @@ const AlertAndNotificationComponents = () => {
       </div>
 
       <div className="flex flex-col">
-        {templateData.map((template, index) => (
+        {templateData.map((template) => (
           <div
             key={template.id}
             className="p-6 border border-[#DCDEE6] rounded-lg mb-4 hover:shadow-md transition-shadow cursor-pointer"
@@ -131,7 +153,7 @@ const AlertAndNotificationComponents = () => {
                     className="ml-6 cursor-pointer hover:opacity-70"
                     src={deleteIcon}
                     alt="Delete"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(template.id)}
                   />
                 </span>
               </div>

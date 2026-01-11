@@ -53,7 +53,7 @@ const UpgradeSetup = () => {
   const downloadSetupFields = ["Upgrade From", "Upgrade To", "Bare Fare"];
 
   const [upgrades, setUpgrades] = useState(initialUpgrades);
-  const handleUpdate = (id, field, value): any => {
+  const handleUpdate = (id: number, field: string, value: string) => {
     setUpgrades(
       upgrades.map((upgrade) =>
         upgrade.id === id ? { ...upgrade, [field]: value } : upgrade

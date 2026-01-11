@@ -90,6 +90,7 @@ export interface User {
 }
 
 export interface AdminResponse {
+  response: any;
   content: User[];
   totalPages: number;
   totalElements: number;
@@ -143,7 +144,7 @@ export interface NewPolicy {
 }
 
 export interface PolicyListProps {
- // policies: Policy[];
+//  policies: Policy[];
  selectedFlightType: FlightType | null;
  selectedPolicy: Policy | null;
  onSelectPolicy: (policy: Policy) => void;

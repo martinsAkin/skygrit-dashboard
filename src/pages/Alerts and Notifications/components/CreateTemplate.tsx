@@ -3,7 +3,7 @@ import messageChat from "/assets/Icons/materialEmail.svg";
 import chat from "/assets/Icons/materialChat.svg";
 import phone from "/assets/Icons/fluentPhone.svg";
 import { NavLink } from "react-router-dom";
-import type { ChannelOption, NotificationTemplate, FormState } from "../../../interface"
+import type { ChannelOption, NotificationTemplatePayload, TemplateStatus, FormState } from "../../../interface"
 import { createNotificationTemplate } from "../../../api/notificationService";
 
 const CreateTemplate = () => {
@@ -46,12 +46,15 @@ const CreateTemplate = () => {
     }
   };
 
-    const buildPayload = (status: "DRAFT" | "PUBLISHED" | "DEACTIVATED"): NotificationTemplate => {
+  const buildPayload = (
+    status: TemplateStatus
+  ): NotificationTemplatePayload => {
     const channels: ChannelOption[] = [];
+  
     if (formData.email) channels.push("EMAIL");
     if (formData.sms) channels.push("SMS");
     if (formData.whatsapp) channels.push("WHATSAPP");
-
+  
     return {
       name: formData.name,
       category: formData.category,
@@ -59,10 +62,11 @@ const CreateTemplate = () => {
       subject: formData.subject,
       content: formData.message,
       status,
-      };
     };
+  };
   
-      const handleSaveDraft = async () => {
+  
+    const handleSaveDraft = async () => {
     const payload = buildPayload("DRAFT");
     try {
       const res = await createNotificationTemplate(payload);

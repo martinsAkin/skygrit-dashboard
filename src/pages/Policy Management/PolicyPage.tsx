@@ -9,15 +9,20 @@ import {
 // import TicketTable from '../components/PolicyComponents'
 import { useState } from "react";
 // import flightPolicies from "../public/data/FlightPolicyType.json";
-import flightPolicies from "/data/FlightPolicyType.json?url";
+// import flightPolicies from "/data/FlightPolicyType.json?url";
 import type { Policy, FlightType } from "../../interface";
 
 const PolicyPage: React.FC = () => {
   const [selectedFlightType, setSelectedFlightType] =
     useState<FlightType | null>(null);
   const [selectedPolicy, setSelectedPolicy] = useState<Policy | null>(null);
-  // const [ activeSubTab, setActiveSubTab ] = useState<"policyMatrix" | "refundAmount"> ("policyMatrix")
-
+  // const [flightPolicies, setFlightPolicies] =
+  // useState<Record<FlightType, Policy[]>>({
+  //   Domestic: [],
+  //   International: [],
+  //   Regional: [],
+  // });
+  
   const handleFlightTypeClick = (type: FlightType) => {
     setSelectedFlightType(type);
   };
@@ -25,10 +30,10 @@ const PolicyPage: React.FC = () => {
   const handlePolicyClick = (policy: Policy) => {
     setSelectedPolicy(policy);
   };
-  const currentPolicies: Policy[] =
-    selectedFlightType && Array.isArray(flightPolicies[selectedFlightType])
-      ? flightPolicies[selectedFlightType]
-      : [];
+  // const currentPolicies: Policy[] =
+  //   selectedFlightType && Array.isArray(flightPolicies[selectedFlightType])
+  //     ? flightPolicies[selectedFlightType]
+  //     : [];
 
   return (
     <div>
@@ -61,7 +66,6 @@ const PolicyPage: React.FC = () => {
         <div className="flex gap-[1rem]">
           <section className="flex">
             <SearchPolicy
-              policies={currentPolicies}
               selectedFlightType={selectedFlightType}
               selectedPolicy={selectedPolicy}
               onSelectPolicy={handlePolicyClick}

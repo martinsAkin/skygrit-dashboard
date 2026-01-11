@@ -10,7 +10,6 @@ import type {
  Policy,
  PolicyDetailsProps,
  PolicyListProps,
- PolicyRefundMetric,
  Header,
  EditableRefundMetric,
 } from "../../../interface";
@@ -475,7 +474,9 @@ export default function TicketTable() {
       </tr>
      </thead>
      <tbody>
-  {Object.entries(grouped).map(([categoryLabel, subCategories]) =>
+    
+    {Object.entries(grouped as Record<string, { value: string; label: string }[]>).map(([categoryLabel, subCategories]) =>
+
     subCategories.map(({ value, label }, i) => {
       // Map friendly UI category to backend field
       const categoryKey = Categories.find(c => c.category === categoryLabel)?.value;

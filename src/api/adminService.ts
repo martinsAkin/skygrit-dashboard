@@ -35,7 +35,7 @@ export const fetchAddedUsers = async (): Promise<User[]> => {
   const token = Cookies.get("token");
   const tokenType = Cookies.get("tokenType");
 
-  const res = await apiClient.get<AdminResponse>("/admin", {
+  const response = await apiClient.get<AdminResponse>("/admin", {
     headers: {
       Authorization: `${tokenType} ${token}`,
       "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const fetchAddedUsers = async (): Promise<User[]> => {
     },
   });
 
-    return res.data.response?.content ?? [];
+    return response.data.response?.content ?? [];
 };
 
 export const createRole = async (data: NewRole) => {

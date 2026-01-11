@@ -4,7 +4,7 @@ import { useState } from "react";
 import { createRole } from "../../api/adminService";
 import { allModules } from "../../permissionConfig";
 
-const AddRoleUserMgt = ({ onCancel }: ModulesProps) => {
+const AddRoleUserMgt = ({ onCancel, onSuccess }: ModulesProps) => {
  const [roleName, setRoleName] = useState("");
  const [permissions, setPermissions] = useState<{ [key: string]: string[] }>(
   {},
@@ -45,7 +45,8 @@ const AddRoleUserMgt = ({ onCancel }: ModulesProps) => {
   try {
    await createRole(payload); // from adminService.ts
    alert("Role created successfully!");
-   onCancel(); // close modal
+   onCancel();
+   onSuccess();
   } catch (error) {
    console.error("Error creating role:", error);
    alert("Failed to create role.");

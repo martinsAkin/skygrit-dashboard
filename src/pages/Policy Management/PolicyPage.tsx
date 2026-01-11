@@ -32,7 +32,7 @@ const PolicyPage: React.FC = () => {
 
   return (
     <div>
-      <main>
+      <main className="pl-70">
         <section>
           <div className="py-4 px-16 flex flex-row justify-between items-center">
             <div>

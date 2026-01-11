@@ -27,6 +27,7 @@ import {
 import AddSubCategory from "../../../components/modules/AddSubCategory";
 import AddTickets from "../../../components/modules/AddTickets";
 import { CategoryContext } from "../../../hooks/CategoryContext";
+import { Categories } from "../../../components/modules/AddSubCategory";
 
 export const SearchPolicy = ({
  selectedFlightType,
@@ -232,201 +233,164 @@ export default function TicketTable() {
  const [headers, setHeaders] = useState<Header[]>([]);
  const [isEditing, setIsEditing] = useState(false);
  const [editableData, setEditableData] = useState<EditableRefundMetric[]>([]);
- const [apiData, setApiData] = useState<PolicyRefundMetric[]>([]);
- const [changedTicketClasses, setChangedTicketClasses] = useState<Set<string>>(
-  new Set(),
- );
+//  const [apiData, setApiData] = useState<PolicyRefundMetric[]>([]);
+//  const [changedTicketClasses, setChangedTicketClasses] = useState<Set<string>>(
+//   new Set(),
+//  );
  const [categories, setCategories] = useState<any[]>([]);
+ const [refresh, setRefresh] = useState(false);
 
- const loadCategories = async () => {
-  try {
-   const response = await fetchSubCategory();
-   setCategories(response.response ?? []);
-  } catch (e) {
-   setResponseMessage(`Failed to load categories. Error: ${e}`);
-  }
- };
-
- useEffect(() => {
-  loadCategories();
- }, []);
-
- const loadHeaders = async () => {
-  try {
-   const data = await fetchTicketClasses();
-   setHeaders(data);
-  } catch (error) {
-   setResponseMessage(`Failed to load ticket classes. error: ${error}`);
-  }
- };
-
- useEffect(() => {
-  loadHeaders();
- }, []);
-
- const loadMetrics = async () => {
-  try {
-   const data = await fetchPolicyRefundMetrics();
-   console.log("Raw metrics response:", data);
-   setApiData(data);
-
-   const transformed: EditableRefundMetric[] = data.map((item) => {
-    const selectedConditions: string[] = [
-     ...(item.refundTicketType ? [item.refundTicketType] : []),
-     ...(item.tripType ?? []),
-     ...(item.passengerType ?? []),
-     ...(item.ticketType ?? []),
-     ...(item.ticketSales ?? []),
-     ...(item.waiver ? ["Waiver"] : []),
-    ];
-
-    return {
-     ticketClass: item.ticketClass,
-     policyId: item.policyId,
-     routeType: item.routeType,
-     cabinType: item.cabinType,
-     cancellationType: item.cancellationType,
-     selectedConditions,
-    };
-   });
-
-   setEditableData(transformed);
-  } catch (error) {
-   setResponseMessage(`Failed to load policy refund metrics. error: ${error}`);
-  }
- };
-
- useEffect(() => {
-  loadMetrics();
- }, []);
-
- const grouped = categories.reduce((acc, item) => {
-    if (!acc[item.category]) {
-      acc[item.category] = [];
-    }
-
-    acc[item.category].push({
-      value: item.name.trim().replace(/\s+/g, "").toUpperCase(), // backend key
-      label: item.name,                                   // friendly label
-    });
-
-    return acc;
-  }, {} as Record<string, { value: string; label: string }[]>);
-
-
-  const handleSave = async () => {
-  const changed = editableData.filter((t) =>
-    changedTicketClasses.has(t.ticketClass)
-  );
-
-  const payload = changed.map((t) => {
-    const selected = t.selectedConditions ?? [];
-
-    // Group selected values into fixed backend fields
-    const groupedByField = categories.reduce((acc, cat) => {
-      const normalizedName = cat.name.trim().replace(/\s+/g, "").toUpperCase();
-
-      if (selected.includes(normalizedName)) {
-        const backendField = cat.value; // e.g. "ticketSales", "tripType"
-        if (!acc[backendField]) acc[backendField] = [];
-        acc[backendField].push(cat.name); // send original name back
+    const loadCategories = async () => {
+      try {
+        const response = await fetchSubCategory();
+        setCategories(response.response ?? []);
+      } catch (e) {
+        setResponseMessage(`Failed to load categories. Error: ${e}`);
       }
+    };
 
+    useEffect(() => {
+      loadCategories();
+    }, [refresh]);
+
+    const loadHeaders = async () => {
+      try {
+        const data = await fetchTicketClasses();
+        setHeaders(data);
+      } catch (error) {
+        setResponseMessage(`Failed to load ticket classes. error: ${error}`);
+      }
+    };
+
+    useEffect(() => {
+      loadHeaders();
+    }, [refresh]);
+
+    const loadMetrics = async () => {
+      try {
+        const data = await fetchPolicyRefundMetrics();
+        
+        setEditableData(
+          data.map((item) => ({
+            ticketClass: item.ticketClass,
+            policyId: item.policyId,
+            routeType: item.routeType ?? "DOMESTIC",
+            cabinType: item.cabinType ?? "ECONOMY",
+            cancellationType: item.cancellationType ?? "CUSTOMER_INITIATED",
+            refundTicketType: item.refundTicketType ?? "",
+            tripType: Array.isArray(item.tripType) ? [...item.tripType] : [],
+            passengerType: Array.isArray(item.passengerType) ? [...item.passengerType] : [],
+            ticketType: Array.isArray(item.ticketType) ? [...item.ticketType] : [],
+            ticketSales: Array.isArray(item.ticketSales) ? [...item.ticketSales] : [],
+            waiver: !!item.waiver,
+          }))
+        );
+      } catch (error) {
+        setResponseMessage(`Failed to load policy refund metrics. error: ${error}`);
+      }
+    };
+    
+
+    useEffect(() => {
+      loadMetrics();
+    }, [refresh]);
+
+    // Group categories using a consistent backend key
+    const grouped = categories.reduce((acc, item) => {
+      // readable label for category UI
+      const categoryName = Categories.find((c) => c.value === item.category)?.category ?? item.category;
+    
+      // backend key for checkbox logic
+      const backendKey = item.name.trim().replace(/\s+/g, "").toUpperCase();
+    
+      if (!acc[categoryName]) acc[categoryName] = [];
+    
+      acc[categoryName].push({
+        value: backendKey, // used for checkbox
+        label: item.name,  // friendly label for UI (subcategory)
+      });
+    
       return acc;
-    }, {} as Record<string, string[]>);
+    }, {} as Record<string, { value: string; label: string }[]>);
+    
 
-    return {
-      policyId: String(t.policyId ?? "1000"),
-      ticketClass: t.ticketClass,
-      ...groupedByField, // ✅ dynamic subcategories grouped under fixed categories
+    const handleSave = async () => {
+      try {
+        await createPolicyRefundMetric(editableData); // directly send mapped object
+        setResponseMessage("Saved successfully!");
+        setRefresh((prev) => !prev); // reload from backend
+      } catch (error) {
+        setResponseMessage(`Failed to save. Please try again.\n${String(error)}`);
+      }
     };
-  });
-
-  try {
-    await createPolicyRefundMetric(payload);
-    setResponseMessage("Saved successfully!");
-    await loadMetrics(); // reload from backend
-    setChangedTicketClasses(new Set());
-  } catch (error) {
-    setResponseMessage(`Failed to save. Please try again.\n${String(error)}`);
-  }
-};
-
- const handleCheckboxChange = (
-  ticketClass: string,
-  backendValue: string,
-  checked: boolean,
- ) => {
-  setEditableData((prev) => {
-   const updated = [...prev];
-   const index = updated.findIndex((t) => t.ticketClass === ticketClass);
-   const original = apiData.find((t) => t.ticketClass === ticketClass);
-
-   let ticket: EditableRefundMetric;
-
-   if (index !== -1) {
-    ticket = { ...updated[index] };
-   } else {
-    ticket = {
-     ticketClass,
-     policyId: original?.policyId ?? "1000",
-     routeType: original?.routeType ?? "DOMESTIC",
-     cabinType: original?.cabinType ?? "ECONOMY",
-     cancellationType: original?.cancellationType ?? "CUSTOMER_INITIATED",
-     selectedConditions: [],
+    
+    
+    const handleCheckboxChange = (
+      ticketClass: string,
+      category: string,
+      value: string,
+      checked: boolean
+    ) => {
+      setEditableData((prev) =>
+        prev.map((t) => {
+          if (t.ticketClass !== ticketClass) return t;
+    
+          // Update each category safely, avoiding duplicates
+          switch (category) {
+            case "refundTicketType":
+              t.refundTicketType = checked ? value : "";
+              break;
+    
+            case "tripType":
+              t.tripType = checked
+                ? t.tripType.includes(value)
+                  ? t.tripType
+                  : [...t.tripType, value]
+                : t.tripType.filter((v) => v !== value);
+              break;
+    
+            case "passengerType":
+              t.passengerType = checked
+                ? t.passengerType.includes(value)
+                  ? t.passengerType
+                  : [...t.passengerType, value]
+                : t.passengerType.filter((v) => v !== value);
+              break;
+    
+            case "ticketType":
+              t.ticketType = checked
+                ? t.ticketType.includes(value)
+                  ? t.ticketType
+                  : [...t.ticketType, value]
+                : t.ticketType.filter((v) => v !== value);
+              break;
+    
+            case "ticketSales":
+              t.ticketSales = checked
+                ? t.ticketSales.includes(value)
+                  ? t.ticketSales
+                  : [...t.ticketSales, value]
+                : t.ticketSales.filter((v) => v !== value);
+              break;
+    
+            case "waiver":
+              t.waiver = checked;
+              break;
+          }
+    
+          return t;
+        })
+      );
     };
-   }
+    
 
-   ticket.selectedConditions = ticket.selectedConditions || [];
+    console.log("EditableData:", editableData);
 
-   // ✅ Always store backendValue in selectedConditions
-   if (checked) {
-    if (!ticket.selectedConditions.includes(backendValue)) {
-     ticket.selectedConditions.push(backendValue);
-    }
-   } else {
-    ticket.selectedConditions = ticket.selectedConditions.filter(
-     (c) => c !== backendValue,
-    );
-   }
+    const handleApplyChanges = () => {
+      setIsEditing(false);
+      setRefresh((prev) => !prev);
+    };
 
-   updated[index !== -1 ? index : updated.length] = ticket;
-
-   // Build comparable array from original backend structure
-   const originalConditions = [
-    ...(original?.refundTicketType ? [original.refundTicketType] : []),
-    ...(original?.tripType ?? []),
-    ...(original?.passengerType ?? []),
-    ...(original?.ticketType ?? []),
-    ...(original?.ticketSales ?? []),
-    ...(original?.waiver ? ["Waiver"] : []),
-   ];
-
-   const sortedNew = [...ticket.selectedConditions].sort();
-   const sortedOriginal = [...originalConditions].sort();
-
-   const hasChanged =
-    JSON.stringify(sortedNew) !== JSON.stringify(sortedOriginal);
-
-   setChangedTicketClasses((prevSet) => {
-    const newSet = new Set(prevSet);
-    if (hasChanged) {
-     newSet.add(ticketClass);
-    } else {
-     newSet.delete(ticketClass);
-    }
-    return newSet;
-   });
-
-   return updated;
-  });
- };
- console.log("Headers:", headers);
- console.log("EditableData:", editableData);
-
- const handleApplyChanges = () => {
-  setIsEditing(false);
- };
 
  return (
   <div className="p-3 bg-[#FAFAFA] rounded-lg h-full m-4">
@@ -496,7 +460,11 @@ export default function TicketTable() {
           {isEditing && (
            <span
             className="p-[6.5px] h-5 rounded-[50%] bg-red-600 text-center text-white flex items-center cursor-pointer"
-            onClick={() => deleteTicketClass(header.name)}
+            onClick={
+              async() => { 
+              await deleteTicketClass(header.name)
+              setRefresh((prev) => !prev);
+            }}
            >
             -
            </span>
@@ -507,61 +475,102 @@ export default function TicketTable() {
       </tr>
      </thead>
      <tbody>
-      {Object.entries(grouped).map(([groupLabel, subCategories]) =>
-       subCategories.map(({ value, label }, i) => (
-        <tr key={groupLabel + "-" + value}>
-         {i === 0 && (
-          <th
-           className="border border-[#CBD5E1] p-[0.35rem] text-[12px] font-medium text-left"
-           rowSpan={subCategories.length}
-          >
-           {groupLabel}
-          </th>
-         )}
-         <th className="border p-[0.35rem] border-[#CBD5E1] text-left text-[12px] font-medium">
-          <div className="flex items-center gap-2">
-           {isEditing && (
-            <button
-             className="w-4 h-4 rounded-[50%] bg-red-600 text-center text-white cursor-pointer"
-             onClick={() => deleteSubCategory(value)}
-            >
-             {" "}
-             -{" "}
-            </button>
-           )}
-           {label}
-          </div>
-         </th>
-         {headers.map((header) => {
-          const ticket = editableData.find(
-           (t) => t.ticketClass === header.name,
-          );
-          const checked = ticket?.selectedConditions?.includes(value) ?? false;
+  {Object.entries(grouped).map(([categoryLabel, subCategories]) =>
+    subCategories.map(({ value, label }, i) => {
+      // Map friendly UI category to backend field
+      const categoryKey = Categories.find(c => c.category === categoryLabel)?.value;
 
-          return (
-           <td
-            className="border p-2 text-left border-[#CBD5E1]"
-            key={header.name + "-" + value}
-           >
-            <input
-             type="checkbox"
-             checked={checked}
-             onChange={(e) =>
-              handleCheckboxChange(header.name, value, e.target.checked)
-             }
-            />
-           </td>
-          );
-         })}
+      return (
+        <tr key={categoryLabel + "-" + value}>
+          {/* Render category column only once per group */}
+          {i === 0 && (
+            <th
+              className="border border-[#CBD5E1] p-[0.35rem] text-[12px] font-medium text-left"
+              rowSpan={subCategories.length}
+            >
+              {categoryLabel} {/* Friendly name */}
+            </th>
+          )}
+          {/* Subcategory column */}
+          <th className="border p-[0.35rem] border-[#CBD5E1] text-left text-[12px] font-medium">
+            <div className="flex items-center gap-2">
+              {isEditing && (
+                <button
+                  className="w-4 h-4 rounded-[50%] bg-red-600 text-center text-white cursor-pointer"
+                  onClick={async () => {
+                    await deleteSubCategory(value);
+                    setRefresh(prev => !prev);
+                  }}
+                >
+                  -
+                </button>
+              )}
+              {label}
+            </div>
+          </th>
+
+          {/* Ticket class checkboxes */}
+          {headers.map(header => {
+            const ticket = editableData.find(t => t.ticketClass === header.name);
+            let checked = false;
+
+            if (!ticket || !categoryKey) return null;
+
+            // Determine if checkbox is checked based on backend field type
+            switch (categoryKey) {
+              case "refundTicketType":
+                checked = ticket.refundTicketType === value;
+                break;
+              case "tripType":
+                checked = ticket.tripType.includes(value);
+                break;
+              case "passengerType":
+                checked = ticket.passengerType.includes(value);
+                break;
+              case "ticketType":
+                checked = ticket.ticketType.includes(value);
+                break;
+              case "ticketSales":
+                checked = ticket.ticketSales.includes(value);
+                break;
+              case "waiver":
+                checked = ticket.waiver;
+                break;
+            }
+
+            return (
+              <td
+                className="border p-2 text-left border-[#CBD5E1]"
+                key={header.name + "-" + value}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  disabled={isEditing}
+                  className={isEditing ? "opacity-50 cursor-not-allowed" : ""}
+                  onChange={(e) =>
+                    handleCheckboxChange(
+                      header.name,    // ticketClass
+                      categoryKey,    // backend field
+                      value,          // subcategory
+                      e.target.checked
+                    )
+                  }
+                />
+              </td>
+            );
+          })}
         </tr>
-       )),
-      )}
-     </tbody>
+      );
+    })
+  )}
+</tbody>
+
     </table>
    </div>
    {isEditing ? (
     <button
-     className="p-4 rounded-lg bg-green-500 text-center text-white"
+     className="p-4 mt-4 rounded-lg bg-green-500 text-center text-white"
      onClick={handleApplyChanges}
     >
      Apply Changes

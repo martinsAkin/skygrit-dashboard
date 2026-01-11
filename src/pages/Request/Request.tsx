@@ -3,7 +3,7 @@ import RequestRefundDashboard from "./components/RequestRefundDashboard";
 
 const Request = () => {
   return (
-    <div className=" flex flex-col h-screen">
+    <div className=" flex flex-col h-screen pl-70">
       {/* Title Section */}
       <section className="py-2 px-16 mt-3">
         <div className="flex flex-row justify-between items-center">

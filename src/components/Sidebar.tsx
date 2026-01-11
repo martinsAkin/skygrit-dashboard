@@ -55,7 +55,7 @@ const Sidebar = () => {
           </button>
         </div>
       ) : (
-        <div className="bg-[#030E20] h-[max-content] flex flex-col gap-[16px] fixed top-0 left-0">
+        <div className="bg-[#030E20] h-full flex flex-col gap-[16px] fixed top-0 left-0">
           {/* Side bar Head*/}
           <section className="flex justify-center items-center px-4 py-[10px]">
             <div className="flex flex-row w-full justify-between">

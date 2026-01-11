@@ -20,7 +20,7 @@ const AlertsAndNotifications = () => {
   //     ? data
   //     : data.filter((item) => item.status === category);
   return (
-    <div>
+    <div className="pl-70">
       <div className="py-4 px-16 flex flex-col gap-9">
         <div>
           <h2 className="text-2xl font-semibold text-gray-800">

@@ -35,7 +35,7 @@ const ManageRoles = () => {
   if (Object.keys(data).length === 0) return <div>Loading....</div>;
 
   return (
-    <div>
+    <div className="pl-70">
       <section className="py-2 px-16 bg-white border-b-[1px] border-b-[#E5E7EB]">
         <div className="flex flex-row justify-between items-center">
           <div>
@@ -101,7 +101,7 @@ const ManageRoles = () => {
         </section>
       </section>
 
-      {showForm && <AddRoleUserMgt onCancel={handleCloseForm} />}
+      {showForm && <AddRoleUserMgt onCancel={handleCloseForm} onSuccess={handleCloseForm} />}
     </div>
   );
 };

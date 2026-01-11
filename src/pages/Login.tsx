@@ -7,16 +7,19 @@ const Login = () => {
  const [showPassword, setShowPassword] = useState(false);
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
+ const [isSubmitting, setIsSubmitting] = useState(false);
  const navigate = useNavigate();
 
  const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
 
   if (!email || !password) {
+   alert("Email and Password are required");
    console.error("Email and password are required");
    return;
   }
 
+  setIsSubmitting(true);
   try {
    const data = await loginAdmin({ email, password });
    console.log("Login Successful!", data);
@@ -24,12 +27,6 @@ const Login = () => {
   } catch (error: any) {
    console.error("Login failed:", error.response?.data || error.message);
   }
-  // if (email === "test@example.com" && password === "1234") {
-  //  alert("Log in successful!");
-  //   navigate("/dashboard");
-  // } else {
-  //   alert("invalid credentials");
-  // }
  };
  return (
   <div className="flex flex-row justify-between items-center h-[100%]">
@@ -57,6 +54,7 @@ const Login = () => {
        name="email"
        value={email}
        placeholder="Email address"
+       required
        onChange={(e) => setEmail(e.target.value)}
       />
      </div>
@@ -71,6 +69,7 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter password"
+        required
         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 pr-12 cursor-pointer"
        />
        <button
@@ -86,9 +85,10 @@ const Login = () => {
      <div className="flex items-center gap-2">
       <button
        type="submit"
-       className="w-[62px] h-[40px] bg-[#0D47A1] rounded-[12px] text-white text-[14px] font-[500] hover:bg-[#1565C0] transition"
+       disabled={isSubmitting}
+       className="w-max px-3 h-[40px] bg-[#0D47A1] rounded-[12px] text-white text-[14px] font-[500] hover:bg-[#1565C0] transition"
       >
-       Log in
+       {isSubmitting ? "Validating Info..." : "Log In"}
       </button>
       <p className="text-[14px] text-[#303030]">
        Forgot Password?{" "}
@@ -97,13 +97,15 @@ const Login = () => {
        </span>
       </p>
      </div>
+
+      <footer className="">
+      <div className="text-gray-800 opacity-50 text-sm">
+       Revolutionizing Post-Booking Airline Experience
+      </div>
+     </footer>
+
     </form>
 
-    <footer className="absolute bottom-5">
-     <div className="text-gray-800 opacity-50 text-sm">
-      Revolutionizing Post-Booking Airline Experience
-     </div>
-    </footer>
    </div>
 
    <div className="h-[40rem] py-2.5 w-max mt-0 mr-10 bg-white">

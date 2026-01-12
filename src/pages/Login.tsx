@@ -21,16 +21,18 @@ const Login = () => {
 
   setIsSubmitting(true);
   try {
-   const data = await loginAdmin({ email, password });
-   console.log("Login Successful!", data);
+   await loginAdmin({ email, password });
+   console.log("Login Successful!");
    navigate("/dashboard");
   } catch (error: any) {
+   setIsSubmitting(false);
+   alert("Invalid Credentials, check your details and try again!");
    console.error("Login failed:", error.response?.data || error.message);
   }
  };
  return (
-  <div className="flex flex-row justify-between items-center h-[100%]">
-   <div className="p-2 max-w-[386px] w-full h-full flex flex-col gap-6 ml-12 pt-[7%]">
+  <div className="flex flex-row justify-between items-center h-screen">
+   <div className="px-4 pt-10 max-w-[386px] w-full h-max flex flex-col gap-6 ml-12">
     <div className=" py-9 w-[157px] h-[25px] flex justify-start items-center relative">
      <img src="assets/SkygritLogo.svg" alt="logo" />
      <span className="absolute right-[-7px] top-3">

@@ -17,7 +17,7 @@ const Headbar = ({
             Hi, {firstname}
           </h2>
           <div className="flex flex-row gap-[16px] items-center">
-            <div className="relative">
+            <div className="relative cursor-pointer">
               <img
                 src="/assets/si_notifications-line.png"
                 alt="bell-icon"
@@ -27,10 +27,10 @@ const Headbar = ({
                 {badgeNo}
               </span>
             </div>
-            <span className="flex justify-center items-center rounded-full bg-[#F5F8FF] w-[42px] h-[42px] text-[14px] font-semibold text-[#F9956B]">
+            <span className="flex justify-center items-center rounded-full bg-[#F5F8FF] w-[42px] h-[42px] text-[14px] font-semibold text-[#F9956B] cursor-pointer">
               AM
             </span>
-            <p className="text-[14px] font-bold text-[#302C1C]">{fullname}</p>
+            <p className="text-[14px] font-bold text-[#302C1C] cursor-pointer hover:text-blue-800">{fullname}</p>
           </div>
         </div>
       </nav>

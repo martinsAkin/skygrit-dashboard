@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
@@ -23,6 +24,7 @@ const Login = () => {
   try {
    await loginAdmin({ email, password });
    console.log("Login Successful!");
+   alert("Login Successful");
    navigate("/dashboard");
   } catch (error: any) {
    setIsSubmitting(false);

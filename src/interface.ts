@@ -173,18 +173,17 @@ export interface PolicyRefundMetric {
 }
 
 export interface EditableRefundMetric {
-  policyId: string;           // backend expects string
-  ticketClass: string;        // ticket class name
-  routeType: string;          // e.g., "DOMESTIC"
-  cabinType: string;          // e.g., "ECONOMY"
-  cancellationType: string;   // e.g., "CUSTOMER_INITIATED"
-  
-  refundTicketType: string;   // single value field
-  tripType: string[];         // array field
-  passengerType: string[];    // array field
-  ticketType: string[];       // array field
-  ticketSales: string[];      // array field
-  waiver: boolean;            // boolean field
+  policyId: string;           
+  ticketClass: string;        
+  routeType: string;          
+  cabinType: string;          
+  cancellationType: string;   
+  refundTicketType: string;   
+  tripType: string[];         
+  passengerType: string[];    
+  ticketType: string[];       
+  ticketSales: string[];      
+  waiver: boolean;            
 }
 
 export interface Refund {
@@ -226,3 +225,25 @@ export interface FormState {
   message: string;
   status: "DRAFT" | "PUBLISHED" | "DEACTIVATED" | "";
 }
+
+export type ReportCategory =
+  | "Overview"
+  | "Cancellations"
+  | "Refund"
+  | "Rerouting"
+  | "Settlements"
+  | "Disputes"
+  | "Communication"
+  | "Compliance"
+;
+
+export const categories: ReportCategory[] = [
+  "Overview",
+  "Cancellations",
+  "Refund",
+  "Rerouting",
+  "Settlements",
+  "Disputes",
+  "Communication",
+  "Compliance",
+];

@@ -40,9 +40,9 @@ function App() {
      <Route
       path="/dashboard"
       element={
-       // <ProtectedRoute>
-       <Dashboard />
-       // </ProtectedRoute>
+       <ProtectedRoute>
+        <Dashboard />
+       </ProtectedRoute>
       }
      />
 
@@ -73,7 +73,12 @@ function App() {
       }
      />
 
-     <Route path="/reports" element={<ReportsAnalytics />} />
+     <Route path="/reports" element={
+      <ProtectedRoute>
+        <ReportsAnalytics />
+      </ProtectedRoute>
+     } 
+      />
 
      <Route
       path="/user-management"
@@ -108,7 +113,12 @@ function App() {
      />
 
      <Route path="/" element={<Login />} />
-     <Route path="/notifications" element={<AlertsAndNotifications />} />
+     <Route path="/notifications" element={
+      <ProtectedRoute>
+        <AlertsAndNotifications />
+      </ProtectedRoute>
+     } 
+      />
      <Route path="/channelsetting/:id" element={<ChannelSettings />} />
 
      <Route path="/templates/:id" element={<TemplateDetails version="2.0" />} />

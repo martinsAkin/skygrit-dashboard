@@ -7,6 +7,7 @@ import { Button } from "../../components/molecules/Buttons";
 import { FilterOnly } from "../../components/molecules/FilterAndSearch";
 import DateRangePicker from "../../components/molecules/DateRangePicker";
 import RefundReportTable from "./RefundReportTable";
+import ReroutingReportsTable from "./ReroutingReportsTable";
 
 export const ReportsAnalytics = () => {
   const [activeTab, setActiveTab] = useState<ReportCategory>("Overview");
@@ -67,6 +68,7 @@ export const ReportsAnalytics = () => {
         {activeTab === "Overview" && <OverviewReportsTable />}
         {activeTab === "Cancellations" && <CancellationReportsTable/>}
         {activeTab === "Refund" && <RefundReportTable/>}
+        {activeTab === "Rerouting" && <ReroutingReportsTable/>}
       </section>
     </div>
   );

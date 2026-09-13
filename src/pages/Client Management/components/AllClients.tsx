@@ -127,58 +127,18 @@ const AllClients = () => {
           <td className="px-2 py-1.5 border-b border-gray-200 text-[11px] text-[#263238]">
            {data.email}
           </td>
-          <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238] ${
-                    data.type === "Direct Sales"
-                      ? "text-green-600"
-                      : data.type === "Indirect Sales"
-                      ? "text-blue-600"
-                      : "text-black"
-                  }`}>
-                    <div className={`p-1 rounded-lg w-17 text-center text-[10px] ${
-                      data.type === "Direct Sales" 
-                      ? "bg-green-200"
-                      : data.type === "Indirect Sales"
-                      ? "bg-blue-200 w-max"
-                      : "bg-black"
-                    }`}>
+          <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238]`}>
+                    <div className={`p-1 rounded-lg w-17 text-center text-[10px]`}>
                       {data.type}
                       </div>
             </td>
-            <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238] ${
-                    data.businessUnit === "Commercial"
-                      ? "text-[#0E7E92]"
-                      : data.businessUnit === "Non-Commercial"
-                      ? "text-[#A82121]"
-                      : data.businessUnit === "Others"
-                      ? "text-[#111827]"
-                      : "text-black"
-                  }`}>
-                    <div className={`p-1 rounded-lg w-17 text-center text-[10px] ${
-                      data.businessUnit === "Commercial" 
-                      ? "bg-[#DEFAFF]"
-                      : data.businessUnit === "Non-Commercial"
-                      ? "bg-[#FFE1E1] w-max"
-                      : data.businessUnit === "Others"
-                      ? "bg-[#F1F1F1]"
-                      : "bg-black"
-                    }`}>
+            <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238]`}>
+                    <div className={`p-1 rounded-lg w-17 text-center text-[10px]`}>
                       {data.businessUnit}
                       </div>
             </td>
-            <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238] ${
-                    data.category === "Corporate"
-                      ? "text-[#92400E]"
-                      : data.category === "Non-Corporate"
-                      ? "text-[#6B21A8]"
-                      : "text-black"
-                  }`}>
-                    <div className={`p-1 rounded-lg w-17 text-center text-[10px] ${
-                      data.category === "Corporate" 
-                      ? "bg-[#DEFAFF]"
-                      : data.category === "Non-Corporate"
-                      ? "bg-[#F3E8FF] w-max"
-                      : "bg-black"
-                    }`}>
+            <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238]`}>
+                    <div className={`p-1 rounded-lg w-17 text-center text-[10px]`}>
                       {data.category}
                       </div>
             </td>

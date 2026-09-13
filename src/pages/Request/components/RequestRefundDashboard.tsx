@@ -146,29 +146,13 @@ const RequestRefundDashboard = () => {
                     : item.refundValue
                   }
                 </td>
-                <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238] ${
-                    item.businessUnit === "Commercial"
-                      ? "text-[#0E7E92]"
-                      : item.businessUnit === "Non-Commercial"
-                      ? "text-[#A82121]"
-                      : item.businessUnit === "Others"
-                      ? "text-[#111827]"
-                      : "text-black"
-                  }`}>
-                    <div className={`p-1 rounded-lg w-17 text-center text-[10px] ${
-                      item.businessUnit === "Commercial" 
-                      ? "bg-[#DEFAFF]"
-                      : item.businessUnit === "Non-Commercial"
-                      ? "bg-[#FFE1E1] w-max"
-                      : item.businessUnit === "Others"
-                      ? "bg-[#F1F1F1]"
-                      : "bg-black"
-                    }`}>
+                <td className={`px-2 py-1.5 border-b border-gray-200 text-[10px] text-[#263238]`}>
+                    <div className={`p-1 rounded-lg w-17 text-center text-[10px]`}>
                       {item.businessUnit}
                       </div>
             </td>
                 <td
-                  className={`px-4 py-2 mt-0.5 border-b border-gray-200 font-medium text-[12px] flex gap-3 items-center`}
+                  className={`px-4 py-2 mt-0.5 border-b border-gray-200 font-medium text-[10px] flex gap-1.5 items-center`}
                 >
                   <div className={`h-1.5 w-1.5 rounded-[50%] ${
                     item.status === "Approved"

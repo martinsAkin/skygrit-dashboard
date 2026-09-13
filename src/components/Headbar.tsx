@@ -5,9 +5,9 @@ interface HeadbarProps {
 }
 
 const Headbar = ({
-  firstname = "Arik",
+  firstname = "Aero",
   badgeNo = "9+",
-  fullname = "Arik Arik",
+  fullname = "Aero Airways",
 }: HeadbarProps) => {
   return (
     <section>
@@ -19,7 +19,8 @@ const Headbar = ({
           <div className="flex flex-row gap-[16px] items-center">
             <div className="relative">
               <img
-                src="/assets/si_notifications-line.png"
+                src="/assets/Icons/notification.svg"
+                // src="/assets/si_notifications-line.svg"
                 alt="bell-icon"
                 className="w-[30px] h-[30px] cursor-pointer "
               />
@@ -28,7 +29,7 @@ const Headbar = ({
               </span>
             </div>
             <span className="flex justify-center items-center rounded-full bg-[#F5F8FF] w-[42px] h-[42px] text-[14px] font-semibold text-[#F9956B]">
-              AM
+              AA
             </span>
             <p className="text-[14px] font-bold text-[#302C1C]">{fullname}</p>
           </div>

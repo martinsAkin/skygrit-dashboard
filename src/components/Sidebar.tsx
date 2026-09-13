@@ -52,15 +52,15 @@ const Sidebar = ({ isCollapsed, toggleSidebar }: SidebarProps) => {
 
  return (
   <div className={`${isCollapsed ? "w-20" : "w-64"} transition-all duration-300`}>
-    <div className="bg-[#030E20] h-screen flex flex-col gap-[16px]">
+    <div className="bg-[#030E20] h-max flex flex-col gap-[16px]">
      {/* Side bar Head*/}
      <section className="flex justify-between items-center px-4 py-[10px]">
 
       {!isCollapsed && (
           <img
             className="w-[114px] h-[39px]"
-            src="/assets/Icons/image 1.svg"
-            alt="arik"
+            src="/assets/newLogo.svg"
+            alt="logo"
           />
         )}
         <button onClick={toggleSidebar}>
@@ -102,7 +102,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }: SidebarProps) => {
         AA
        </div>
        <span>
-        <h2 className="text-[12px] font-medium text-white">Arik Air</h2>
+        <h2 className="text-[12px] font-medium text-white">Aero Airways</h2>
         <p className="text-[11px] text-[#93C5FD]">Admin Account</p>
        </span>
       </div>

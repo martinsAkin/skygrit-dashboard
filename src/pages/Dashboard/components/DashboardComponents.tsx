@@ -1,3 +1,5 @@
+import DisruptionChart from "./DisruptionCharts";
+
 interface AnalyticsProps {
  analyticHeading: string;
  icon: string;
@@ -40,7 +42,7 @@ export const DashboardAnalytics = ({
 
 export const RefundCancellationTrends = () => {
  return (
-  <section className="w-[65%] border-1 border-gray-300 p-4 rounded-md">
+  <section className="w-[65%] border-1 border-gray-300 p-6 rounded-md">
    <div className="flex justify-between items-center ">
     <span className="inline-block text-[18px] font-semibold text-[#111827]">
      Refund & Cancellation Trends
@@ -52,6 +54,8 @@ export const RefundCancellationTrends = () => {
      <li className="duration-hover">Yearly</li>
     </ul>
    </div>
+
+   <DisruptionChart />
   </section>
  );
 };

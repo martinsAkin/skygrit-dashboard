@@ -53,7 +53,7 @@ function App() {
 
     <Routes>
      <Route path="/" element={<Login />} />
-     {/*<Route element={<ProtectedRoute />}>*/}
+     <Route element={<ProtectedRoute />}>
      <Route path="/dashboard" element={<Dashboard />} />
      <Route path="/policy-management" element={<PolicyPage />} />
      <Route path="/requests/dashboard" element={<Request />} />
@@ -71,7 +71,7 @@ function App() {
      <Route path="/instant-message" element={<InstantNotificationMessage />} />
      <Route path="/channelsetting/:id" element={<ChannelSettings />} />
      <Route path="/templates/:id" element={<TemplateDetails version="2.0" />} />
-     {/*</Route>*/}
+     </Route>
 
      <Route path="/client-management" element={<ClientDashboard />} />
      <Route path="/clients/:id" element={<ClientDetailsPage />} />
